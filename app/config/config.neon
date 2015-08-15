@@ -18,8 +18,45 @@ application:
 session:
 	expiration: 14 days
 
+#DB localhost
+database:
+	dsn: 'mysql:host=127.0.0.1;dbname=asterix'
+	user: root
+	password:
+	options:
+		lazy: yes
+
+#DB produkční server
+#database:
+#	dsn: 'mysql:host=127.0.0.1;dbname=test'
+#	user:
+#	password:
+#	options:
+#		lazy: yes
 
 services:
-	- App\Model\UserManager
-	- App\Forms\SignFormFactory
+	- Kdyby\Events\DI\EventsExtension
+	- App\Model\Authenticator
+	- App\Model\UserService
+	- App\Model\Repository\UserRepository
+	- App\Model\Mapper\Db\UserDatabaseMapper
+	- App\Model\LogService
+	- App\Model\Repository\LogRepository
+	- App\Model\Mapper\Db\LogDbMapper
+	LogListener:
+		class: App\Model\LogListener
+		tags: [kdyby.subscriber]
+
 	router: App\RouterFactory::createRouter
+
+constants:
+	systemName: Pallete
+
+extensions:
+	translation: Kdyby\Translation\DI\TranslationExtension
+
+translation:
+	default: cs
+	whitelist: [cs, de, en]
+	fallback: [cs_CZ, cs]
+	debugger: on
