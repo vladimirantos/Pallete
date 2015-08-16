@@ -1,0 +1,55 @@
+commons:
+  modal:
+    buttons:
+      ok: 'Uložit'
+      cancel: 'Zavřít'
+header:
+    settings: 'Nastavení'
+    account: 'Účet'
+    logout: 'Odhlásit se'
+menu:
+    item1: 'Nástěnka'
+    item2: 'Novinky'
+    item3: 'Nabídka'
+    item4: 'Galerie'
+    item5: 'Nastavení'
+footer:
+    about: 'O systému'
+    doc: 'Dokumentace'
+    modal:
+        title: 'O systému Asterix'
+        version: 'Verze systému'
+        nette: 'Verze Nette frameworku'
+        boot: 'Twitter Bootstrap'
+        server: 'Server'
+        date: 'Datum'
+account:
+    title: 'Účet'
+    settings:
+        name: 'Nastavení'
+        title: 'Nastavení účtu'
+    changePassword:
+        title: 'Změnit heslo'
+        new: 'Nové heslo'
+        new2: 'Opakuj heslo'
+        info: 'Na tvůj email přijde oznámení o tom, že proběhla změna hesla.'
+    menu:
+        item1: 'Účet'
+        item2: 'Nastavení'
+        item3: 'Změna hesla'
+dashboard:
+    title: 'Nástěnka'
+    subtitle: 'Základní informace a novinky'
+    loginInfo: 'Přihlásil ses jako uživatel %s'
+article:
+  title: 'Novinky'
+  subtitle: 'Přehled všech novinek'
+  buttons:
+    add: 'Přidat'
+    edit: 'Upravit'
+  addModal:
+    title: 'Přidat novinku'
+  form:
+    title: 'Nadpis'
+    text: 'Text článku'
+    image: 'Obrázek'

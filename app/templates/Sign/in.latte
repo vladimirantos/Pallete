@@ -1,0 +1,23 @@
+{block content}
+  <div class="container">
+    <div class="hero-unit">
+      <div class="row-fluid">
+        <div class="offset4 span4">
+          <legend>{_lang.login.title}</legend>
+                          <div n:foreach="$flashes as $flash" n:class="alert, $flash->type" role="alert">
+                              {if $flash->title}
+                                  <strong>{$flash->title}</strong>
+                              {/if}
+                              {$flash->message|firstUpper}
+                          </div>
+          {control signInForm}
+        </div>
+      </div>
+       <div class="box">
+            <p>{_lang.login.forgetPassword|noescape}</p>
+       </div>
+           <div class="footer">
+               &copy 2015 Asterix v1.0
+           </div>
+    </div>
+  </div>

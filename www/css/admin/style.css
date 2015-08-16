@@ -1,0 +1,160 @@
+body{
+    color: #000;
+    font-family: 'Segoe UI';
+    padding: 0px !important;
+    margin: 0px !important;
+    font-size:14px;
+    width: 99%;
+}
+
+.navbar{
+    background-color: #1D2F45;
+}
+
+.navbar-form{
+    margin-top: 10px;
+}
+
+.form-control-feedback{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    width: 34px;
+    height: 34px;
+    text-align: center;
+    pointer-events: none;
+    color: rgba(186, 186, 186, 1)
+}
+
+.admin-sidebar{
+    color: #fff;
+}
+
+.admin-sidebar a{
+    color: #fff;
+}
+
+.admin-sidebar li{
+    border-bottom: 1px solid #3E99CE;
+}
+
+.admin-sidebar li a:hover{
+    background-color: #104787;
+}
+
+.admin-sidebar i{
+    margin-right: 10px;
+    color: #3E99CE;
+}
+
+.navbar-right{
+    margin-right: 0px;
+}
+
+.admin-sidebar .footer{
+    width: 266px;
+    height: 40px;
+    position: fixed;
+    bottom: 0;
+    margin-left: -20px;
+    padding: 5px;
+    text-align: center;
+    font-size: 12px;
+    color: #d9d9d9;
+}
+.table .actions{
+    width: 75px
+}
+.table .actions a{
+    color: #000;
+    font-size: 17px;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.table .actions a:hover{
+    color: #6a6a6a;
+}
+
+.dropdown-menu li i{
+    padding-right: 6px;
+}
+
+.main .page-header{
+    margin-bottom: 10px;
+}
+
+.main .page-header small{
+    margin-left: 10px;
+}
+
+.main .page-header small{
+    font-size: 15px;
+    font-weight: lighter;
+}
+
+.nav .badge{
+    margin-left: 5px;
+    background-color: #E02424;
+    font-weight: normal;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+    font-size: 12px;
+}
+
+   .show {
+       display: block !important;
+   }
+.hidden {
+    display: none !important;
+}
+.invisible {
+    visibility: hidden;
+}
+
+
+   .element {
+   .show();
+   }
+.another-element {
+.hidden();
+}
+
+.bootstrap-tagsinput {
+    width: 100%;
+}
+
+.label {
+    line-height: 2 !important;
+}
+
+.form-horizontal .help-block{
+    clear: both;
+    font-size: 13px;
+}
+
+.alert{
+    padding: 6px;
+    padding-left: 20px;
+}
+
+.alert-dismissible{
+    padding-right: 25px;
+}
+
+thead td{
+    font-weight: bold;
+}
+
+/*.dropdown-menu li{*/
+    /*padding-left: 20px;*/
+/*}*/
+
+/*.dropdown-menu li .fa{*/
+    /*margin-left: -20px;*/
+    /*margin-right: 7px;*/
+/*}*/
+

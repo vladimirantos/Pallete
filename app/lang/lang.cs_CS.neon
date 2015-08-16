@@ -1,0 +1,13 @@
+commons:
+    currency: 'Kč'
+login:
+    title: 'Přihlášení do systému'
+    email: 'Email'
+    password: 'Heslo'
+    button: 'Přihlásit se'
+    notFound: 'Uživatel s tímto emailem nebyl nalezen.'
+    invalidCredential: 'Chybně zadané heslo.'
+    success: 'Přihlášení proběhlo úspěšně.'
+    forgetPassword: 'Zapomněl jsi heslo? Nevadí, <a n:href="Sign:forget">zde</a> si ho můžeš změnit.'
+    footer: ''
+logout: 'Byl jsi úspěšně odhlášen'

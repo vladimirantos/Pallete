@@ -1,0 +1,52 @@
+{block content}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar admin-sidebar">
+            <ul class="nav nav-sidebar dropdown">
+                <li class="active"><a n:href="Dashboard:"><i class="fa fa-dashboard"></i>{_admin.menu.item1}</a></li>
+                {*<li><a href=""><i class="fa fa-comment"></i>Zprávy <span class="badge">3</span></a></</li>*}
+                <li><a n:href="Article:"><i class="fa fa-newspaper-o"></i>{_admin.menu.item2}</a></</li>
+                <li><a href="#"><i class="fa fa-bars"></i>{_admin.menu.item3}</a></li>
+                <li><a href="#"><i class="fa fa-picture-o"></i>{_admin.menu.item4}</a></li>
+                <li><a href="#"><i class="fa fa-phone"></i>{_admin.menu.item5}</a></li>
+            </ul>
+            <!--<ul class="nav nav-sidebar">-->
+                <!--<li><a href="">Nav item</a></li>-->
+                <!--<li><a href="">Nav item again</a></li>-->
+                <!--<li><a href="">One more nav</a></li>-->
+                <!--<li><a href="">Another nav item</a></li>-->
+                <!--<li><a href="">More navigation</a></li>-->
+            <!--</ul>-->
+            <!-- -->
+            <!-- -->
+            <div class="footer"> <a n:href="Sandbox:">Sandbox</a> |
+                <a n:href="Sandbox:documentation">{_admin.footer.doc}</a> |
+                <a href="#" data-toggle="modal" data-target="#about">{_admin.footer.about}</a><br>
+                AsterixAdmin &copy 2015
+            </div>
+        </div>
+        </div>
+
+    </div>
+
+            <div id="about" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{_admin.footer.modal.title}</h4>
+                        </div>
+                        <div class="modal-body">
+                                <b>{_admin.footer.modal.version}: </b> AsterixAdmin v1.0<br>
+                                <b>{_admin.footer.modal.nette}: </b> Nette 2.3.4<br>
+                                <b>{_admin.footer.modal.boot}: </b> 3.3.5<br>
+                                <b>{_admin.footer.modal.server}: </b>PHP {=PHP_VERSION} | {ifset $_SERVER['SERVER_SOFTWARE']}Server {$_SERVER['SERVER_SOFTWARE']}{/ifset}<br>
+                                <b>{_admin.footer.modal.date}: </b>2015-08-09
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>

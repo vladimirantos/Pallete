@@ -1,0 +1,177 @@
+{block content}
+<h2 class="sub-header nounderline">Presenter</h2>
+<h3>Metody</h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+        <td>Název</td>
+        <td>Popis</td>
+        <td>Příklad</td>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+        <td>
+            <code>stdObject <strong>flashMessage</strong>(string $message [, string $type = Flash::SUCCESS, string $title = ''])</code>
+        </td>
+        <td style="width: 300px">Flash zprávy podporují i vložení nadpisu. Pokud není nadpis vyplněn, bude vygenerován nadpis na základě proměnné <code>$type</code>.</td>
+        <td>
+            <code>$this->flashMessage('Akce proběhla úspěšně');</code><br>
+            <code>$this->flashMessage('Došlo k chybě', Asterix\Flash::ERROR);</code>
+        </td>
+    <tr>
+    <tr>
+        <td><code>BasePresenter <strong>title</strong>(string $title, string $subtitle = null)</code></td>
+        <td>Vloží hlavní nadpis a podnadpis. Nadpis se zobrazí i v HTML hlavičce.</td>
+        <td></td>
+    </tr>
+        <tr>
+            <td>
+                <code>Asterix\NavigationCollection <strong>$navigation</strong>->addItem(string $text, string $link)</code>
+            </td>
+            <td>Kolekce s položkami pro navigační panel.</td>
+            <td>
+                <code>$this->navigation->addItem('sandbox', $this->link('default'));</code><br>
+                <code>$this->navigation->addItem('sandbox', 'Presenter:action');</code>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Proměnné</h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+        <td>Název</td>
+        <td>Popis</td>
+    </tr>
+   </thead>
+   <tbody>
+        <tr>
+            <td><code>Nette\Security\Identity <strong>$identity</strong></code></td>
+            <td>Obsahuje informace o přihlášeném uživateli.</td>
+        </tr>
+
+    </tbody>
+</table>
+
+<h2 class="sub-header nounderline">Šablony</h2>
+<h3>Proměnné</h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+        <td>Název</td>
+        <td>Popis</td>
+    </tr>
+   </thead>
+   <tbody>
+        <tr>
+            <td><code>string <strong>$systemName</strong></code></td>
+            <td>Název systému. Nastavuje se konstantou systemName.</td>
+        </tr>
+        <tr>
+            <td><code>Asterix\NavigationCollection $navigation</code></td>
+            <td>Položky navigačního panelu.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 class="sub-header nounderline">Filtry</h2>
+<p>Filtry se nacházejí ve třídě <code>Asterix\Filters</code>. Přidáním metod do této třídy vzniknou další fitry, které není potřeba registrovat. Registrace je automatická.</p>
+<table class="table table-hover">
+  <thead>
+    <tr>
+        <td>Název</td>
+        <td>Popis</td>
+        <td>Příklad</td>
+    </tr>
+   </thead>
+   <tbody>
+        <tr>
+            <td><code>string <strong>email</strong>(string $email)</code></td>
+            <td>Vygeneruje odkaz pro odeslání emailu.</td>
+            <td><code>{ $email|email}</code></td>
+        </tr>
+        <tr>
+            <td><code>string <strong>phone</strong>(int $number)</code></td>
+            <td>Vrátí číslo s oddělenými tisíci bez desetinných míst.</td>
+            <td><code>{ $phone|phone}</code></td>
+        </tr>
+        <tr>
+            <td><code>string <strong>money</strong>(float $number)</code></td>
+            <td>Vrátí číslo s oddělenými tisíci s desetinnými místy.</td>
+            <td><code>{ $money|money}</code></td>
+        </tr>
+        <tr>
+            <td><code>string <strong>address</strong>(string $address, string $city, int $zipCode)</code></td>
+            <td>Vytvoří formát adresy ve formát Ulice, PSC Město.</td>
+            <td><code>{ $address|address:$city, $zipCode}</code></td>
+        </tr>
+        <tr>
+            <td><code>string <strong>zip</strong>(int $number)</code></td>
+            <td>Z pětimístného čísla vytvoří řetězec ve formátu xxx xx. Pokud není zadáno pětimístné číslo, vznikne výjimka <code>FormatException</code></td>
+            <td><code>{ $number|zip}</code></td>
+        </tr>
+    </tbody>
+</table>
+
+<h2 class="sub-header nounderline">Eventy</h2>
+<p>Event je callback, který se zavolá při nějaké akci. Následující příklad ukazuje používání eventů. Při nákupu zboží se zákazníkovi odešle email s fakturou.
+Normálně by se odesílání emailu provádělo ve třídě Order, tam ale nemá co dělat! Třída Order nesmí umět odesílat emaily, k tomu není určená. Proto při nákupu vznikne event, ten potom někdo
+zachytí a provede akci.
+</p>
+<b>Třída v modelu</b>
+<pre>
+class Order extends Object{
+
+    public $onBuy = [];
+
+    public function buy(){
+        //...
+        $this->onBuy($this);
+    }
+}
+</pre>
+<b>Listener</b>
+<pre>
+class MailListener implements Subscriber
+{
+
+    public function getSubscribedEvents() {
+        return ["App\Model\Order::onBuy" => 'sendEmail']; //sem se přidávají všechny eventy které mají zavolat metodu sendEmail
+    }
+
+    public function sendEmail($sender){
+        b("Odesílám email");
+    }
+}
+</pre>
+<b>Registrace v configu</b>
+<pre>
+ - App\Model\Order
+ MailListener:
+    	class: App\Model\MailListener
+    	tags: [kdyby.subscriber]
+</pre>
+<b>Použití v presenteru</b>
+<pre>
+    class ShopPresenter extends Presenter{
+
+            /**
+             * @var Order @inject
+             */
+            public $order;
+
+            public function startup(){
+                $this->order->buy(); //automaticky se odešle email.
+            }
+    }
+</pre>
+
+<h2 class="sub-header nounderline">AsterixForm</h2>
+<p>Komponenty AsterixForm mají prefix A např.: <pre>$form->addAText($name, $label)</pre>
+<p>Pro vytvoření použít factory metodu <code>Asterix\AsterixForm::horizontalForm()</code>. Později budou přidány další typy bootstrap formulářů.
+<h2 class="sub-header nounderline">Třídy podporující Translator</h2>
+<code>Presenter</code><br>
+<code>NavigationCollection</code><br>
+<code>AsterixForm</code>
