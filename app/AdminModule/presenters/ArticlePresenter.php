@@ -24,8 +24,8 @@ class ArticlePresenter extends AdminPresenter {
         $form = AsterixForm::horizontalForm();
         $form->setTranslator($this->translator);
         $form->addAText('title', 'admin.article.form.title', Width::WIDTH_10)->setMaxLength(80);
-        $form->addATextArea('text', 'admin.article.form.text', Width::WIDTH_10)->setAttribute('rows', 10);
-        $form->addAButtonUpload('image', 'admin.article.form.image', null, true);
+        $form->addATextArea('textarea', 'admin.article.form.text', Width::WIDTH_10)->setAttribute('rows', 10);
+        $form->addAButtonUpload('image', 'admin.article.form.image', Width::WIDTH_10);
         return $form;
     }
 }
