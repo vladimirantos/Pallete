@@ -1,0 +1,31 @@
+{block content}
+<div class="row">
+    <div class="btn-group col-sm-12">
+        <div class="bs-example pull-right" data-example-id="single-button-dropdown">
+            <div class="btn-group">
+                <button href="" class="btn pull-right btn-success btn-md" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus"></i> {_admin.article.buttons.add}</button>
+            </div>
+            <div class="btn-group">
+                <button href="" class="btn pull-right btn-warning btn-md"><i class="fa fa-pencil"></i> {_admin.article.buttons.edit}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{_admin.article.addModal.title}</h4>
+      </div>
+      <div class="modal-body">
+        {control addArticleForm}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{_admin.commons.modal.buttons.cancel}</button>
+        <button type="button" class="btn btn-primary">{_admin.commons.modal.buttons.ok}</button>
+      </div>
+    </div>
+  </div>
+</div>
