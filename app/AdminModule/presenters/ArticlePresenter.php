@@ -1,7 +1,9 @@
 <?php
 namespace App\AdminModule\Presenters;
+use Asterix\ButtonTypes;
 use Asterix\Form\AsterixForm;
 use Asterix\Width;
+use Nette\Forms\Form;
 
 /**
  * Class ArticlePresenter
@@ -23,9 +25,16 @@ class ArticlePresenter extends AdminPresenter {
     protected function createComponentAddArticleForm(){
         $form = AsterixForm::horizontalForm();
         $form->setTranslator($this->translator);
-        $form->addAText('title', 'admin.article.form.title', Width::WIDTH_10)->setMaxLength(80);
-        $form->addATextArea('textarea', 'admin.article.form.text', Width::WIDTH_10)->setAttribute('rows', 10);
-        $form->addAButtonUpload('image', 'admin.article.form.image', Width::WIDTH_10);
+        $form->addAText('title', 'admin.article.form.title', Width::WIDTH_8)->setMaxLength(80);
+        $form->addATextArea('text', 'admin.article.form.text', Width::WIDTH_8)->setAttribute('rows', 10);
+        $form->addAButtonUpload('image', 'admin.article.form.image', Width::WIDTH_8)->addRule(Form::IMAGE, 'admin.article.form.imageError');
+        $form->addASubmit('send', 'admin.article.form.submit', ButtonTypes::PRIMARY);
+        $form->onSuccess[] = $this->errorForm;
         return $form;
+    }
+
+    public function errorForm(AsterixForm $form) {
+        $this->flashMessage('CHYBAAA');
+        $this->redrawControl('modal');
     }
 }

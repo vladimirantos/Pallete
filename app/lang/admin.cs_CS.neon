@@ -53,3 +53,5 @@ article:
     title: 'Nadpis'
     text: 'Text článku'
     image: 'Obrázek'
+    imageError: 'Soubor musí být obrázek ve formátu JPEG, GIF nebo PNG'
+    submit: 'Uložit'
