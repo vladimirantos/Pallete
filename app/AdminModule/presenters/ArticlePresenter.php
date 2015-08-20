@@ -1,5 +1,6 @@
 <?php
 namespace App\AdminModule\Presenters;
+use App\Model\ArticleService;
 use Asterix\ButtonTypes;
 use Asterix\Form\AsterixForm;
 use Asterix\Width;
@@ -13,6 +14,9 @@ use Nette\Forms\Form;
  */
 class ArticlePresenter extends AdminPresenter {
 
+    /** @var ArticleService @inject */
+    public $article;
+
     public function startup(){
         parent::startup();
     }
@@ -20,6 +24,8 @@ class ArticlePresenter extends AdminPresenter {
     public function renderDefault(){
         $this->title('admin.article.title', 'admin.article.subtitle');
         $this->navigation->addItem('admin.article.title', 'Article:');
+        $this->template->articles = $this->article->getAllArticles();
+        b($this->template->articles);
     }
 
     protected function createComponentAddArticleForm(){

@@ -69,7 +69,7 @@ use Nette\Database\Table\IRow;
              return false;
          $obj = new $entityName;
          if(count($data) < 2 || $data instanceof IRow) { //v poli $data je pouze 1 řádek
-             $data = is_array($data) ? $data[1] : $data;
+             $data = is_array($data) ? array_values($data)[0] : $data;
              foreach ($data as $var => $value) {
                  $obj->$var = $value;
              }

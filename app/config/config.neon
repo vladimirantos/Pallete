@@ -20,7 +20,7 @@ session:
 
 #DB localhost
 database:
-	dsn: 'mysql:host=127.0.0.1;dbname=asterix'
+	dsn: 'mysql:host=127.0.0.1;dbname=pallete'
 	user: root
 	password:
 	options:
@@ -38,11 +38,15 @@ services:
 	- Kdyby\Events\DI\EventsExtension
 	- App\Model\Authenticator
 	- App\Model\UserService
+	- App\Model\ArticleService
 	- App\Model\Repository\UserRepository
+	- App\Model\Repository\ArticleRepository
 	- App\Model\Mapper\Db\UserDatabaseMapper
 	- App\Model\LogService
 	- App\Model\Repository\LogRepository
 	- App\Model\Mapper\Db\LogDbMapper
+	- App\Model\Mapper\Db\ArticleDatabaseMapper
+	- App\Model\Mapper\File\ImageMapper
 	LogListener:
 		class: App\Model\LogListener
 		tags: [kdyby.subscriber]

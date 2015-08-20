@@ -31,22 +31,35 @@ interface IRepository {
      */
     function delete(array $by);
 
+
     /**
-     * @param string $order
-     * @param int $limit
-     * @param int $offset
      * @return Entity
      */
-    function findAll($order = null, $limit = null, $offset = null);
+    function findAll();
 
     /**
      * @param array $by
-     * @param string $order
-     * @param int $limit
-     * @param int $offset
      * @return Entity|Entity[]
      */
-    function findBy(array $by, $order = null, $limit = null, $offset = null);
+    function findBy(array $by);
+
+//
+//    /**
+//     * @param string $order
+//     * @param int $limit
+//     * @param int $offset
+//     * @return Entity
+//     */
+//    function findAll($order = null, $limit = null, $offset = null);
+//
+//    /**
+//     * @param array $by
+//     * @param string $order
+//     * @param int $limit
+//     * @param int $offset
+//     * @return Entity|Entity[]
+//     */
+//    function findBy(array $by, $order = null, $limit = null, $offset = null);
 
     /**
      * @param array $by

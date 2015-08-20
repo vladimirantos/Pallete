@@ -88,3 +88,7 @@ class EntityExistsException extends ApplicationException{
 class FormatException extends SystemException{
 
 }
+
+class NotFoundException extends RuntimeException{
+
+}
