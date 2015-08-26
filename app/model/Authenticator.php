@@ -49,7 +49,7 @@ class Authenticator extends Object implements IAuthenticator {
         }
 
         $row->password = null;
-        $this->onSignIn($row->idUser);
+        $this->onSignIn($row->email);
         return new Identity($row->idUser, null, []); //TODO: přenášet informace o uživateli?
     }
 }

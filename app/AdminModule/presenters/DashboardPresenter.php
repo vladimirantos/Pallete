@@ -13,6 +13,7 @@ class DashboardPresenter extends AdminPresenter {
 
     public function startup() {
         parent::startup();
+        b(long2ip(-1062728952));
     }
 
     public function renderDefault(){

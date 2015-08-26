@@ -20,6 +20,6 @@ class LogDbMapper extends AbstractDatabaseMapper {
      * @return bool|int|\Nette\Database\Table\IRow
      */
     public function insertToLog($idUser, $ip){
-        return $this->database->insert(['idUser' => $idUser, 'ip' => $ip]);
+        return $this->database->insert(['user' => $idUser, 'ip' => $ip]);
     }
 }

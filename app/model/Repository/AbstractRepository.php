@@ -27,7 +27,7 @@ use Nette\Database\Table\IRow;
       * @return bool|int|\Nette\Database\Table\IRow
       */
      function insert(array $data) {
-        $this->mapper->insert($data);
+        return $this->mapper->insert($data);
      }
 
      /**
@@ -36,7 +36,7 @@ use Nette\Database\Table\IRow;
       * @return bool
       */
      public function update(array $data, array $by = []) {
-        $this->mapper->update($data, $by);
+         return $this->mapper->update($data, $by);
      }
 
      /**
@@ -44,7 +44,7 @@ use Nette\Database\Table\IRow;
       * @return bool
       */
      public function delete(array $by) {
-        $this->mapper->delete($by);
+         return $this->mapper->delete($by);
      }
 
      /**
@@ -57,11 +57,12 @@ use Nette\Database\Table\IRow;
      }
 
      /**
+      * Metoda vrací vždy pole.
       * @param array $data
       * @param string $entityName
       * @return Entity
       */
-     protected function bind($data, $entityName){
+     protected function bindArray($data, $entityName){
         $entityName = self::ENTITY_PREFIX.$entityName;
         if(!class_exists($entityName))
             throw new MemberAccessException('Entity '.$entityName.' not found');
@@ -73,17 +74,40 @@ use Nette\Database\Table\IRow;
              foreach ($data as $var => $value) {
                  $obj->$var = $value;
              }
-             return $obj;
+             return [$obj];
          }else{
             $result = [];
             for($i = 0; $i < count($data); $i++) {
                 $obj = new $entityName;
-                foreach ($data[$i] as $var => $value) {
+                foreach (array_values($data)[$i] as $var => $value) {
                     $obj->$var = $value;
                 }
                 $result[] = $obj;
             }
             return $result;
+         }
+     }
+
+     /**
+      * Vrací pouze jeden záznam.
+      * @param array $data
+      * @param string $entityName
+      * @return bool
+      * @throws MemberAccessException
+      */
+     protected function bind($data, $entityName) {
+         $entityName = self::ENTITY_PREFIX . $entityName;
+         if (!class_exists($entityName))
+             throw new MemberAccessException('Entity ' . $entityName . ' not found');
+         if (!$data)
+             return false;
+         $obj = new $entityName;
+         if (count($data) < 2 || $data instanceof IRow) { //v poli $data je pouze 1 řádek
+             $data = is_array($data) ? array_values($data)[0] : $data;
+             foreach ($data as $var => $value) {
+                 $obj->$var = $value;
+             }
+             return $obj;
          }
      }
  }

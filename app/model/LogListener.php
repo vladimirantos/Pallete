@@ -26,8 +26,8 @@ class LogListener implements Subscriber {
         return ["App\Model\Authenticator::onSignIn" => 'insert'];
     }
 
-    public function insert($idUser){
-        $this->log->save($idUser, ip2long('192.168.11.8'));
+    public function insert($email){
+        $this->log->save($email, ip2long('192.168.11.8'));
         //TODO: na ostrém webu používat httpRequest - ip2long neumí IPv6 která je na localhostu.
         //$this->log->save($idUser, ip2long($this->httpRequest->getRemoteAddress()));
     }

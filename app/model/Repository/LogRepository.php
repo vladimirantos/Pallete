@@ -7,11 +7,11 @@ use App\model\Mapper\Db\LogDbMapper;
 interface ILogRepository extends IRepository{
 
     /**
-     * @param int $idUser
+     * @param string $email
      * @param int $ip
      * @return bool|int|\Nette\Database\Table\IRow
      */
-    function insertToLog($idUser, $ip);
+    function insertToLog($email, $ip);
 }
 
 /**
@@ -52,11 +52,11 @@ class LogRepository extends AbstractRepository implements ILogRepository
     }
 
     /**
-     * @param int $idUser
+     * @param string $email
      * @param int $ip
      * @return bool|int|\Nette\Database\Table\IRow
      */
-    public function insertToLog($idUser, $ip) {
-        return $this->mapper->insertToLog($idUser, $ip);
+    public function insertToLog($email, $ip) {
+        return $this->mapper->insertToLog($email, $ip);
     }
 }

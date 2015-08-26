@@ -54,7 +54,7 @@ services:
 	router: App\RouterFactory::createRouter
 
 constants:
-	systemName: Asterix
+	systemName: Pallete
 
 extensions:
 	translation: Kdyby\Translation\DI\TranslationExtension

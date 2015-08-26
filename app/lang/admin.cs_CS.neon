@@ -44,6 +44,7 @@ dashboard:
 article:
   title: 'Novinky'
   subtitle: 'Přehled všech novinek'
+  empty: 'Žádné články k zobrazení'
   buttons:
     add: 'Přidat'
     edit: 'Upravit'
@@ -55,3 +56,7 @@ article:
     image: 'Obrázek'
     imageError: 'Soubor musí být obrázek ve formátu JPEG, GIF nebo PNG'
     submit: 'Uložit'
+    language: 'Jazyk'
+    translate: 'Překlad článku'
+    exists: 'Článek s tímto nadpisem už je v databázi. V každé jazykové verzi musí být unikátní název článku. Zvol jiný nadpis.'
+    success: 'Článek byl úspěšně uložen.'

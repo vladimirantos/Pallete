@@ -29,7 +29,11 @@ class ArticleService
      * @throws EntityExistsException Pokud existuje èlánek se stejným nadpisem.
      */
     public function save(array $data){
-
+        if(isset($data['translate'])){
+            $data['idArticle'] = $data['translate'];
+            unset($data['translate']);
+        }
+        return $this->articleRepository->insert($data);
     }
 
     /**
@@ -56,5 +60,9 @@ class ArticleService
      */
     public function getAllArticles(){
         return $this->articleRepository->findAll();
+    }
+
+    public function getAllArticlesPair(){
+        return $this->articleRepository->findPairsByLang(Languages::CS);
     }
 }

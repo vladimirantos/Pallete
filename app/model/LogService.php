@@ -18,10 +18,10 @@ class LogService {
     }
 
     /**
-     * @param int $idUser
+     * @param string $email
      * @param int $ip
      */
-    public function save($idUser, $ip){
-        $this->logRepository->insertToLog($idUser, $ip);
+    public function save($email, $ip){
+        $this->logRepository->insertToLog($email, $ip);
     }
 }
