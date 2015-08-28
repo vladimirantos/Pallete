@@ -6,6 +6,7 @@ use App\Model\Languages;
 use App\Model\Mapper\Db\ArticleDatabaseMapper;
 use App\Model\Mapper\File\ImageMapper;
 use Nette\Database\UniqueConstraintViolationException;
+use Nette\Utils\Strings;
 
 /**
  * Class ArticleRepository
@@ -36,7 +37,11 @@ class ArticleRepository extends AbstractRepository {
      */
     public function insert(array $data) {
         try{
-            return parent::insert($data);
+            $image = $data['image'];
+            $data['image'] = Strings::random(8).'-'.$image->name;
+            $result = parent::insert($data);
+            $this->imageMapper->upload($image, $data['image']);
+            return $result;
         }catch(UniqueConstraintViolationException $ex){
             if($ex->getCode() == 23000)
                 throw new EntityExistsException('Článek s tímto nadpisem už existuje');

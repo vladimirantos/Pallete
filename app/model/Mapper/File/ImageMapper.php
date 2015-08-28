@@ -1,6 +1,12 @@
 <?php
 namespace App\Model\Mapper\File;
+use App\Model\Core\RuntimeException;
 use Nette\Database\Table\Selection;
+use Nette\Http\FileUpload;
+
+class ImageUploadedException extends RuntimeException{
+
+}
 
 /**
  * Class ImageMapper
@@ -14,58 +20,14 @@ class ImageMapper extends AbstractFileMapper {
 
     }
 
-    /**
-     * @param array $data
-     * @return bool|int|\Nette\Database\Table\IRow
-     */
-    function insert(array $data)
-    {
-
-    }
 
     /**
-     * @param array $data
-     * @param array $by
-     * @return bool
+     * @param FileUpload $fileUpload
      */
-    function update(array $data, array $by = [])
-    {
-
-    }
-
-    /**
-     * @param array $by
-     * @return bool
-     */
-    function delete(array $by)
-    {
-
-    }
-
-    /**
-     * @return Selection
-     */
-    function findAll()
-    {
-
-    }
-
-    /**
-     * @param array $by
-     * @return Selection
-     */
-    function findBy(array $by)
-    {
-
-    }
-
-    /**
-     * @param array $by
-     * @param string $column
-     * @return int
-     */
-    function count(array $by, $column = null)
-    {
-
+    public function upload(FileUpload $fileUpload, $fileName) {
+        if(!$fileUpload->isOk())
+            throw new ImageUploadedException('Chyba pøi nahrávání obrázku');
+        b(articleImagesPath.$fileUpload->name);
+        b($fileUpload->move(articleImagesPath.$fileName));
     }
 }

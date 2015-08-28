@@ -8,7 +8,7 @@ interface IFileMapper{
     /**
      * @param FileUpload $fileUpload
      */
-    function upload(FileUpload $fileUpload);
+    function upload(FileUpload $fileUpload, $fileName);
 }
 
 /**

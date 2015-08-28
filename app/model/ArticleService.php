@@ -29,10 +29,9 @@ class ArticleService
      * @throws EntityExistsException Pokud existuje èlánek se stejnım nadpisem.
      */
     public function save(array $data){
-        if(isset($data['translate'])){
+        if($data['translate'] != null)
             $data['idArticle'] = $data['translate'];
-            unset($data['translate']);
-        }
+        unset($data['translate']);
         return $this->articleRepository->insert($data);
     }
 

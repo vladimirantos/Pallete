@@ -34,7 +34,7 @@ class ArticlePresenter extends AdminPresenter {
     protected function createComponentAddArticleForm(){
         $form = AsterixForm::horizontalForm();
         $form->setTranslator($this->translator);
-        $form->addASelect('translate', 'admin.article.form.translate', $this->article->getAllArticlesPair());
+        $form->addASelect('translate', 'admin.article.form.translate', $this->article->getAllArticlesPair())->setPrompt('Vyber');
         $form->addASelect('lang', 'admin.article.form.language', Languages::toArray());
         $form->addAText('title', 'admin.article.form.title', Width::WIDTH_8)->setMaxLength(80);
         $form->addATextArea('text', 'admin.article.form.text', Width::WIDTH_8)->setAttribute('rows', 10);
