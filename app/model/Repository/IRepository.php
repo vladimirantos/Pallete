@@ -37,11 +37,11 @@ interface IRepository {
      */
     function findAll();
 
-    /**
-     * @param array $by
-     * @return Entity|Entity[]
-     */
-    function findBy(array $by);
+//    /**
+//     * @param array $by
+//     * @return Entity|Entity[]
+//     */
+//    function findBy(array $by);
 
 //
 //    /**

@@ -38,6 +38,7 @@ class ArticleRepository extends AbstractRepository {
     public function insert(array $data) {
         try{
             $image = $data['image'];
+            b($image);
             $data['image'] = Strings::random(8).'-'.$image->name;
             $result = parent::insert($data);
             $this->imageMapper->upload($image, $data['image']);
@@ -67,11 +68,8 @@ class ArticleRepository extends AbstractRepository {
         return $this->articleMapper->findAll()->where(['lang' => $lang])->order('date DESC, title ASC, lang ASC')->fetchPairs('idArticle', 'title');
     }
 
-    /**
-     * @param array $by
-     * @return Entity|Entity[]
-     */
-    public function findBy(array $by) {
-
+    public function find($idArticle, $lang){
+        return $this->bind($this->articleMapper->findBy(['idArticle' => $idArticle, 'lang' => $lang])->fetch(), self::ENTITY);
     }
+
 }

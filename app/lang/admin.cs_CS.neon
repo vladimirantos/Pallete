@@ -45,11 +45,15 @@ article:
   title: 'Novinky'
   subtitle: 'Přehled všech novinek'
   empty: 'Žádné články k zobrazení'
+  notFound: 'Článek neexistuje'
+  delete: 'Článek byl úspěšně odstraněn'
   buttons:
     add: 'Přidat'
     edit: 'Upravit'
+    back: 'Zpět na výpis'
   addModal:
     title: 'Přidat novinku'
+    editTitle: 'Upravit %title%'
   form:
     title: 'Nadpis'
     text: 'Text článku'
@@ -60,3 +64,10 @@ article:
     translate: 'Překlad článku'
     exists: 'Článek s tímto nadpisem už je v databázi. V každé jazykové verzi musí být unikátní název článku. Zvol jiný nadpis.'
     success: 'Článek byl úspěšně uložen.'
+    required: 'Nevyplnil jsi pole %text%'
+    keywords: 'Klíčová slova'
+    keywordsHelp: 'Klíčová slova odděluj čárkou'
+    description: 'Popis článku'
+    keywordsRequired: 'Nevyplnil jsi klíčová slova'
+    descriptionRequired: 'Nevyplnil jsi HTMl popis článku'
+    keywordsInfo: 'Klíčová slova a popis jsou důležitá pro vyhledávače. Doplň je.'

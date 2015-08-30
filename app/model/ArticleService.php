@@ -43,7 +43,7 @@ class ArticleService
      * @throws NotFoundException
      */
     public function getArticle($id, $lang){
-
+        return $this->articleRepository->find($id, $lang);
     }
 
     /**
@@ -51,7 +51,7 @@ class ArticleService
      * @param string $lang
      */
     public function delete($id, $lang){
-
+        $this->articleRepository->delete(['idArticle' => $id, 'lang' => $lang]);
     }
 
     /**

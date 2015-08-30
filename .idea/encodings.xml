@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/AdminModule/presenters/ArticlePresenter.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/AdminModule/templates/Article/default.latte" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/AdminModule/templates/Article/detail.latte" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/model/Repository/ArticleRepository.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/www/js/bootstrap-fileinput/fileinput_locale_cz.js" charset="UTF-8" />
   </component>

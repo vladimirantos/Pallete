@@ -15,6 +15,8 @@ CREATE TABLE articles(
   title VARCHAR(80) not null,
   text TEXT not null,
   image VARCHAR(50) not null,
+  keywords varchar(255) not null,
+  description varchar(255) not null,
   date TIMESTAMP DEFAULT current_timestamp not null,
   CONSTRAINT pk_article PRIMARY KEY (idArticle, lang),
   CONSTRAINT fk_author FOREIGN KEY (author) REFERENCES users(email),

@@ -1,0 +1,114 @@
+{block content}
+<div class="row">
+    <div class="btn-group col-sm-12">
+        <div class="bs-example pull-right" data-example-id="single-button-dropdown">
+            <div class="btn-group">
+                <a n:href="Article:" class="btn pull-right btn-success btn-md"><i class="fa fa-arrow-left"></i> {_admin.article.buttons.back}</a>
+            </div>
+            <div class="btn-group">
+                <button href="" class="btn pull-right btn-success btn-md" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus"></i> {_admin.article.buttons.edit}</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="row margin-top-10"">
+        <div class="col-md-4">
+            <img src="{$basePath.'/'.$imagePath.$article->image}" class="img-responsive">
+            <div class="row margin-top-10">
+                <div class="col-md-12">
+                    <b>Datum: </b>{$article->date|date:'d. m. Y H:i:s'}<br>
+                    <b>Autor: </b>{$article->author}<br><br>
+                    <b>Klíčová slova: </b>{if $article->keywords == null} <p class="text-error">Nejsou žádná klíčová slova</p>{else}<p class="text-success">{$article->keywords}</p>{/if}<br>
+                    <b>HTML popis: </b>{if $article->description == null} <p class="text-error">Nebyl vložen popis</p>{else}<p class="text-success">{$article->description}</p>{/if}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            {$article->text|noescape}
+        </div>
+    </div>
+
+
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        {form addArticleForm}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{_admin.article.addModal.editTitle, ['title' => $article->title]}</h4>
+                </div>
+                <div class="modal-body">
+                    <div n:foreach="$flashes as $flash" n:class="alert, alert-dismissible, $flash->type" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {if $flash->title}
+                            <strong>{$flash->title}</strong>
+                        {/if}
+                        {$flash->message|firstUpper}
+                    </div>
+                    {*{control addArticleForm}*}
+                    <div class="form-group">
+                        {label translate class=>"col-sm-3 control-label"/}
+                        {input translate}
+                    </div>
+                    <div class="form-group">
+                        {label lang class=>"col-sm-3 control-label"/}
+                        {input lang}
+                    </div>
+                    <div class="form-group">
+                        {label title class=>"col-sm-3 control-label"/}
+                        {input title}
+                    </div>
+                    <div class="form-group">
+                        {label text class=>"col-sm-3 control-label"/}
+                        {input text rows=>"10"}
+                    </div>
+                    <div class="form-group">
+                        {label image class=>"col-sm-3 control-label"/}
+                        {input image}
+                    </div>
+                    <hr class="separator">
+                    <div class="row row-centered">
+                        <div class="col-xs-9 col-centered">
+                            <h4>Html informace</h4>
+                        </div>
+                        <div class="form-group">
+                            {label keywords class=>"col-sm-3 control-label"/}
+                            {input keywords rows=>"10"}
+                        </div>
+                        <div class="form-group">
+                            {label description class=>"col-sm-3 control-label"/}
+                            {input description rows=>"10"}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{_admin.commons.modal.buttons.cancel}</button>
+                    {*<button type="button" class="btn btn-primary">{_admin.commons.modal.buttons.ok}</button>*}
+                    {input send}
+                </div>
+            </div>
+        {/form}
+    </div>
+</div>
+<script type="text/javascript" src="{$basePath}/js/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        theme: "modern",
+        plugins: [
+            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media nonbreaking save table contextmenu directionality",
+            "emoticons template paste textcolor colorpicker textpattern imagetools"
+        ],
+        toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+        toolbar2: "print preview media | forecolor backcolor emoticons",
+        image_advtab: true,
+        templates: [
+            { title: 'Test template 1', content: 'Test 1' },
+            { title: 'Test template 2', content: 'Test 2' }
+        ]
+    });
+</script>

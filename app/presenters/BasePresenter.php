@@ -45,7 +45,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter {
                 $flash->title = 'Chyba!';
                 break;
             case Flash::INFO:
-                $flash->title = 'Info!';
+                $flash->title = 'Informace!';
                 break;
             case Flash::WARNING:
                 $flash->title = 'Upozornění!';

@@ -31,6 +31,12 @@ class Article extends Entity {
     /** @var DateTime */
     private $date;
 
+    /** @var string */
+    private $keywords;
+
+    /** @var string */
+    private $description;
+
     /**
      * @return int
      */
@@ -142,4 +148,49 @@ class Article extends Entity {
         $this->date = $date;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getKeywords()
+    {
+        return $this->keywords;
+    }
+
+    /**
+     * @param string $keywords
+     * @return Article
+     */
+    public function setKeywords($keywords)
+    {
+        $this->keywords = $keywords;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     * @return Article
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function toArray(){
+        $data = [];
+        foreach($this as $k => $v)
+            $data[$k] = $v;
+        return $data;
+    }
+
+
 }

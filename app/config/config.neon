@@ -55,7 +55,7 @@ services:
 
 constants:
 	systemName: Pallete
-	articleImagesPath: 'data\article_images\'
+	articleImagesPath: 'data\article_images\'#'\pallete\www\data\article_images\'
 
 extensions:
 	translation: Kdyby\Translation\DI\TranslationExtension
