@@ -3,4 +3,5 @@ temp/*
 .idea/*
 vendor/*
 nbproject/*
+www/data/*
 !vendor/others/Asterix
