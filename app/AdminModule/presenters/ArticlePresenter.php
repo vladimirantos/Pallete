@@ -1,6 +1,7 @@
 <?php
 namespace App\AdminModule\Presenters;
 use App\Model\ArticleService;
+use App\Model\Core\ArgumentException;
 use App\Model\Core\EntityExistsException;
 use App\Model\Languages;
 use Asterix\ButtonTypes;
@@ -54,7 +55,7 @@ class ArticlePresenter extends AdminPresenter {
         $form->addASelect('lang', 'admin.article.form.language', Languages::toArray());
         $form->addAText('title', 'admin.article.form.title', Width::WIDTH_8)->setRequired($this->translator->translate('admin.article.form.required', ['text' => '%label']))->setMaxLength(80);
         $form->addATextArea('text', 'admin.article.form.text', Width::WIDTH_8)->setAttribute('rows', 10);
-        $form->addAButtonUpload('image', 'admin.article.form.image', Width::WIDTH_8)->setRequired($this->translator->translate('admin.article.form.required', ['text' => '%label']))->addRule(Form::IMAGE, 'admin.article.form.imageError');
+        $form->addAButtonUpload('image', 'admin.article.form.image', Width::WIDTH_8)->addCondition(Form::FILLED)->addRule(Form::IMAGE, 'admin.article.form.imageError');
         $form->addAText('keywords', 'admin.article.form.keywords')->setTooltip($this->translator->translate('admin.article.form.keywordsHelp'));
         $form->addAText('description', 'admin.article.form.description');
         $form->addHidden('author', $this->userEntity->email);
@@ -68,6 +69,8 @@ class ArticlePresenter extends AdminPresenter {
             $this->article->save((array)$values);
             $this->flashMessage('admin.article.form.success');
             $this->redirect('this');
+        }catch(ArgumentException $ex) {
+            $this->flashMessage($this->translator->translate('admin.article.form.required', ['text' => 'Obrazek']), Flash::ERROR);
         }catch (EntityExistsException $ex){
             $this->flashMessage('admin.article.form.exists', Flash::ERROR);
         }
