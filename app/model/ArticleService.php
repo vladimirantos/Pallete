@@ -8,7 +8,7 @@ use App\Model\Repository\FileRepository;
 
 /**
  * Class ArticleService
- * @author Vladimír Antoš
+ * @author VladimÃ­r AntoÅ¡
  * @version 1.0
  * @package App\Model
  */
@@ -26,17 +26,25 @@ class ArticleService
 
     /**
      * @param array $data
-     * @throws EntityExistsException Pokud existuje èlánek se stejnım nadpisem.
+     * @throws EntityExistsException Pokud existuje ÄlÃ¡nek se stejnÃ½m nadpisem.
      */
     public function save(array $data){
-        if($data['translate'] != null)
-            $data['idArticle'] = $data['translate'];
-        unset($data['translate']);
-        return $this->articleRepository->insert($data);
+//        if($data['idArticle'] != null) {
+//            $idArticle = $data['idArticle'];
+//            $lang = $data['lang'];
+//            unset($data['idArticle']);
+//            unset($data['lang']); //todo vyjmutÃ­ prvku z pole podle klÃ­Äe
+//            return $this->articleRepository->update($data, $idArticle, $lang);
+//        }
+            return $this->articleRepository->insert($data);
+    }
+
+    public function edit(array $data, $idArticle, $lang){
+        return $this->articleRepository->update($data, ['idArticle' => $data['idArticle'], 'lang' => $data['lang']]);
     }
 
     /**
-     * Vrátí èlánek na základì jeho ID a jazykové verze.
+     * VrÃ¡tÃ­ ÄlÃ¡nek na zÃ¡kladÄ› jeho ID a jazykovÃ© verze.
      * @param int $id
      * @param string $lang
      * @return Article

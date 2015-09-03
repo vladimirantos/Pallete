@@ -6,7 +6,7 @@
                 <a n:href="Article:" class="btn pull-right btn-success btn-md"><i class="fa fa-arrow-left"></i> {_admin.article.buttons.back}</a>
             </div>
             <div class="btn-group">
-                <button href="" class="btn pull-right btn-success btn-md" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus"></i> {_admin.article.buttons.edit}</button>
+                <button href="" class="btn pull-right btn-warning btn-md" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus"></i> {_admin.article.buttons.edit}</button>
             </div>
         </div>
     </div>
@@ -16,6 +16,7 @@
             <img src="{$basePath.'/'.$imagePath.$article->image}" class="img-responsive">
             <div class="row margin-top-10">
                 <div class="col-md-12">
+                    <b>Jazyk: </b>{$article->lang}<br>
                     <b>Datum: </b>{$article->date|date:'d. m. Y H:i:s'}<br>
                     <b>Autor: </b>{$article->author}<br><br>
                     <b>Klíčová slova: </b>{if $article->keywords == null} <p class="text-error">Nejsou žádná klíčová slova</p>{else}<p class="text-success">{$article->keywords}</p>{/if}<br>

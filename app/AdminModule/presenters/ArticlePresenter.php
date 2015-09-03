@@ -1,6 +1,7 @@
 <?php
 namespace App\AdminModule\Presenters;
 use App\Model\ArticleService;
+use App\Model\Core\ArgumentException;
 use App\Model\Core\EntityExistsException;
 use App\Model\Languages;
 use Asterix\ButtonTypes;
@@ -8,6 +9,8 @@ use Asterix\Flash;
 use Asterix\Form\AsterixForm;
 use Asterix\Width;
 use Nette\Forms\Form;
+use Nette\Http\FileUpload;
+use Nette\Utils\ArrayHash;
 
 /**
  * Class ArticlePresenter
@@ -26,7 +29,7 @@ class ArticlePresenter extends AdminPresenter {
 
     public function renderDefault(){
         $this->title('admin.article.title', 'admin.article.subtitle');
-        $this->navigation->addItem('admin.article.title', 'Article:');
+        $this->navigation->addItem('admin.article.title', 'Article:default');
         $this->template->articles = $this->article->getAllArticles();
     }
 
@@ -44,7 +47,9 @@ class ArticlePresenter extends AdminPresenter {
         $this->template->article = $article;
         $this->template->imagePath = articleImagesPath;
         $this->navigation->addItem('admin.article.title', 'Article:');
-        $this['addArticleForm']->setDefaults($article->toArray());
+        $form = $this['addArticleForm'];
+        $article = $article->toArray();
+        $form->setDefaults($article);
     }
 
     protected function createComponentAddArticleForm(){
@@ -54,20 +59,26 @@ class ArticlePresenter extends AdminPresenter {
         $form->addASelect('lang', 'admin.article.form.language', Languages::toArray());
         $form->addAText('title', 'admin.article.form.title', Width::WIDTH_8)->setRequired($this->translator->translate('admin.article.form.required', ['text' => '%label']))->setMaxLength(80);
         $form->addATextArea('text', 'admin.article.form.text', Width::WIDTH_8)->setAttribute('rows', 10);
-        $form->addAButtonUpload('image', 'admin.article.form.image', Width::WIDTH_8)->setRequired($this->translator->translate('admin.article.form.required', ['text' => '%label']))->addRule(Form::IMAGE, 'admin.article.form.imageError');
+        $form->addAButtonUpload('image', 'admin.article.form.image', Width::WIDTH_8)->addCondition(Form::FILLED)->addRule(Form::IMAGE, 'admin.article.form.imageError');
         $form->addAText('keywords', 'admin.article.form.keywords')->setTooltip($this->translator->translate('admin.article.form.keywordsHelp'));
         $form->addAText('description', 'admin.article.form.description');
         $form->addHidden('author', $this->userEntity->email);
+        $form->addHidden('idArticle', null);
         $form->addASubmit('send', 'admin.article.form.submit', ButtonTypes::PRIMARY);
         $form->onSuccess[] = $this->addArticleSucceeded;
         return $form;
     }
 
     public function addArticleSucceeded(AsterixForm $form, $values) {
-        try{
-            $this->article->save((array)$values);
+        try {
+            if($values->idArticle != null)
+                $this->article->edit((array)$values, $this->params['idArticle'], $this->params['lang']);
+            else
+                $this->article->save((array)$values);
             $this->flashMessage('admin.article.form.success');
             $this->redirect('this');
+        }catch(ArgumentException $ex){
+            $this->flashMessage($this->translator->translate('admin.article.form.required', ['text' => 'Obrazek']), Flash::ERROR);
         }catch (EntityExistsException $ex){
             $this->flashMessage('admin.article.form.exists', Flash::ERROR);
         }

@@ -38,7 +38,7 @@ abstract class AbstractDatabaseMapper implements IMapper{
      * @return bool|int|\Nette\Database\Table\IRow
      */
     public function insert(array $data) {
-        return $this->database->insert($data);
+        return $this->context->table($this->table)->insert($data);
     }
 
     /**
@@ -47,7 +47,8 @@ abstract class AbstractDatabaseMapper implements IMapper{
      * @return bool
      */
     public function update(array $data, array $by = []) {
-        return $this->database->where($by)->update($data);
+        return $this->context->table($this->table)->where($by)->update($data);
+//        return $this->database->where($by)->update($data);
     }
 
     /**
@@ -55,14 +56,14 @@ abstract class AbstractDatabaseMapper implements IMapper{
      * @return bool
      */
     public function delete(array $by) {
-        return $this->database->where($by)->delete();
+        return $this->context->table($this->table)->where($by)->delete();
     }
 
     /**
      * @return Selection
      */
     public function findAll() {
-        return $this->database;
+        return $this->context->table($this->table);
     }
 
     /**
@@ -70,7 +71,7 @@ abstract class AbstractDatabaseMapper implements IMapper{
      * @return Selection
      */
     public function findBy(array $by) {
-        return $this->database->where($by);
+        return $this->context->table($this->table)->where($by);
     }
 
     /**
@@ -79,6 +80,6 @@ abstract class AbstractDatabaseMapper implements IMapper{
      * @return int
      */
     public function count(array $by, $column = null) {
-        return $this->database->where($by)->count();
+        return $this->context->table($this->table)->where($by)->count();
     }
 }

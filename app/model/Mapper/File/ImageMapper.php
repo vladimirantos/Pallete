@@ -27,7 +27,6 @@ class ImageMapper extends AbstractFileMapper {
     public function upload(FileUpload $fileUpload, $fileName) {
         if(!$fileUpload->isOk())
             throw new ImageUploadedException('Chyba pøi nahrávání obrázku');
-        b(articleImagesPath.$fileUpload->name);
-        b($fileUpload->move(articleImagesPath.$fileName));
+        $fileUpload->move(articleImagesPath.$fileName);
     }
 }

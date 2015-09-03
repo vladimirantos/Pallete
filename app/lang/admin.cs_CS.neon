@@ -68,6 +68,6 @@ article:
     keywords: 'Klíčová slova'
     keywordsHelp: 'Klíčová slova odděluj čárkou'
     description: 'Popis článku'
-    keywordsRequired: 'Nevyplnil jsi klíčová slova'
-    descriptionRequired: 'Nevyplnil jsi HTMl popis článku'
+    keywordsRequired: 'Nevyplnil jsi klíčová slova.'
+    descriptionRequired: 'Nevyplnil jsi HTMl popis článku.'
     keywordsInfo: 'Klíčová slova a popis jsou důležitá pro vyhledávače. Doplň je.'

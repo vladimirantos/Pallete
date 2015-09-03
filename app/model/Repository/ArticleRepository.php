@@ -1,11 +1,13 @@
 <?php
 namespace App\Model\Repository;
+use App\Model\Core\ArgumentException;
 use App\Model\Core\EntityExistsException;
 use App\Model\Entity\Entity;
 use App\Model\Languages;
 use App\Model\Mapper\Db\ArticleDatabaseMapper;
 use App\Model\Mapper\File\ImageMapper;
 use Nette\Database\UniqueConstraintViolationException;
+use Nette\Http\FileUpload;
 use Nette\Utils\Strings;
 
 /**
@@ -38,17 +40,40 @@ class ArticleRepository extends AbstractRepository {
     public function insert(array $data) {
         try{
             $image = $data['image'];
-            b($image);
-            $data['image'] = Strings::random(8).'-'.$image->name;
-            $result = parent::insert($data);
-            $this->imageMapper->upload($image, $data['image']);
-            return $result;
+            unset($data['image']);
+            unset($data['idArticle']);
+            //vytvoření
+            if($image->name == null)
+                throw new ArgumentException('Nebyl vložen obrázek');
+            $name = $this->insertImage($image);
+            $data['image'] = $name;
+            if($data['translate'] != null)
+                $data['idArticle'] = $data['translate'];
+            unset($data['translate']);
+            return parent::insert($data);
         }catch(UniqueConstraintViolationException $ex){
             if($ex->getCode() == 23000)
                 throw new EntityExistsException('Článek s tímto nadpisem už existuje');
             l($ex->getMessage());
         }
         return false;
+    }
+
+    /**
+     * @param array $data
+     * @param array $by
+     * @return bool
+     */
+    public function update(array $data, array $by = []) {
+        if($data['image']->name != null){
+
+        }else {
+            unset($data['image']);
+        }
+        if($data['translate'] != null)
+            $data['idArticle'] = $data['translate'];
+        unset($data['translate']);
+        return parent::update($data, $by);
     }
 
 
@@ -72,4 +97,10 @@ class ArticleRepository extends AbstractRepository {
         return $this->bind($this->articleMapper->findBy(['idArticle' => $idArticle, 'lang' => $lang])->fetch(), self::ENTITY);
     }
 
+    private function insertImage(FileUpload $fileUpload){
+        $image = Strings::random(8).'-'.$fileUpload->name;
+        b($image);
+        $this->imageMapper->upload($fileUpload, $image);
+        return $image;
+    }
 }
