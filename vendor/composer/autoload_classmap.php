@@ -6,6 +6,18 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Kdyby\\Events\\Exception' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
+    'Kdyby\\Events\\InvalidArgumentException' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
+    'Kdyby\\Events\\InvalidListenerException' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
+    'Kdyby\\Events\\InvalidStateException' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
+    'Kdyby\\Events\\MemberAccessException' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
+    'Kdyby\\Events\\NotSupportedException' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
+    'Kdyby\\Events\\OutOfRangeException' => $vendorDir . '/kdyby/events/src/Kdyby/Events/exceptions.php',
+    'Kdyby\\Translation\\Exception' => $vendorDir . '/kdyby/translation/src/Kdyby/Translation/exceptions.php',
+    'Kdyby\\Translation\\InvalidArgumentException' => $vendorDir . '/kdyby/translation/src/Kdyby/Translation/exceptions.php',
+    'Kdyby\\Translation\\InvalidResourceException' => $vendorDir . '/kdyby/translation/src/Kdyby/Translation/exceptions.php',
+    'Kdyby\\Translation\\InvalidStateException' => $vendorDir . '/kdyby/translation/src/Kdyby/Translation/exceptions.php',
+    'Kdyby\\Translation\\LoaderNotFoundException' => $vendorDir . '/kdyby/translation/src/Kdyby/Translation/exceptions.php',
     'Latte\\CompileException' => $vendorDir . '/latte/latte/src/Latte/exceptions.php',
     'Latte\\Compiler' => $vendorDir . '/latte/latte/src/Latte/Compiler.php',
     'Latte\\Engine' => $vendorDir . '/latte/latte/src/Latte/Engine.php',
