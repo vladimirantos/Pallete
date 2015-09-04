@@ -25,10 +25,11 @@ CREATE TABLE articles(
 
 CREATE TABLE galleries(
   idGallery int not null,
+  lang varchar(3) not null,
   name VARCHAR(30) not null,
   text text not null,
   date TIMESTAMP DEFAULT current_timestamp not null,
-  CONSTRAINT pk_gallery PRIMARY KEY(idGallery),
+  CONSTRAINT pk_gallery PRIMARY KEY(idGallery, lang),
   CONSTRAINT uk_name UNIQUE KEY (name)
 );
 
