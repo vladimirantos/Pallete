@@ -526,6 +526,12 @@ $.nette.ext('load', {
 	}
 });
 
+    $.nette.ext('tracy-bar-ajax', {
+        success: function(payload, textStatus, xhr) {
+            updateDebugger(xhr.getAllResponseHeaders());
+        }
+    });
+
 // default ajaxification (can be overridden in init())
 $.nette.ext('init', {
 	load: function (rh) {
