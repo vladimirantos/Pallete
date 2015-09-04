@@ -2,6 +2,7 @@
 namespace App\Model\Repository;
 use App\Model\Core\ArgumentException;
 use App\Model\Core\EntityExistsException;
+use App\Model\Entity\Article;
 use App\Model\Entity\Entity;
 use App\Model\Languages;
 use App\Model\Mapper\Db\ArticleDatabaseMapper;
@@ -50,6 +51,7 @@ class ArticleRepository extends AbstractRepository {
             if($data['translate'] != null)
                 $data['idArticle'] = $data['translate'];
             unset($data['translate']);
+            b($data);
             return parent::insert($data);
         }catch(UniqueConstraintViolationException $ex){
             if($ex->getCode() == 23000)
@@ -66,14 +68,23 @@ class ArticleRepository extends AbstractRepository {
      */
     public function update(array $data, array $by = []) {
         if($data['image']->name != null){
-
+            $article = $this->find($by['idArticle'], $by['lang']);
+            $this->imageMapper->delete($article->image);
+            $name = $this->insertImage($data['image']);
+            $data['image'] = $name;
         }else {
             unset($data['image']);
         }
         if($data['translate'] != null)
             $data['idArticle'] = $data['translate'];
         unset($data['translate']);
-        return parent::update($data, $by);
+        try{
+            return parent::update($data, $by);
+        }catch (UniqueConstraintViolationException $ex){
+            if($ex->getCode() == 23000)
+                throw new EntityExistsException('Článek s tímto nadpisem už existuje');
+            l($ex->getMessage());
+        }
     }
 
 
@@ -93,9 +104,28 @@ class ArticleRepository extends AbstractRepository {
         return $this->articleMapper->findAll()->where(['lang' => $lang])->order('date DESC, title ASC, lang ASC')->fetchPairs('idArticle', 'title');
     }
 
+    /**
+     * @param $idArticle
+     * @param $lang
+     * @return Article
+     * @throws \App\Model\Core\MemberAccessException
+     */
     public function find($idArticle, $lang){
         return $this->bind($this->articleMapper->findBy(['idArticle' => $idArticle, 'lang' => $lang])->fetch(), self::ENTITY);
     }
+
+    /**
+     * @param array $by
+     * @return bool
+     */
+    public function delete(array $by) {
+        $article = $this->find($by['idArticle'], $by['lang']);
+        if(!$article)
+            throw new EntityExistsException('Tento článek neexistuje');
+        $this->imageMapper->delete($article->image);
+        return parent::delete($by);
+    }
+
 
     private function insertImage(FileUpload $fileUpload){
         $image = Strings::random(8).'-'.$fileUpload->name;

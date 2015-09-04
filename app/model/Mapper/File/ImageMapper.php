@@ -10,7 +10,7 @@ class ImageUploadedException extends RuntimeException{
 
 /**
  * Class ImageMapper
- * @author Vladimír Antoš
+ * @author VladimÃ­r AntoÅ¡
  * @version 1.0
  * @package App\Model\Mapper\File
  */
@@ -26,7 +26,11 @@ class ImageMapper extends AbstractFileMapper {
      */
     public function upload(FileUpload $fileUpload, $fileName) {
         if(!$fileUpload->isOk())
-            throw new ImageUploadedException('Chyba pøi nahrávání obrázku');
+            throw new ImageUploadedException('Chyba pÅ™i nahrÃ¡vÃ¡nÃ­ obrÃ¡zku');
         $fileUpload->move(articleImagesPath.$fileName);
+    }
+
+    public function delete($name){
+        unlink(articleImagesPath.$name);
     }
 }

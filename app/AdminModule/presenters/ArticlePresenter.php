@@ -61,6 +61,7 @@ class ArticlePresenter extends AdminPresenter {
         $form->addAText('keywords', 'admin.article.form.keywords')->setTooltip($this->translator->translate('admin.article.form.keywordsHelp'));
         $form->addAText('description', 'admin.article.form.description');
         $form->addHidden('author', $this->userEntity->email);
+        $form->addHidden('idArticle', null);
         $form->addASubmit('send', 'admin.article.form.submit', ButtonTypes::PRIMARY);
         $form->onSuccess[] = $this->addArticleSucceeded;
         return $form;
@@ -68,9 +69,17 @@ class ArticlePresenter extends AdminPresenter {
 
     public function addArticleSucceeded(AsterixForm $form, $values) {
         try {
-            $this->article->save((array) $values);
-            $this->flashMessage('admin.article.form.success');
-            $this->redirect('this');
+            if($values->idArticle != null){
+                b($this->params);
+                $this->article->edit((array)$values, $this->params['idArticle'], $this->params['lang']);
+                $this->flashMessage('admin.article.form.success');
+                $idArticle = $values['translate'] != null ? $values['translate'] : $values['idArticle'];
+                $this->redirect('this', ['idArticle' => $idArticle, 'lang' => $values['lang']]);
+            }
+            else{
+                $this->article->save((array) $values);
+                $this->redirect('this');
+            }
         } catch (ArgumentException $ex) {
             $this->flashMessage($this->translator->translate('admin.article.form.required', ['text' => 'Obrazek']), Flash::ERROR);
             $this->redrawControl("addModal");
