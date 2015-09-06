@@ -63,20 +63,20 @@ class ArticlePresenter extends AdminPresenter {
         $form->addHidden('author', $this->userEntity->email);
         $form->addHidden('idArticle', null);
         $form->addASubmit('send', 'admin.article.form.submit', ButtonTypes::PRIMARY);
+        $form->getComponent('send')->getControlPrototype()->onclick('tinyMCE.triggerSave()');
         $form->onSuccess[] = $this->addArticleSucceeded;
         return $form;
     }
 
     public function addArticleSucceeded(AsterixForm $form, $values) {
         try {
-            if($values->idArticle != null){
+            if ($values->idArticle != null) {
                 b($this->params);
-                $this->article->edit((array)$values, $this->params['idArticle'], $this->params['lang']);
+                $this->article->edit((array) $values, $this->params['idArticle'], $this->params['lang']);
                 $this->flashMessage('admin.article.form.success');
                 $idArticle = $values['translate'] != null ? $values['translate'] : $values['idArticle'];
                 $this->redirect('this', ['idArticle' => $idArticle, 'lang' => $values['lang']]);
-            }
-            else{
+            } else {
                 $this->article->save((array) $values);
                 $this->redirect('this');
             }
