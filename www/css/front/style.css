@@ -14,7 +14,7 @@
     font-family: text;
     src: url('../../fonts/texgyreheros-bold.otf');
 }
-h1{
+h1, h2, h3, h4{
     color: #731622;
     font-family: title;
 }
@@ -77,6 +77,112 @@ h1{
     background-color: #9d9d9d;
     color:black;
 }
+
+
+
+
+.contact{
+    text-align: center;
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-family: text;
+}
+.contact .btn{
+    float: none;
+    background-color: #731622;
+    color: white;
+    width: 200px;
+    height: 200px;
+    margin-left:50px;
+    margin-right:50px;
+    border-radius: 100px 100px 100px 100px;
+    border:1px solid black;
+    margin-top: 5px;
+}
+.contact>.btn:first-child{
+    margin-left:50px;
+}
+
+.contact .btn img{
+    height: 100px;
+    margin-top: 10px;
+}
+.contact .btn p{
+    margin-top: 10px;
+}
+.action:hover{
+    background-color: #9d9d9d;
+    color:#731622;
+}
+.section-contact{
+    font-family: text;
+    margin: 0;
+    padding: 1%;
+}
+.section-contact form{
+    border: 5px solid #731622;
+    padding: 5px;
+    color: #731622;
+
+}
+.section-contact .col-sm-6 .form-group input, .section-contact .col-sm-6 .form-group textarea{
+    width: 100%; 
+    border: 3px solid #731622;
+}
+a{
+    color:#731622;
+    cursor: pointer;
+}
+a:hover{
+    color:black;
+
+}
+a:visited{
+    color: black;
+    text-decoration: underline;
+}
+.footer{
+    width: 100%;
+    margin: 0;
+    color:#731622;
+    background-color: #9d9d9d;
+    font-family: text;
+    font-size: 10pt;
+    padding: 10px;
+}
+.foot{
+    width: 100%;
+    margin: 0;
+    color:#731622;
+    background-color: #9d9d9d;
+    font-family: text;
+    font-size: 10pt;
+    padding: 10px;
+}
+.imgs{
+    text-align: center;
+}
+.imgs img{
+    max-width: 90%;
+    max-height: 200px;
+    margin: 0 auto;
+}
+.min li a{
+    font-family: title;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #731622;
+    font-size: 14pt;
+}
+.min li a:hover{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #731622;
+    color:white;
+    font-size: 14pt;
+}
+
 @media (min-width: 768px) {    
     .navbar .navbar-nav {
         display: inline-block;
@@ -174,8 +280,6 @@ h1{
         background-color: #9d9d9d;
         color: black;
     }
-
-
     .second .col-sm-4, .second .col-sm-3{
         color:white;
         border-left: 1px solid #9d9d9d;
@@ -184,6 +288,12 @@ h1{
         box-shadow: white 0px 3px 15px 3px;
     }
 
+    .footer >*{
+        height: 250px;
+    }
+    .right{
+        text-align: right;
+    }
 }
 
 @media (max-width: 768px) {    
@@ -254,5 +364,12 @@ h1{
         border-bottom: 2px solid #9d9d9d;
         box-shadow: white 0px 5px 20px;
     }
+    
+    .footer >*{
+        height: 200px;
+    }
 
+    .foot{
+        text-align: center;
+    }
 }

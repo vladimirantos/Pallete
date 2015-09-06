@@ -27,6 +27,7 @@
         {include 'header.latte' }
         <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
         {include content}
+        {include 'footer.latte' }
         {block scripts}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="//nette.github.io/resources/js/netteForms.min.js"></script>
