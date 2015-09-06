@@ -24,7 +24,7 @@ CREATE TABLE articles(
 );
 
 CREATE TABLE galleries(
-  idGallery int not null,
+  idGallery varchar(13) not null,
   lang varchar(3) not null,
   name VARCHAR(30) not null,
   text text not null,
