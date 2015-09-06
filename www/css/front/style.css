@@ -1,0 +1,258 @@
+/* 
+    Created on : Sep 4, 2015
+    Author     : Bruno Puzják
+*/
+@font-face {
+    font-family: base;
+    src: url('../../fonts/Base 02.ttf');
+}
+@font-face {
+    font-family: title;
+    src: url('../../fonts/KAMIKZOM.ttf');
+}
+@font-face {
+    font-family: text;
+    src: url('../../fonts/texgyreheros-bold.otf');
+}
+h1{
+    color: #731622;
+    font-family: title;
+}
+.navbar{
+    border-radius: 0;
+    border: none;
+    background-color: #731622;
+    margin-bottom: 0;
+}
+.navbar-inverse .navbar-brand{
+    color:white;
+    font-family: base;
+    font-size: 20pt;
+}
+.navbar .navbar-nav li a{
+    color:white;
+    font-family: text;
+
+}
+.navbar .navbar-nav .active a{
+    background-color: #421419;
+}
+.navbar .navbar-nav li a:hover{
+    background-color: #421419;
+}
+.navbar .navbar-nav .dropdown-menu li a {
+    color:white;
+}
+.navbar .navbar-nav .dropdown-menu li a:hover {
+    color:#9d9d9d;
+    background-color: #731622;
+}
+.jumbotron{
+    padding: 10px;
+    background-color: white;
+    margin: 0;
+    font-family: text;
+}
+.jumbotron h1{
+    color: #731622
+}
+.second{
+    padding: 10px;
+    background-color: #980000    ;
+    color:#9d9d9d ;
+}
+.second h1{
+    color: white;
+}
+.holders .col-sm-4 .btn, .holders .col-sm-3 .btn{
+    width: 100%;
+    background-color: #A80000;
+    /*margin-bottom: 5px;*/
+    font-family: title;
+    font-size: 14pt;
+    color:#9d9d9d;
+    border-radius: 0;
+}
+.second .col-sm-4 .btn, .second .col-sm-3 .btn{
+    background-color: #9d9d9d;
+    color:black;
+}
+@media (min-width: 768px) {    
+    .navbar .navbar-nav {
+        display: inline-block;
+        float: none;
+        vertical-align: top;
+    }
+    .navbar .navbar-collapse {
+        text-align: center;
+    } 
+    .navbar .navbar-nav li{
+        width: 100px;
+        font-size: 12pt;
+    }
+    .navbar .navbar-nav .dropdown-menu{
+        background-color: black;
+        min-width: 80px;
+    }
+    .navbar .navbar-nav .dropdown-menu li{
+        width: 100%;
+    }
+    .navbar .navbar-nav .dropdown-menu li:hover{
+        text-align: right;
+    }
+
+
+    .news{
+        padding-left: 10%;
+        padding-right: 10%;
+        margin:auto;
+        padding-bottom: 10px;
+        font-family: text;
+    }
+    .news img{
+        max-width: 100%;
+        max-height: 300px; 
+        margin-top: -10%;
+    }
+    .news:nth-child(odd){
+        background-color: #980000;
+        color:white;
+    }
+
+    .news:nth-child(odd) h1{
+        color: white;
+        text-align: right;
+        padding-left: 0;
+        margin-left: 20%;
+    }
+
+
+
+    .holders{
+        margin: 0 auto;
+        padding: 10px;
+        text-align: center;
+    }
+    .holders img{
+        max-width: 90%;
+        max-height: 250px;
+        margin: 0 auto;
+    }
+    .holders .col-sm-4, .holders .col-sm-3{
+        margin-bottom: 10px;
+        color:black;
+        border-left: 1px solid #A80000;
+        border-right: 1px solid #A80000;
+        border-bottom: 2px solid #A80000;
+        padding: 0;
+        font-family: text;
+        box-shadow: #731622 0px 3px 15px 3px;
+    }
+    .holders .col-sm-4 p, .holders .col-sm-3 p{
+        padding: 10px;
+    }
+
+    .holders .col-sm-4 h3, .holders .col-sm-3 h3{
+        background-color: #A80000;
+        color: white;
+        height: 50px;
+        padding: 10px;
+        margin: 0;
+        font-family: title;
+    }
+    .holders .col-sm-4{
+        width: 32%;
+        margin-left: 0.5%;
+        margin-right: 0.5%;
+    }
+    .holders .col-sm-3{
+        width: 24%;
+        margin-left: 0.5%;
+        margin-right: 0.5%;
+    }
+    .second .col-sm-4 h3, .second .col-sm-3 h3{
+        background-color: #9d9d9d;
+        color: black;
+    }
+
+
+    .second .col-sm-4, .second .col-sm-3{
+        color:white;
+        border-left: 1px solid #9d9d9d;
+        border-right: 1px solid #9d9d9d;
+        border-bottom: 2px solid #9d9d9d;
+        box-shadow: white 0px 3px 15px 3px;
+    }
+
+}
+
+@media (max-width: 768px) {    
+    .news{
+        text-align: center;
+        font-family: text;
+        padding: 10px;
+    }
+    .news img{
+        width: 80%;
+        margin: 0 auto;
+    }
+    .news:nth-child(odd){
+        background-color: #980000;
+        color:white;
+    }
+
+    .news:nth-child(odd) h1{
+        color: white;
+        text-align: right;
+        padding-left: 0;
+        padding-right: 40%;
+        margin-left: 20%;
+    }
+
+
+
+    .holders{
+        margin: 0 auto;
+        padding: 10px;
+        text-align: center;
+    }
+    .holders img{
+        max-width: 90%;
+        max-height: 250px;
+        margin: 0 auto;
+    }
+    .holders .col-sm-4, .holders .col-sm-3{
+        margin: 0 auto;
+        margin-bottom: 30px;
+        color:black;
+        border-left: 1px solid #A80000;
+        border-right: 1px solid #A80000;
+        border-bottom: 2px solid #A80000;
+        padding: 0;
+        font-family: text;
+        box-shadow: #731622 0px 5px 20px;
+    }
+    .holders .col-sm-4 p, .holders .col-sm-3 p{
+        padding: 10px;
+    }
+    .holders .col-sm-4 h3, .holders .col-sm-3 h3{
+        background-color: #A80000;
+        color: white;
+        height: 50px;
+        padding: 10px;
+        margin: 0;
+        font-family: title;
+    }
+    .second .col-sm-4 h3, .second .col-sm-3 h3{
+        background-color: #9d9d9d;
+        color: black;
+    }
+    .second .col-sm-4, .second .col-sm-3{
+        color:white;
+        border-left: 1px solid #9d9d9d;
+        border-right: 1px solid #9d9d9d;
+        border-bottom: 2px solid #9d9d9d;
+        box-shadow: white 0px 5px 20px;
+    }
+
+}
