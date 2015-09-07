@@ -71,3 +71,23 @@ article:
     keywordsRequired: 'Nevyplnil jsi klíčová slova.'
     descriptionRequired: 'Nevyplnil jsi HTMl popis článku.'
     keywordsInfo: 'Klíčová slova a popis jsou důležitá pro vyhledávače. Doplň je.'
+    htmlTitle: 'Informace pro vyhledávače'
+gallery:
+  title: 'Správce galerií'
+  subTitle: 'Přehled všech galerií'
+  buttons:
+    create: 'Vytvořit galerii'
+  panelTitle: 'Všechny galerie'
+  empty: 'Žádné galerie k zobrazení'
+  form:
+    title: 'Vytvořit galerii'
+    name: 'Název galerie'
+    description: 'Popis galerie'
+    language: 'Jazyk'
+    translate: 'Překlad galerie'
+    help: 'Pokud vytváříš překlad článku, není potřeba znovu vkládat obrázky. Přiřadí se automaticky.'
+    required: 'Nevyplnil jsi pole %text%'
+    button: 'Uložit'
+    image: 'Nahrát obrázky'
+    imageError: 'Soubor musí být obrázek ve formátu JPEG, GIF nebo PNG'
+    success: 'Galerie byla úspěšně vytvořena.'

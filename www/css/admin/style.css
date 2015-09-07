@@ -165,6 +165,18 @@ thead td{
 .text-error{
     color: red;
 }
+
+.galleryBox{
+    border: 1px solid #000;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-bottom: 20px;
+}
+
+.galleryBox h3{
+    color: #575757;
+    margin-top: 10px;
+}
 /*.dropdown-menu li{*/
     /*padding-left: 20px;*/
 /*}*/

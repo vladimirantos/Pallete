@@ -4,6 +4,7 @@ use App\Model\Core\MemberAccessException;
 use App\Model\Entity\Entity;
 use App\Model\Mapper\IMapper;
 use Nette\Database\Table\IRow;
+use Nette\Object;
 
 /**
  * Class AbstractRepository
@@ -11,7 +12,7 @@ use Nette\Database\Table\IRow;
  * @version 1.0
  * @package App\Model\Repository
  */
- abstract class AbstractRepository implements IRepository{
+ abstract class AbstractRepository extends Object implements IRepository{
 
      const ENTITY_PREFIX = 'App\Model\Entity\\';
 
