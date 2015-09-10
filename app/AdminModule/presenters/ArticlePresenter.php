@@ -95,4 +95,13 @@ class ArticlePresenter extends AdminPresenter {
         $this->redirect('this');
     }
 
+    public function handleNewArticle() {
+        $this->redrawControl('modalForm');
+    }
+    public function handleEditArticle($id,$lang) {
+        $data = $this->article->getArticle($id, $lang);
+        $this['addArticleForm']->setDefaults($data->toArray());
+        $this->redrawControl('modalForm');
+    }
+
 }

@@ -40,11 +40,14 @@ services:
 	- App\Model\UserService
 	- App\Model\ArticleService
 	- App\Model\GalleryService
+	- App\Model\OfferService
 	- App\Model\Repository\UserRepository
 	- App\Model\Repository\ArticleRepository
 	- App\Model\Repository\GalleryRepository
+	- App\Model\Repository\OfferRepository
 	- App\Model\Mapper\Db\UserDatabaseMapper
 	- App\Model\Mapper\Db\GalleryDatabaseMapper
+	- App\Model\Mapper\Db\OfferDatabaseMapper
 	- App\Model\LogService
 	- App\Model\Repository\LogRepository
 	- App\Model\Mapper\Db\LogDbMapper

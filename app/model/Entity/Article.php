@@ -4,7 +4,7 @@ use Nette\Utils\DateTime;
 
 /**
  * Class Article
- * @author VladimÌr Antoö
+ * @author Vladim√≠r Anto≈°
  * @version 1.0
  * @package App\Model\Entity
  */
