@@ -2,6 +2,7 @@
 namespace App\Model;
 use Kdyby\Events\Subscriber;
 use Nette\Http\FileUpload;
+use Nette\Utils\FileSystem;
 
 /**
  * Class GalleryImageListerner
@@ -20,7 +21,6 @@ class GalleryImageListerner implements Subscriber {
      * @param FileUpload[] $images
      */
     public function uploadImages($idGallery, array $images){
-        b($idGallery);
-        b($images);
+        FileSystem::createDir(galleryPath.$idGallery);
     }
 }
