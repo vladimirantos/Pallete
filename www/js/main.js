@@ -1,5 +1,5 @@
 $(function () {
-    $(".ClickMe").click(function (e) {
+    $(".click").click(function (e) {
         e.preventDefault();
         $a = $(this).find("a").click();
     });

@@ -54,7 +54,7 @@ class ArticlePresenter extends AdminPresenter {
         $form = AsterixForm::horizontalForm();
         $form->setTranslator($this->translator);
         $form->addASelect('translate', 'admin.article.form.translate', $this->article->getAllArticlesPair())->setPrompt('');
-        $form->addASelect('lang', 'admin.article.form.language', Languages::toArray());
+        $form->addASelect('lang', 'admin.article.form.language', Languages::toArray())->setIconBefore('fa-language');
         $form->addAText('title', 'admin.article.form.title', Width::WIDTH_8)->setRequired($this->translator->translate('admin.article.form.required', ['text' => '%label']))->setMaxLength(80);
         $form->addATextArea('text', 'admin.article.form.text', Width::WIDTH_8)->setAttribute('rows', 10);
         $form->addAButtonUpload('image', 'admin.article.form.image', Width::WIDTH_8)->addCondition(Form::FILLED)->addRule(Form::IMAGE, 'admin.article.form.imageError');

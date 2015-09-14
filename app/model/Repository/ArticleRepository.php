@@ -39,26 +39,25 @@ class ArticleRepository extends AbstractRepository {
      * @throws EntityExistsException Pokud existuje článek se stejným nadpisem.
      */
     public function insert(array $data) {
+        $image = $data['image'];
+        if($image->name == null)
+            throw new ArgumentException('Nebyl vložen obrázek');
+        unset($data['image']);
+        unset($data['idArticle']);
+        $name = $this->imageName($image);
+        $data['image'] = $name;
         try{
-            $image = $data['image'];
-            unset($data['image']);
-            unset($data['idArticle']);
-            //vytvoření
-            if($image->name == null)
-                throw new ArgumentException('Nebyl vložen obrázek');
-            $name = $this->insertImage($image);
-            $data['image'] = $name;
             if($data['translate'] != null)
                 $data['idArticle'] = $data['translate'];
             unset($data['translate']);
-            b($data);
-            return parent::insert($data);
+            $result = parent::insert($data);
         }catch(UniqueConstraintViolationException $ex){
             if($ex->getCode() == 23000)
                 throw new EntityExistsException('Článek s tímto nadpisem už existuje');
             l($ex->getMessage());
         }
-        return false;
+        $this->insertImage($image, $name);
+        return $result;
     }
 
     /**
@@ -70,7 +69,8 @@ class ArticleRepository extends AbstractRepository {
         if($data['image']->name != null){
             $article = $this->find($by['idArticle'], $by['lang']);
             $this->imageMapper->delete($article->image);
-            $name = $this->insertImage($data['image']);
+            $name = $this->imageName($data['image']);
+            $this->insertImage($data['image'], $name);
             $data['image'] = $name;
         }else {
             unset($data['image']);
@@ -126,11 +126,20 @@ class ArticleRepository extends AbstractRepository {
         return parent::delete($by);
     }
 
+    /**
+     * @param FileUpload $fileUpload
+     * @param string $name
+     * @throws \App\Model\Mapper\File\ImageUploadedException
+     */
+    private function insertImage(FileUpload $fileUpload, $name){
+        $this->imageMapper->upload($fileUpload, $name);
+    }
 
-    private function insertImage(FileUpload $fileUpload){
-        $image = Strings::random(8).'-'.$fileUpload->name;
-        b($image);
-        $this->imageMapper->upload($fileUpload, $image);
-        return $image;
+    /**
+     * @param FileUpload $fileUpload
+     * @return string
+     */
+    private function imageName(FileUpload $fileUpload){
+        return Strings::random(8).'-'.$fileUpload->name;
     }
 }

@@ -31,7 +31,7 @@ class GalleryPresenter extends AdminPresenter {
         $form = AsterixForm::horizontalForm();
         $form->setTranslator($this->translator);
         $form->addASelect('translate', 'admin.gallery.form.translate', $this->gallery->getAllArticlesPair())->setPrompt('');
-        $form->addASelect('lang', 'admin.gallery.form.language', Languages::toArray());
+        $form->addASelect('lang', 'admin.gallery.form.language', Languages::toArray())->setIconBefore('fa-language');;
         $form->addAText('name', 'admin.gallery.form.name', Width::WIDTH_8)->setMaxLength(30)->setRequired($this->translator->translate('admin.gallery.form.required', ['text' => '%label']));
         $form->addATextArea('text', 'Popis', Width::WIDTH_8)->setAttribute('rows', 5);
         $form->addAUpload('images', 'admin.gallery.form.image', null, true)->addCondition(Form::FILLED)->addRule(Form::IMAGE, 'admin.gallery.form.imageError');
