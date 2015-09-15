@@ -25,10 +25,11 @@ class GalleryService{
     }
 
     /**
-     * @param FileUpload[] $images
+     * @param string $gallery
+     * @param FileUpload $image
      */
-    public function uploadImages(array $images){
-
+    public function uploadImage($gallery, FileUpload $image){
+        $this->galleryRepository->upload($gallery, $image);
     }
 
     /**
@@ -40,5 +41,9 @@ class GalleryService{
 
     public function getAllArticlesPair(){
         return $this->galleryRepository->findPairsByLang(Languages::CS);
+    }
+
+    public function getImages($gallery){
+        return $this->galleryRepository->getFiles($gallery);
     }
 }

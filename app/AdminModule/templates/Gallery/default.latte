@@ -22,14 +22,31 @@
                     {foreach $galleries as $gallery}
                         <div class="col-xs-4">
                             <div class="galleryBox">
-                                <h3>{$gallery} <small>[{$gallery->lang}]</small></h3>
+                                <div class="row">
+                                    <div class="col-md-9"><h3>{$gallery} <small>[{$gallery->lang}]</small></h3></div>
+                                    <div class="col-md-3 text-right" style="margin-top: 5px;">
+                                        <div class="dropdown">
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                Akce
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                <li><a href="#"><i class="fa fa-folder-open"></i> Otevřít</a></li>
+                                                <li><a href="#"><i class="fa fa-pencil"></i> Změnit</a></li>
+                                                <li><a href="#"><i class="fa fa-upload"></i> Nahrát obrázky</a></li>
+                                                <li><a href="#"><i class="fa fa-times"></i> Smazat</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <img src="{$basePath.'/'.$gallery->getImage()}" class="img-responsive center-block" >
+                                {dump $basePath.'/'.$gallery->getImage()}
                                 <p>{$gallery->text}</p>
                                 <div class="row">
-                                    <div class="col-md-5 small">{$gallery->date|date: 'd. m. Y H:i'}</div>
-                                    <div class="col-md-3 small">#{$gallery->idGallery}</div>
-                                    <div class="col-md-4 text-right">
-                                        <a href="" class="text-info">Otevřít <i class="fa fa-arrow-circle-o-right "></i></a>
-                                    </div>
+                                    <div class="col-md-4">{$gallery->date|date: 'd. m. Y H:i'}</div>
+                                    <div class="col-md-4">#{$gallery->idGallery}</div>
+                                    <div class="col-md-4 text-right">Počet obrázků: {count($gallery->getImages())}</div>
                                 </div>
                             </div>
                         </div>

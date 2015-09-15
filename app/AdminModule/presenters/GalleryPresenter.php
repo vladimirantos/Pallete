@@ -1,5 +1,6 @@
 <?php
 namespace App\AdminModule\Presenters;
+use App\Model\Entity\Gallery;
 use App\Model\GalleryService;
 use App\Model\Languages;
 use Asterix\Form\AsterixForm;
@@ -25,6 +26,14 @@ class GalleryPresenter extends AdminPresenter {
         $this->title('admin.gallery.title', 'admin.gallery.subTitle');
         $this->navigation->addItem('admin.gallery.title', 'Gallery:');
         $this->template->galleries = $this->gallery->getAll();
+        Gallery::extensionMethod('getImages', function(Gallery $gallery){
+            return $this->gallery->getImages($gallery->idGallery);
+        });
+        //todo: Metoda getImages vrace pouze pole a ne callback?
+        Gallery::extensionMethod('getImage', function(Gallery $gallery){
+            foreach($this->gallery->getImages($gallery->idGallery) as $path => $image)
+                return $path;
+        });
     }
 
     protected function createComponentGalleryForm(){

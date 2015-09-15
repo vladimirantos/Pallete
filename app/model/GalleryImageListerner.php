@@ -1,5 +1,6 @@
 <?php
 namespace App\Model;
+use App\Model\Repository\GalleryRepository;
 use Kdyby\Events\Subscriber;
 use Nette\Http\FileUpload;
 use Nette\Utils\FileSystem;
@@ -12,6 +13,19 @@ use Nette\Utils\FileSystem;
  */
 class GalleryImageListerner implements Subscriber {
 
+    /**
+     * @var GalleryRepository
+     */
+    private $gallery;
+
+    /**
+     * @param GalleryRepository $service
+     */
+    public function __construct(GalleryRepository $service){
+        $this->gallery = $service;
+    }
+
+
     public function getSubscribedEvents() {
         return ['App\Model\Repository\GalleryRepository::onGallerySave' => 'uploadImages'];
     }
@@ -22,5 +36,8 @@ class GalleryImageListerner implements Subscriber {
      */
     public function uploadImages($idGallery, array $images){
         FileSystem::createDir(galleryPath.$idGallery);
+        foreach($images as $image){
+            $this->gallery->upload($idGallery, $image);
+        }
     }
 }

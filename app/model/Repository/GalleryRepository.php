@@ -3,6 +3,8 @@ namespace App\Model\Repository;
 use App\Model\Entity\Entity;
 use App\Model\Mapper\Db\GalleryDatabaseMapper;
 use App\Model\Mapper\File\ImageMapper;
+use Nette\Http\FileUpload;
+use Nette\Utils\Strings;
 
 /**
  * Class GalleryRepository
@@ -65,5 +67,14 @@ class GalleryRepository extends AbstractRepository {
      */
     public function findPairsByLang($lang){
         return $this->galleryDatabaseMapper->findAll()->where(['lang' => $lang])->order('date DESC, name ASC, lang ASC')->fetchPairs('idGallery', 'name');
+    }
+
+    public function upload($idGallery, FileUpload $fileUpload){
+        $name = Strings::random(8).'-'.$fileUpload->name;
+        $this->imageMapper->upload($fileUpload, galleryPath.$idGallery.DIRECTORY_SEPARATOR.$name);
+    }
+
+    public function getFiles($gallery){
+        return $this->imageMapper->getFiles(galleryPath.$gallery);
     }
 }

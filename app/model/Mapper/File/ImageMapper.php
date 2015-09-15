@@ -3,6 +3,7 @@ namespace App\Model\Mapper\File;
 use App\Model\Core\RuntimeException;
 use Nette\Database\Table\Selection;
 use Nette\Http\FileUpload;
+use Nette\Utils\Finder;
 
 class ImageUploadedException extends RuntimeException{
 
@@ -24,13 +25,17 @@ class ImageMapper extends AbstractFileMapper {
     /**
      * @param FileUpload $fileUpload
      */
-    public function upload(FileUpload $fileUpload, $fileName) {
+    public function upload(FileUpload $fileUpload, $path) {
         if(!$fileUpload->isOk())
             throw new ImageUploadedException('Chyba při nahrávání obrázku');
-        $fileUpload->move(articleImagesPath.$fileName);
+        $fileUpload->move($path);
     }
 
     public function delete($name){
         unlink(articleImagesPath.$name);
+    }
+
+    public function getFiles($path){
+        return Finder::findFiles('*')->in($path);
     }
 }

@@ -132,7 +132,7 @@ class ArticleRepository extends AbstractRepository {
      * @throws \App\Model\Mapper\File\ImageUploadedException
      */
     private function insertImage(FileUpload $fileUpload, $name){
-        $this->imageMapper->upload($fileUpload, $name);
+        $this->imageMapper->upload($fileUpload, articleImagesPath.$name);
     }
 
     /**
