@@ -91,6 +91,8 @@ gallery:
     image: 'Nahrát obrázky'
     imageError: 'Soubor musí být obrázek ve formátu JPEG, GIF nebo PNG'
     success: 'Galerie byla úspěšně vytvořena.'
+  detail:
+    title: 'Galerie %title%'
 offer:
   title: 'Nabídka'
   subtitle: 'Přehled všech nabídek'

@@ -20,12 +20,6 @@ class GalleryPresenter extends AdminPresenter {
 
     public function startup() {
         parent::startup();
-    }
-
-    public function renderDefault(){
-        $this->title('admin.gallery.title', 'admin.gallery.subTitle');
-        $this->navigation->addItem('admin.gallery.title', 'Gallery:');
-        $this->template->galleries = $this->gallery->getAll();
         Gallery::extensionMethod('getImages', function(Gallery $gallery){
             return $this->gallery->getImages($gallery->idGallery);
         });
@@ -34,6 +28,18 @@ class GalleryPresenter extends AdminPresenter {
             foreach($this->gallery->getImages($gallery->idGallery) as $path => $image)
                 return $path;
         });
+    }
+
+    public function renderDefault(){
+        $this->title('admin.gallery.title', 'admin.gallery.subTitle');
+        $this->navigation->addItem('admin.gallery.title', 'Gallery:');
+        $this->template->galleries = $this->gallery->getAll();
+    }
+
+    public function renderDetail($idGallery, $lang){
+        $gallery = $this->gallery->getGallery($idGallery, $lang);
+        b($gallery);
+//        $this->title($this->translator->translate('admin.gallery.detail.title', )
     }
 
     protected function createComponentGalleryForm(){

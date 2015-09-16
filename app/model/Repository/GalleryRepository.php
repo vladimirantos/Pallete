@@ -77,4 +77,14 @@ class GalleryRepository extends AbstractRepository {
     public function getFiles($gallery){
         return $this->imageMapper->getFiles(galleryPath.$gallery);
     }
+
+    /**
+     * @param string $idGallery
+     * @param string $lang
+     * @return bool
+     * @throws \App\Model\Core\MemberAccessException
+     */
+    public function getGallery($idGallery, $lang){
+        return $this->bind($this->galleryDatabaseMapper->findBy(['idGallery' => $idGallery, 'lang' => $lang])->fetch(), self::ENTITY);
+    }
 }

@@ -32,6 +32,10 @@ class GalleryService{
         $this->galleryRepository->upload($gallery, $image);
     }
 
+    public function getGallery($idGallery, $lang){
+        return $this->galleryRepository->getGallery($idGallery, $lang);
+    }
+
     /**
      * @return Entity\Entity[]
      */
