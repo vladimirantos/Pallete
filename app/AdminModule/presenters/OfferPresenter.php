@@ -4,10 +4,14 @@ namespace App\AdminModule\Presenters;
 
 use App\Model\OfferService;
 use Asterix\Form\AsterixForm;
+use Asterix\Flash;
 use App\Model\Languages;
 use Asterix\Width;
 use Nette\Forms\Form;
 use Asterix\ButtonTypes;
+use App\Model\Core\ArgumentException;
+use App\Model\Core\EntityExistsException;
+
 /**
  * Class OfferPresenter
  * @author Bruno Puzják
@@ -25,6 +29,25 @@ class OfferPresenter extends AdminPresenter {
         $this->template->offers = $this->offer->getAllOffers();
     }
 
+    public function renderDetail($idOffer, $lang) {
+        $offer = $this->offer->getOffer($idOffer, $lang);
+        if (!$offer)
+            $this->error($this->translator->translate('admin.offer.notFound'), 404);
+        if ($offer->keywords == null)
+            $this->flashMessage('admin.offer.form.keywordsRequired', Flash::WARNING);
+        if ($offer->description == null)
+            $this->flashMessage('admin.offer.form.descriptionRequired', Flash::WARNING);
+        if ($offer->keywords == null || $offer->description == null)
+            $this->flashMessage('admin.offer.form.keywordsInfo', Flash::INFO); //todo: flashmessage který by se zobrazil jen jednou, aby nemusel být další if
+        $this->title($offer->title);
+        $this->template->offer = $offer;
+        $this->template->imagePath = articleImagesPath;
+        $this->navigation->addItem('admin.offer.title', 'Offer:');
+        $data = $offer->toArray();
+        $data['idOffer'] = $offer->idOffer;
+        $this['addOfferForm']->setDefaults($data);
+    }
+
     protected function createComponentAddOfferForm() {
         $form = AsterixForm::horizontalForm();
         $form->setTranslator($this->translator);
@@ -36,15 +59,38 @@ class OfferPresenter extends AdminPresenter {
         $form->addAText('keywords', 'admin.offer.form.keywords')->setTooltip($this->translator->translate('admin.offer.form.keywordsHelp'));
         $form->addAText('description', 'admin.offer.form.description');
         $form->addHidden('author', $this->userEntity->email);
-        $form->addHidden('oldTitle', null);
+        $form->addHidden('idOffer', null);
         $form->addASubmit('send', 'admin.offer.form.submit', ButtonTypes::PRIMARY);
         $form->getComponent('send')->getControlPrototype()->onclick('tinyMCE.triggerSave()');
         $form->onSuccess[] = $this->addOfferSucceeded;
         return $form;
     }
-    
-    public function addOfferSucceeded(AsterixForm $form, $values){
-        
+
+    public function addOfferSucceeded(AsterixForm $form, $values) {
+        try {
+            if (!is_null($values->idOffer) && !empty($values->idOffer)) {
+                b($this->params);
+                $this->offer->edit((array) $values, $this->params['idOffer'], $this->params['lang']);
+                $this->flashMessage('admin.offer.form.success');
+                $idOffer = $values['translate'] != null ? $values->translate : $values->idOffer;
+                $this->redirect('this', ['idOffer' => $idOffer, 'lang' => $values['lang']]);
+            } else {
+                $this->offer->save((array) $values);
+                $this->redirect('this');
+            }
+        } catch (ArgumentException $ex) {
+            $this->flashMessage($this->translator->translate('admin.offer.form.required', ['text' => 'Obrazek']), Flash::ERROR);
+            $this->redrawControl("addModal");
+        } catch (EntityExistsException $ex) {
+            $this->flashMessage('admin.offer.form.exists', Flash::ERROR);
+            $this->redrawControl("addModal");
+        }
+    }
+
+    public function handleDelete($id, $lang) {
+        $this->offer->delete($id, $lang);
+        $this->flashMessage('admin.offer.delete');
+        $this->redirect('this');
     }
 
 }

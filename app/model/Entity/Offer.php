@@ -10,6 +10,7 @@ namespace App\Model\Entity;
  */
 class Offer extends Entity {
 
+    private $idOffer;
     private $title;
     private $lang;
     private $author;
@@ -18,6 +19,10 @@ class Offer extends Entity {
     private $keywords;
     private $description;
     private $date;
+
+    function getIdOffer() {
+        return $this->idOffer;
+    }
 
     function getTitle() {
         return $this->title;
@@ -49,6 +54,10 @@ class Offer extends Entity {
 
     function getDate() {
         return $this->date;
+    }
+
+    function setIdOffer($idOffer) {
+        $this->idOffer = $idOffer;
     }
 
     function setTitle($title) {

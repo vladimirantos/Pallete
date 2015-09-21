@@ -19,6 +19,7 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Nadpis</th>
                                 <th>Jazyk</th>
                                 <th>Autor</th>
@@ -29,6 +30,7 @@
                         <tbody>
                             {foreach $offers as $item}
                                 <tr>
+                                    <td>{$item->idOffer}</td>
                                     <td>{$item->title}</td>
                                     <td>{$item->lang}</td>
                                     <td>{$item->author}</td>
@@ -39,9 +41,9 @@
                                                 Akce <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a href="Offer:detail, $item->title, $item->lang"><i class="fa fa-info"></i> Detail</a></li>
+                                                <li><a n:href="Offer:detail, $item->idOffer, $item->lang"><i class="fa fa-info"></i> Detail</a></li>
                                                 <li><a href="#"><i class="fa fa-pencil"></i> Upravit</li>
-                                                <li><a href="delete!, $item->title, $item->lang"><i class="fa fa-times"></i> Smazat</a></li>
+                                                <li><a n:href="delete!, $item->idOffer, $item->lang"><i class="fa fa-times"></i> Smazat</a></li>
                                             </ul>
                                         </div>
                                     </td>
@@ -58,7 +60,7 @@
     {snippet modalForm}
 
         <div id="ajax"  class="modal-dialog modal-lg" role="document">
-            {form addOfferForm class=>'ajax'}
+            {form addOfferForm class=>'ajax' }
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

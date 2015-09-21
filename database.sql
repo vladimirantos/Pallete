@@ -8,6 +8,24 @@ create table users(
   CONSTRAINT pk_user PRIMARY KEY (email)
 );
 
+CREATE TABLE IF NOT EXISTS `offers` (
+  `idOffer` int(11) NOT NULL,
+  `lang` varchar(3) COLLATE utf8_czech_ci NOT NULL,
+  `title` varchar(80) COLLATE utf8_czech_ci NOT NULL,
+  `author` varchar(50) COLLATE utf8_czech_ci NOT NULL,
+  `text` text COLLATE utf8_czech_ci NOT NULL,
+  `image` varchar(50) COLLATE utf8_czech_ci NOT NULL,
+  `keywords` varchar(255) COLLATE utf8_czech_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_czech_ci NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+ALTER TABLE `offers`
+  ADD PRIMARY KEY (`idOffer`,`lang`) USING BTREE;
+
+ALTER TABLE `offers`
+  MODIFY `idOffer` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=0;
+
 CREATE TABLE articles(
   idArticle int not null AUTO_INCREMENT,
   lang varchar(3) not null,
