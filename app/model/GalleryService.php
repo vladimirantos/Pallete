@@ -47,7 +47,15 @@ class GalleryService{
         return $this->galleryRepository->findPairsByLang(Languages::CS);
     }
 
-    public function getImages($gallery){
-        return $this->galleryRepository->getFiles($gallery);
+    public function getImages($gallery, $lang){
+        return $this->galleryRepository->getFiles($gallery, $lang);
+    }
+
+    /**
+     * @param string $idGallery
+     * @param string $lang
+     */
+    public function delete($idGallery, $lang){
+        $this->galleryRepository->deleteGallery($idGallery, $lang);
     }
 }

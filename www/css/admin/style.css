@@ -177,6 +177,12 @@ thead td{
     color: #575757;
     margin-top: 10px;
 }
+
+.galleryImage{
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-bottom: 20px;
+}
 /*.dropdown-menu li{*/
     /*padding-left: 20px;*/
 /*}*/

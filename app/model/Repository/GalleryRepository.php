@@ -49,7 +49,7 @@ class GalleryRepository extends AbstractRepository {
         unset($data['images']);
         $result = parent::insert($data);
         if($images != null) //složka galerie se vytvoří pouze pokud jsou vkládány obrázky
-            $this->onGallerySave($data['idGallery'], $images);
+            $this->onGallerySave($data['idGallery'], $data['lang'], $images);
         return $result;
     }
 
@@ -69,13 +69,13 @@ class GalleryRepository extends AbstractRepository {
         return $this->galleryDatabaseMapper->findAll()->where(['lang' => $lang])->order('date DESC, name ASC, lang ASC')->fetchPairs('idGallery', 'name');
     }
 
-    public function upload($idGallery, FileUpload $fileUpload){
+    public function upload($idGallery, $lang, FileUpload $fileUpload){
         $name = Strings::random(8).'-'.$fileUpload->name;
-        $this->imageMapper->upload($fileUpload, galleryPath.$idGallery.DIRECTORY_SEPARATOR.$name);
+        $this->imageMapper->upload($fileUpload, galleryPath.$idGallery.'_'.$lang.DIRECTORY_SEPARATOR.$name);
     }
 
-    public function getFiles($gallery){
-        return $this->imageMapper->getFiles(galleryPath.$gallery);
+    public function getFiles($gallery, $lang){
+        return $this->imageMapper->getFiles(galleryPath.$gallery.'_'.$lang);
     }
 
     /**
@@ -86,5 +86,14 @@ class GalleryRepository extends AbstractRepository {
      */
     public function getGallery($idGallery, $lang){
         return $this->bind($this->galleryDatabaseMapper->findBy(['idGallery' => $idGallery, 'lang' => $lang])->fetch(), self::ENTITY);
+    }
+
+    /**
+     * @param string $idGallery
+     * @param string $lang
+     */
+    public function deleteGallery($idGallery, $lang){
+        $this->galleryDatabaseMapper->delete(['idGallery' => $idGallery, 'lang' => $lang]);
+        $this->imageMapper->deleteFolder(galleryPath.$idGallery.'_'.$lang);
     }
 }

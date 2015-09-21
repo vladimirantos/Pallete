@@ -1,1 +1,22 @@
 {block content}
+<div class="row">
+    <div class="col-md-6">
+        <p>{$gallery->text}</p>
+    </div>
+    <div class="col-md-6 text-right">
+        {_admin.commons.date}: {$gallery->date|date:'d. m. Y H:i'}<br>
+        ID: #{$gallery->idGallery} ({$gallery->lang|upper})<br>
+        <div style="height: 15px"></div>
+        <a href="" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> {_admin.gallery.edit}</a>
+        <a href="" class="btn btn-primary btn-sm"><i class="fa fa-upload"></i> {_admin.gallery.upload}</a>
+        <a href="" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> {_admin.gallery.delete}</a>
+        <div style="height: 15px"></div>
+    </div>
+</div>
+<div class="row">
+    {foreach $gallery->getImages() as $image}
+        <div class="col-xs-4 galleryImage">
+            <img src="{$basePath}/{$image}" class="img-responsive center-block">
+        </div>
+    {/foreach}
+</div>

@@ -31,8 +31,17 @@ class ImageMapper extends AbstractFileMapper {
         $fileUpload->move($path);
     }
 
-    public function delete($name){
-        unlink(articleImagesPath.$name);
+    public function delete($path){
+        unlink($path);
+    }
+
+    public function deleteFolder($dir){
+        $files = array_diff(scandir($dir), array('.','..'));
+        foreach ($files as $file) {
+            (is_dir("$dir/$file")) ? $this->deleteFolder("$dir/$file") : unlink("$dir/$file");
+        }
+        return rmdir($dir);
+
     }
 
     public function getFiles($path){

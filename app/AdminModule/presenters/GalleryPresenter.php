@@ -21,11 +21,11 @@ class GalleryPresenter extends AdminPresenter {
     public function startup() {
         parent::startup();
         Gallery::extensionMethod('getImages', function(Gallery $gallery){
-            return $this->gallery->getImages($gallery->idGallery);
+            return $this->gallery->getImages($gallery->idGallery, $gallery->lang);
         });
         //todo: Metoda getImages vrace pouze pole a ne callback?
         Gallery::extensionMethod('getImage', function(Gallery $gallery){
-            foreach($this->gallery->getImages($gallery->idGallery) as $path => $image)
+            foreach($this->gallery->getImages($gallery->idGallery, $gallery->lang) as $path => $image)
                 return $path;
         });
     }
@@ -38,8 +38,12 @@ class GalleryPresenter extends AdminPresenter {
 
     public function renderDetail($idGallery, $lang){
         $gallery = $this->gallery->getGallery($idGallery, $lang);
-        b($gallery);
-//        $this->title($this->translator->translate('admin.gallery.detail.title', )
+        if(!$gallery)
+            $this->error($this->translator->trans('admin.commons.error'));
+        $this->title($this->translator->translate('admin.gallery.detail.title', ['title' => $gallery->name]));
+
+        $this->navigation->addItem('admin.gallery.title', 'Gallery:');
+        $this->template->gallery = $gallery;
     }
 
     protected function createComponentGalleryForm(){
@@ -47,7 +51,9 @@ class GalleryPresenter extends AdminPresenter {
         $form->setTranslator($this->translator);
         $form->addASelect('translate', 'admin.gallery.form.translate', $this->gallery->getAllArticlesPair())->setPrompt('');
         $form->addASelect('lang', 'admin.gallery.form.language', Languages::toArray())->setIconBefore('fa-language');;
-        $form->addAText('name', 'admin.gallery.form.name', Width::WIDTH_8)->setMaxLength(30)->setRequired($this->translator->translate('admin.gallery.form.required', ['text' => '%label']));
+        $form->addAText('name', 'admin.gallery.form.name', Width::WIDTH_8)
+            ->setMaxLength(30)
+            ->setRequired($this->translator->translate('admin.gallery.form.required', ['text' => '%label']));
         $form->addATextArea('text', 'Popis', Width::WIDTH_8)->setAttribute('rows', 5);
         $form->addAUpload('images', 'admin.gallery.form.image', null, true)->addCondition(Form::FILLED)->addRule(Form::IMAGE, 'admin.gallery.form.imageError');
         $form->addASubmit('send', 'admin.gallery.form.button');
@@ -56,10 +62,13 @@ class GalleryPresenter extends AdminPresenter {
     }
 
     public function galleryFormSucceeded(AsterixForm $form, $values){
+        $this->gallery->save((array) $values);
+        $this->flashMessage('admin.gallery.form.success');
+    }
 
-
-            $this->gallery->save((array) $values);
-            $this->flashMessage('admin.gallery.form.success');
-
+    public function handleDelete($idGallery, $lang){
+        $this->gallery->delete($idGallery, $lang);
+        $this->flashMessage('admin.gallery.deleteSuccess');
+        $this->redirect('default');
     }
 }

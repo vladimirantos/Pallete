@@ -122,7 +122,7 @@ class ArticleRepository extends AbstractRepository {
         $article = $this->find($by['idArticle'], $by['lang']);
         if(!$article)
             throw new EntityExistsException('Tento článek neexistuje');
-        $this->imageMapper->delete($article->image);
+        $this->imageMapper->delete(articleImagesPath.$article->image);
         return parent::delete($by);
     }
 

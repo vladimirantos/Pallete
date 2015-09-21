@@ -3,6 +3,8 @@ commons:
     buttons:
       ok: 'Uložit'
       cancel: 'Zavřít'
+  error: 'Položka nebyla nalezena'
+  date: 'Datum'
 header:
     settings: 'Nastavení'
     account: 'Účet'
@@ -91,6 +93,11 @@ gallery:
     image: 'Nahrát obrázky'
     imageError: 'Soubor musí být obrázek ve formátu JPEG, GIF nebo PNG'
     success: 'Galerie byla úspěšně vytvořena.'
+  delete: 'Odstranit'
+  edit: 'Upravit'
+  upload: 'Nahrát obrázky'
+  open: 'Otevřít'
+  deleteSuccess: 'Galerie byla úspěšně odstraněna'
   detail:
     title: 'Galerie %title%'
 offer:
