@@ -1,0 +1,19 @@
+{* Latte template *}
+
+{block content}
+<div class="row holders" >
+    <h1>Naše nabídka</h1>
+    {foreach $offers as $item}
+
+        <article class="productHolder ClickMe ">
+            <h3>{$item->title}</h3>
+            <div class="img">
+                <img src="{$basePath}/data/article_images/{$item->image}" alt="{$item->title}">
+            </div>    
+            <div class="text">    
+                {$item->text|truncate:160|noescape}
+            </div>
+            <a class="btn" >Více</a>
+        </article>
+    {/foreach}
+</div>

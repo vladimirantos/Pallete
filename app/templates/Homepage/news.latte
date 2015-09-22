@@ -1,55 +1,28 @@
 {block content}
-<div class="row news">
-    <h1>Nějaký mnohem delší nadpis</h1>
-    <div class="col-sm-2 col-sm-push-10" >
-        <img src="{$basePath}/images/test.jpg">
-    </div>
-    <div class="col-sm-10 col-sm-pull-2" >
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-    </div>
-</div>
-<div class="row news reverse">
-    <h1>Normální nadpis</h1>
-    <div class="col-sm-2" >
-        <img src="{$basePath}/images/test.jpg">
-    </div>
-    <div class="col-sm-10" >
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-    </div>
-</div>
-    <div class="row news">
-    <h1>Normální nadpis</h1>
-    <div class="col-sm-2 col-sm-push-10" >
-        <img src="{$basePath}/images/test.jpg">
-    </div>
-    <div class="col-sm-10 col-sm-pull-2" >
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-    </div>
-</div>
-<div class="row news reverse">
-    <h1>Normální nadpis</h1>
-    <div class="col-sm-2" >
-        <img src="{$basePath}/images/test.jpg">
-    </div>
-    <div class="col-sm-10" >
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-    </div>
-</div>
-    <div class="row news">
-    <h1>Normální nadpis</h1>
-    <div class="col-sm-2 col-sm-push-10" >
-        <img src="{$basePath}/images/test.jpg">
-    </div>
-    <div class="col-sm-10 col-sm-pull-2" >
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-    </div>
-</div>
-<div class="row news reverse">
-    <h1>Normální nadpis</h1>
-    <div class="col-sm-2" >
-        <img src="{$basePath}/images/test.jpg">
-    </div>
-    <div class="col-sm-10" >
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-    </div>
-</div>
+{foreach $news as $item}
+    {if $iterator->isEven()}
+        <div class="row news">
+        {else}
+            <div class="row news reverse">
+
+            {/if}
+            <h1>{$item->title}</h1>
+            {if $iterator->isEven()}
+                <div class="col-sm-2 col-sm-push-10" >
+                {else}
+                    <div class="col-sm-2 " >
+
+                    {/if}
+                    <img src="{$basePath}/data/article_images/{$item->image}">
+                </div>
+                {if $iterator->isEven()}
+                    <div class="col-sm-10 col-sm-pull-2" >
+                    {else}
+                        <div class="col-sm-10">
+
+                        {/if}
+                        <p>{$item->text|noescape}</p>
+                    </div>
+                </div>
+            {/foreach}
+

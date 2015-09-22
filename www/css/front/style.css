@@ -3,10 +3,6 @@
     Author     : Bruno Puzják
 */
 @font-face {
-    font-family: base;
-    src: url('../../fonts/Base 02.ttf');
-}
-@font-face {
     font-family: title;
     src: url('../../fonts/KAMIKZOM.ttf');
 }
@@ -28,6 +24,7 @@ h1, h2, h3, h4{
     color:white;
     font-family: base;
     font-size: 20pt;
+    padding-top: 5px;
 }
 .navbar .navbar-nav li a{
     color:white;
@@ -218,7 +215,6 @@ a:visited{
     .news img{
         max-width: 100%;
         max-height: 300px; 
-        margin-top: -10%;
     }
     .news:nth-child(odd){
         background-color: #731622;
@@ -232,50 +228,36 @@ a:visited{
         margin-left: 20%;
     }
 
-
-
-    .holders{
-        margin: 0 auto;
-        padding: 10px;
-        text-align: center;
-    }
-    .holders img{
-        max-width: 90%;
-        max-height: 250px;
-        margin: 0 auto;
-    }
-    .holders .col-sm-4, .holders .col-sm-3{
-        margin-bottom: 10px;
-        color:black;
-        border-left: 1px solid #731622;
-        border-right: 1px solid #731622;
-        border-bottom: 2px solid #731622;
-        padding: 0;
-        font-family: text;
-        box-shadow: #731622 0px 3px 15px 3px;
-    }
-    .holders .col-sm-4 p, .holders .col-sm-3 p{
-        padding: 10px;
+    .gallery{
+        height: 350px
     }
 
-    .holders .col-sm-4 h3, .holders .col-sm-3 h3{
+    .gallery .btn {
+        border: 1px solid black;
+        margin-top:50px;
+        margin-left:35%;
+        width: 300px;
+        background-color: #9d9d9d;
+        color: black;
+        box-shadow: 5px 5px 20px #9d9d9d;
+    }
+    .gallery.reverse .btn {
+        border: 1px solid black;
+        margin-top:50px;
+        margin-left:35%;
+        width: 300px;
         background-color: #731622;
         color: white;
-        height: 50px;
-        padding: 10px;
-        margin: 0;
-        font-family: title;
+        box-shadow: 5px 5px 20px #731622;
     }
-    .holders .col-sm-4{
-        width: 32%;
-        margin-left: 0.5%;
-        margin-right: 0.5%;
+    .gallery .btn:hover{
+        height: 40px;
     }
-    .holders .col-sm-3{
-        width: 24%;
-        margin-left: 0.5%;
-        margin-right: 0.5%;
-    }
+
+
+
+
+
     .second .col-sm-4 h3, .second .col-sm-3 h3{
         background-color: #9d9d9d;
         color: black;
@@ -286,6 +268,72 @@ a:visited{
         border-right: 1px solid #9d9d9d;
         border-bottom: 2px solid #9d9d9d;
         box-shadow: white 0px 3px 15px 3px;
+    }
+
+
+
+
+    .holders{
+        margin: 0 auto;
+        padding: 10px;
+        text-align: center;
+    }
+    .productHolder {
+        display: inline-table;
+        width: 19%;
+        margin-left: 5%;
+        text-align: center;
+        margin-bottom: 10px;
+        color:black;
+        border-left: 1px solid #731622;
+        border-right: 1px solid #731622;
+        border-bottom: 2px solid #731622;
+        padding: 0;
+        font-family: text;
+        margin-bottom: 30px;
+        box-shadow: #731622 0px 3px 15px 3px;
+        height: 425px;
+    }
+    .productHolder:first-of-type {
+        margin-left:0;
+    }
+    .productHolder:nth-child(6) {
+        margin-left:0;
+    }
+    .productHolder h3 {
+        margin: 0;
+        background-color: #731622;
+        color: white;
+        font-family: title;
+        padding: 10px;
+        height: 65px;
+        text-align: center;
+        vertical-align: middle; 
+    }
+    .productHolder img {
+        max-height: 200px;
+        max-width: 100%;
+    }
+    .productHolder .img {
+        padding-top: 5px;
+        height: 200px;
+        width: 100%;
+    }
+    .productHolder .text {
+        padding: 5px;
+        height: 117px;
+        width: 100%;
+        text-align: justify;
+        min-height: 100px;
+    }
+    .productHolder .btn {
+        width: 100%;
+        background-color: #731622;
+        /*margin-bottom: 5px;*/
+        font-family: title;
+        font-size: 14pt;
+        color:#9d9d9d;
+        border-radius: 0;
     }
 
     .footer >*{
@@ -320,38 +368,79 @@ a:visited{
     }
 
 
+    .gallery img{
+        height: 100%;
+        width: auto;
+
+    }
+    .gallery .item{
+        height: 300px;
+    }
+    .gallery .btn {
+        border: 1px solid black;
+    }
 
     .holders{
         margin: 0 auto;
         padding: 10px;
         text-align: center;
     }
-    .holders img{
-        max-width: 90%;
-        max-height: 250px;
+    .holders{
         margin: 0 auto;
+        padding: 10px;
+        text-align: center;
     }
-    .holders .col-sm-4, .holders .col-sm-3{
-        margin: 0 auto;
-        margin-bottom: 30px;
+    .productHolder {
+        margin: auto;
+        display: inline-table;
+        width: 90%;
+        text-align: center;
+        margin-bottom: 10px;
         color:black;
-        border-left: 1px solid #A80000;
-        border-right: 1px solid #A80000;
-        border-bottom: 2px solid #A80000;
+        border-left: 1px solid #731622;
+        border-right: 1px solid #731622;
+        border-bottom: 2px solid #731622;
         padding: 0;
         font-family: text;
-        box-shadow: #731622 0px 5px 20px;
+        margin-bottom: 30px;
+        box-shadow: #731622 0px 3px 15px 3px;
+        height: 425px;
     }
-    .holders .col-sm-4 p, .holders .col-sm-3 p{
-        padding: 10px;
-    }
-    .holders .col-sm-4 h3, .holders .col-sm-3 h3{
-        background-color: #A80000;
-        color: white;
-        height: 50px;
-        padding: 10px;
+
+    .productHolder h3 {
         margin: 0;
+        background-color: #731622;
+        color: white;
         font-family: title;
+        padding: 10px;
+        height: 65px;
+        text-align: center;
+        vertical-align: middle; 
+    }
+    .productHolder img {
+        max-height: 200px;
+        max-width: 100%;
+    }
+    .productHolder .img {
+        padding-top: 5px;
+        height: 200px;
+        width: 100%;
+    }
+    .productHolder .text {
+        padding: 5px;
+        height: 117px;
+        width: 100%;
+        text-align: justify;
+        min-height: 100px;
+    }
+    .productHolder .btn {
+        width: 100%;
+        background-color: #731622;
+        /*margin-bottom: 5px;*/
+        font-family: title;
+        font-size: 14pt;
+        color:#9d9d9d;
+        border-radius: 0;
     }
     .second .col-sm-4 h3, .second .col-sm-3 h3{
         background-color: #9d9d9d;
@@ -364,7 +453,7 @@ a:visited{
         border-bottom: 2px solid #9d9d9d;
         box-shadow: white 0px 5px 20px;
     }
-    
+
     .footer >*{
         height: 200px;
     }

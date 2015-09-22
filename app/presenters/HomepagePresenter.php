@@ -5,13 +5,13 @@ namespace App\Presenters;
 use Nette;
 use App\Model;
 
+class HomepagePresenter extends BasePresenter {
 
-class HomepagePresenter extends BasePresenter
-{
+    /** @var Model\ArticleService @inject */
+    public $article;
 
-	public function renderDefault()
-	{
-
-	}
+    public function renderNews() {
+        $this->template->news = $this->article->getAllArticles();
+    }
 
 }

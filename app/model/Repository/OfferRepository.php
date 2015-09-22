@@ -89,8 +89,8 @@ class OfferRepository extends AbstractRepository {
      */
     public function update(array $data, array $by = []) {
         if ($data['image']->name != null) {
-            $article = $this->find($by['idOffer'], $by['lang']);
-            $this->imageMapper->delete($article->image);
+            $offer = $this->find($by['idOffer'], $by['lang']);
+            $this->imageMapper->delete(offerImagesPath.$offer->image);
             $name = $this->imageName($data['image']);
             $this->insertImage($data['image'], $name);
             $data['image'] = $name;
@@ -115,7 +115,7 @@ class OfferRepository extends AbstractRepository {
      * @throws \App\Model\Mapper\File\ImageUploadedException
      */
     private function insertImage(FileUpload $fileUpload, $name) {
-        $this->imageMapper->upload($fileUpload, articleImagesPath . $name);
+        $this->imageMapper->upload($fileUpload, offerImagesPath . $name);
     }
 
     /**
@@ -124,6 +124,18 @@ class OfferRepository extends AbstractRepository {
      */
     private function imageName(FileUpload $fileUpload) {
         return Strings::random(8) . '-' . $fileUpload->name;
+    }
+
+    /**
+     * @param array $by
+     * @return bool
+     */
+    public function delete(array $by) {
+        $offer = $this->find($by['idOffer'], $by['lang']);
+        if (!$offer)
+            throw new EntityExistsException('Tato nabídka neexistuje');
+        $this->imageMapper->delete(offerImagesPath . $offer->image);
+        return parent::delete($by);
     }
 
 }

@@ -15,9 +15,6 @@ class OfferService {
     /** @var OfferRepository */
     private $offerRepository;
 
-    /** @var FileRepository */
-    private $fileRepository;
-
     public function __construct(OfferRepository $offerRepository) {
         $this->offerRepository = $offerRepository;
     }

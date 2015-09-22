@@ -41,7 +41,7 @@ class OfferPresenter extends AdminPresenter {
             $this->flashMessage('admin.offer.form.keywordsInfo', Flash::INFO); //todo: flashmessage který by se zobrazil jen jednou, aby nemusel být další if
         $this->title($offer->title);
         $this->template->offer = $offer;
-        $this->template->imagePath = articleImagesPath;
+        $this->template->imagePath = offerImagesPath;
         $this->navigation->addItem('admin.offer.title', 'Offer:');
         $data = $offer->toArray();
         $data['idOffer'] = $offer->idOffer;

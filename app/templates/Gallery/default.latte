@@ -1,0 +1,45 @@
+{block content}
+{foreach $galleries as $item}
+
+    {if $iterator->isEven()}
+        <div class="row news gallery" style="">
+        {else}
+            <div class="row news gallery reverse" style="">
+
+            {/if}
+            <h1>{$item->name}</h1>
+            {if $iterator->isEven()}
+                <div class="col-sm-4 col-sm-push-8" >
+                {else}
+                    <div class="col-sm-4 " >
+                    {/if}
+                    <div id="{$item->name}" class="carousel slide" data-ride="carousel" >
+                        <div class="carousel-inner" role="listbox">
+                            {foreach $item->getImages() as $image}
+                                {if $iterator->isFirst()}
+                                    <div class="item active">
+                                    {else}
+                                        <div class="item">
+
+                                        {/if}
+                                        <img src="{$basePath}/{$image}" class="img-responsive center-block">
+                                    </div>
+                                {/foreach}
+
+                            </div>
+                        </div>
+                    </div>
+                    {if $iterator->isEven()}
+                        <div class="col-sm-8 col-sm-pull-4" >
+                        {else}
+                            <div class="col-sm-8">
+
+                            {/if}
+                            <p>{$item->text|noescape}</p>
+                            <a class="btn" n:href="Gallery:detail $item->idGallery,$item->lang">Více</a>
+
+                        </div>
+
+                    </div>
+                {/foreach}
+
