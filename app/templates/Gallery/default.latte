@@ -1,4 +1,9 @@
 {block content}
+    {if empty($galleries)}
+        <div class="row holders" >
+        <p class="text-danger">{_lang.gallery.empty|upper}</p>
+        </div>
+{else}
 {foreach $galleries as $item}
 
     {if $iterator->isEven()}
@@ -43,3 +48,4 @@
                     </div>
                 {/foreach}
 
+{/if}

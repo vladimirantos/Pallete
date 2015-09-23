@@ -11,3 +11,12 @@ login:
     forgetPassword: 'Zapomněl jsi heslo? Nevadí, <a n:href="Sign:forget">zde</a> si ho můžeš změnit.'
     footer: ''
 logout: 'Byl jsi úspěšně odhlášen'
+offer:
+    title: 'Naše nabídka'
+    empty: 'Neexistuje žádná nabídka.'
+gallery:
+    title: 'Seznam galerií'
+    empty: 'Žádná galerie k zobrazení.'
+news:
+    title: 'Novinky'
+    empty: 'Nejsou zde žádné novinky'

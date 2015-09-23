@@ -2,7 +2,10 @@
 
 {block content}
 <div class="row holders" >
-    <h1>Naše nabídka</h1>
+    <h1>{_lang.offer.title|upper}</h1>
+    {if empty($offers)}
+        <p class="text-danger">{_lang.offer.empty|upper}</p>
+    {else}
     {foreach $offers as $item}
 
         <article class="productHolder ClickMe ">
@@ -16,4 +19,5 @@
             <a class="btn" >Více</a>
         </article>
     {/foreach}
+    {/if}
 </div>

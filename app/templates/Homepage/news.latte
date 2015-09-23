@@ -1,4 +1,9 @@
 {block content}
+    {if empty($news)}
+<div class="row holders" >
+        {_lang.news.empty|upper}
+    </div>
+    {else}
 {foreach $news as $item}
     {if $iterator->isEven()}
         <div class="row news">
@@ -25,4 +30,5 @@
                     </div>
                 </div>
             {/foreach}
+                    {/if}
 
