@@ -7,16 +7,118 @@
         {_admin.commons.date}: {$gallery->date|date:'d. m. Y H:i'}<br>
         ID: #{$gallery->idGallery} ({$gallery->lang|upper})<br>
         <div style="height: 15px"></div>
-        <a href="" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> {_admin.gallery.edit}</a>
-        <a href="" class="btn btn-primary btn-sm"><i class="fa fa-upload"></i> {_admin.gallery.upload}</a>
+        <a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#gallery"><i class="fa fa-pencil"></i> {_admin.gallery.edit}</a>
+        <a href="" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#upload"><i class="fa fa-upload"></i> {_admin.gallery.upload}</a>
         <a href="" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> {_admin.gallery.delete}</a>
         <div style="height: 15px"></div>
     </div>
 </div>
 <div class="row">
-    {foreach $gallery->getImages() as $image}
-        <div class="col-xs-4 galleryImage">
-            <img src="{$basePath}/{$image}" class="img-responsive center-block">
+    {var images = $gallery->getImages() }
+    {if empty($images)}
+        <p class="text-danger">{_admin.gallery.notImages}</p>
+    {else}
+        {foreach $images as $image}
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                <img src="{$basePath}/{$galleryPath}/{$image}" class="thumbnail img-responsive">
+                <a n:href="deleteImage! $image" class="btn btn-danger"><i class="fa fa-times"></i> {_admin.gallery.delete}</a>
+            </div>
+        {/foreach}
+    {/if}
+</div>
+
+<div class="modal fade" id="gallery" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
+    {*<div id="ajax"  class="modal-dialog modal-lg" role="document">*}
+    {snippet modalForm}
+    <div class="modal-dialog modal-lg" role="document" id="ajax">
+        {*{form galleryForm class=>'ajax'}*}
+        {form galleryForm class=>'ajax'}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{_admin.gallery.form.editTitle}</h4>
+                </div>
+                <div class="modal-body">
+                    {*{snippet addModal}*}
+                    <div  n:foreach="$flashes as $flash" n:class="alert, alert-dismissible, $flash->type" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {if $flash->title}
+                            <strong>{$flash->title}</strong>
+                        {/if}
+                        {$flash->message|firstUpper}
+                    </div>
+                    {*{/snippet}*}
+                    <div class="form-group">
+                        {label translate class=>"col-sm-3 control-label"/}
+                        {input translate}
+                        <p class="help-block">{_admin.gallery.form.help}</p>
+                    </div>
+                    <div class="form-group">
+                        {label lang class=>"col-sm-3 control-label"/}
+                        {input lang}
+                    </div>
+                    <div class="form-group">
+                        {label name class=>"col-sm-3 control-label"/}
+                        {input name}
+                    </div>
+                    <div class="form-group">
+                        {label text class=>"col-sm-3 control-label"/}
+                        {input text}
+                    </div>
+                    <hr class="separator">
+                    <div class="row row-centered">
+                        <div class="col-xs-9 col-centered">
+                            <h4>{_admin.gallery.form.image}</h4>
+                        </div>
+                        <div class="form-group">
+                            {label images class=>"col-sm-3 control-label"/}
+                            {input images}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{_admin.commons.modal.buttons.cancel}</button>
+                    {*<button type="button" class="btn btn-primary">{_admin.commons.modal.buttons.ok}</button>*}
+                    {input send}
+                </div>
+            </div>
+        {/form}
+    </div>
+    {/snippet}
+</div>
+
+<div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
+    {*<div id="ajax"  class="modal-dialog modal-lg" role="document">*}
+        <div class="modal-dialog modal-lg" role="document">
+            {*{form galleryForm class=>'ajax'}*}
+            {form uploadImagesForm}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">{_admin.gallery.form.uploadTitle, ['title' => $gallery->name]}</h4>
+                    </div>
+                    <div class="modal-body">
+                        {*{snippet addModal}*}
+                        <div  n:foreach="$flashes as $flash" n:class="alert, alert-dismissible, $flash->type" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {if $flash->title}
+                                <strong>{$flash->title}</strong>
+                            {/if}
+                            {$flash->message|firstUpper}
+                        </div>
+                        {*{/snippet}*}
+                        <div class="form-group">
+                            {label images class=>"col-sm-3 control-label"/}
+                            {input images}
+                            <p class="help-block">{_admin.gallery.form.imageHelp}</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{_admin.commons.modal.buttons.cancel}</button>
+                        {*<button type="button" class="btn btn-primary">{_admin.commons.modal.buttons.ok}</button>*}
+                        {input send}
+                    </div>
+                </div>
+            {/form}
         </div>
-    {/foreach}
 </div>

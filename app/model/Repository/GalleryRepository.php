@@ -1,8 +1,10 @@
 <?php
 namespace App\Model\Repository;
+use App\Model\Core\EntityExistsException;
 use App\Model\Entity\Entity;
 use App\Model\Mapper\Db\GalleryDatabaseMapper;
 use App\Model\Mapper\File\ImageMapper;
+use Nette\Database\UniqueConstraintViolationException;
 use Nette\Http\FileUpload;
 use Nette\Utils\Strings;
 
@@ -47,9 +49,13 @@ class GalleryRepository extends AbstractRepository {
         unset($data['translate']);
         $images = $data['images'];
         unset($data['images']);
-        $result = parent::insert($data);
-        if($images != null) //složka galerie se vytvoří pouze pokud jsou vkládány obrázky
-            $this->onGallerySave($data['idGallery'], $data['lang'], $images);
+        try{
+            $result = parent::insert($data);
+        }catch (UniqueConstraintViolationException $ex){
+            throw new EntityExistsException('Galerie již existuje');
+        }
+      //  if($images != null) //složka galerie se vytvoří pouze pokud jsou vkládány obrázky
+        $this->onGallerySave($data['idGallery'], $data['lang'], $images);
         return $result;
     }
 
@@ -95,5 +101,14 @@ class GalleryRepository extends AbstractRepository {
     public function deleteGallery($idGallery, $lang){
         $this->galleryDatabaseMapper->delete(['idGallery' => $idGallery, 'lang' => $lang]);
         $this->imageMapper->deleteFolder(galleryPath.$idGallery.'_'.$lang);
+    }
+
+    /**
+     * @param string $idGallery
+     * @param string $lang
+     * @param string $image
+     */
+    public function deleteImage($idGallery, $lang, $image){
+        $this->imageMapper->delete(galleryPath.$idGallery.'_'.$lang.DIRECTORY_SEPARATOR.$image);
     }
 }

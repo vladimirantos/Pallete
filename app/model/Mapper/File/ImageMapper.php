@@ -1,5 +1,6 @@
 <?php
 namespace App\Model\Mapper\File;
+use App\Model\Core\FileNotFoundException;
 use App\Model\Core\RuntimeException;
 use Nette\Database\Table\Selection;
 use Nette\Http\FileUpload;
@@ -21,7 +22,6 @@ class ImageMapper extends AbstractFileMapper {
 
     }
 
-
     /**
      * @param FileUpload $fileUpload
      */
@@ -32,6 +32,8 @@ class ImageMapper extends AbstractFileMapper {
     }
 
     public function delete($path){
+        if(!file_exists($path))
+            throw new FileNotFoundException('Soubor neexistuje');
         unlink($path);
     }
 
@@ -45,6 +47,7 @@ class ImageMapper extends AbstractFileMapper {
     }
 
     public function getFiles($path){
-        return Finder::findFiles('*')->in($path);
+        return array_diff(scandir($path), array('.', '..'));
+      //  return Finder::findFiles('*')->in($path);
     }
 }

@@ -32,15 +32,19 @@
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                                 <li><a n:href="Gallery:detail, $gallery->idGallery, $gallery->lang"><i class="fa fa-folder-open"></i> {_admin.gallery.open}</a></li>
-                                                <li><a href="#"><i class="fa fa-pencil"></i> {_admin.gallery.edit}</a></li>
+                                                <li><a n:href="edit! $gallery->idGallery, $gallery->lang" class="ajax click" data-toggle="modal" data-target="#createGallery"><i class="fa fa-pencil"></i> {_admin.gallery.edit}</a></li>
                                                 <li><a href="#"><i class="fa fa-upload"></i> {_admin.gallery.upload}</a></li>
                                                 <li><a n:href="delete! $gallery->idGallery, $gallery->lang"><i class="fa fa-times"></i> {_admin.gallery.delete}</a></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-
-                                <img src="{$basePath.'/'.$gallery->getImage()}" class="img-responsive center-block" >
+                                {var image = $gallery->getImage()}
+                                {if empty($image)}
+                                    <p class="text-danger">{_admin.gallery.notImages}</p>
+                                {else}
+                                    <img src="{$basePath.'/'.$galleryPath.$gallery->idGallery.'_'.$gallery->lang.'/'.$image}" class="img-responsive center-block" >
+                                {/if}
                                 <p>{$gallery->text}</p>
                                 <div class="row">
                                     <div class="col-md-4">{$gallery->date|date: 'd. m. Y H:i'}</div>

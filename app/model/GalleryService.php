@@ -25,11 +25,12 @@ class GalleryService{
     }
 
     /**
-     * @param string $gallery
+     * @param string $idGallery
+     * @param string $lang
      * @param FileUpload $image
      */
-    public function uploadImage($gallery, FileUpload $image){
-        $this->galleryRepository->upload($gallery, $image);
+    public function uploadImage($idGallery, $lang, FileUpload $image){
+        $this->galleryRepository->upload($idGallery, $lang, $image);
     }
 
     public function getGallery($idGallery, $lang){
@@ -57,5 +58,14 @@ class GalleryService{
      */
     public function delete($idGallery, $lang){
         $this->galleryRepository->deleteGallery($idGallery, $lang);
+    }
+
+    /**
+     * @param string $idGallery
+     * @param string $lang
+     * @param string $image
+     */
+    public function deleteImage($idGallery, $lang, $image){
+        $this->galleryRepository->deleteImage($idGallery, $lang, $image);
     }
 }

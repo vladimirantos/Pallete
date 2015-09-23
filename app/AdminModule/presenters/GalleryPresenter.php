@@ -1,8 +1,11 @@
 <?php
 namespace App\AdminModule\Presenters;
+use App\Model\Core\EntityExistsException;
+use App\Model\Core\FileNotFoundException;
 use App\Model\Entity\Gallery;
 use App\Model\GalleryService;
 use App\Model\Languages;
+use Asterix\Flash;
 use Asterix\Form\AsterixForm;
 use Asterix\Width;
 use Nette\Application\UI\Form;
@@ -25,8 +28,8 @@ class GalleryPresenter extends AdminPresenter {
         });
         //todo: Metoda getImages vrace pouze pole a ne callback?
         Gallery::extensionMethod('getImage', function(Gallery $gallery){
-            foreach($this->gallery->getImages($gallery->idGallery, $gallery->lang) as $path => $image)
-                return $path;
+            $images = array_values($this->gallery->getImages($gallery->idGallery, $gallery->lang));
+            return !empty($images) ? $images[0] : null;
         });
     }
 
@@ -34,6 +37,7 @@ class GalleryPresenter extends AdminPresenter {
         $this->title('admin.gallery.title', 'admin.gallery.subTitle');
         $this->navigation->addItem('admin.gallery.title', 'Gallery:');
         $this->template->galleries = $this->gallery->getAll();
+        $this->template->galleryPath = galleryPath;
     }
 
     public function renderDetail($idGallery, $lang){
@@ -44,6 +48,7 @@ class GalleryPresenter extends AdminPresenter {
 
         $this->navigation->addItem('admin.gallery.title', 'Gallery:');
         $this->template->gallery = $gallery;
+        $this->template->galleryPath = galleryPath.$gallery->idGallery.'_'.$gallery->lang;
     }
 
     protected function createComponentGalleryForm(){
@@ -54,7 +59,7 @@ class GalleryPresenter extends AdminPresenter {
         $form->addAText('name', 'admin.gallery.form.name', Width::WIDTH_8)
             ->setMaxLength(30)
             ->setRequired($this->translator->translate('admin.gallery.form.required', ['text' => '%label']));
-        $form->addATextArea('text', 'Popis', Width::WIDTH_8)->setAttribute('rows', 5);
+        $form->addATextArea('text', 'admin.gallery.form.description', Width::WIDTH_8)->setAttribute('rows', 5);
         $form->addAUpload('images', 'admin.gallery.form.image', null, true)->addCondition(Form::FILLED)->addRule(Form::IMAGE, 'admin.gallery.form.imageError');
         $form->addASubmit('send', 'admin.gallery.form.button');
         $form->onSuccess[] = $this->galleryFormSucceeded;
@@ -62,13 +67,51 @@ class GalleryPresenter extends AdminPresenter {
     }
 
     public function galleryFormSucceeded(AsterixForm $form, $values){
-        $this->gallery->save((array) $values);
-        $this->flashMessage('admin.gallery.form.success');
+        try{
+            $this->gallery->save((array) $values);
+            $this->flashMessage('admin.gallery.form.success');
+        }catch(EntityExistsException $ex){
+            $this->flashMessage($this->translator->trans('admin.gallery.exists', ['title' => $values->name]));
+        }
+        $this->redirect('this');
+    }
+
+    protected function createComponentUploadImagesForm(){
+        $form = AsterixForm::horizontalForm();
+        $form->setTranslator($this->translator);
+        $form->addAUpload('images', 'admin.gallery.form.image', null, true)->addCondition(Form::FILLED)->addRule(Form::IMAGE, 'admin.gallery.form.imageError');
+        $form->addASubmit('send', 'admin.gallery.form.button');
+        $form->onSuccess[] = $this->uploadImagesSucceeded;
+        return $form;
+    }
+
+    public function uploadImagesSucceeded(AsterixForm $form, $values){
+        foreach($values->images as $image){
+            $this->gallery->uploadImage($this->params['idGallery'], $this->params['lang'], $image);
+        }
+        $this->flashMessage('admin.gallery.form.imageSuccess');
+        $this->redirect('this');
     }
 
     public function handleDelete($idGallery, $lang){
         $this->gallery->delete($idGallery, $lang);
         $this->flashMessage('admin.gallery.deleteSuccess');
         $this->redirect('default');
+    }
+
+    public function handleEdit($idGallery, $lang){
+        $gallery = $this->gallery->getGallery($idGallery, $lang);
+        $this['galleryForm']->setDefaults($gallery->toArray());
+        $this->redrawControl('modalForm');
+    }
+
+    public function handleDeleteImage($image){
+        try{
+            $this->gallery->deleteImage($this->params['idGallery'], $this->params['lang'], $image);
+            $this->flashMessage('admin.gallery.imageDeleteSuccess');
+        }catch(FileNotFoundException $ex){
+            $this->flashMessage('admin.gallery.imageNotFound', Flash::ERROR);
+        }
+        $this->redirect('this');
     }
 }

@@ -13,4 +13,11 @@ class Entity extends SObject{
     public function __construct() {
 
     }
+
+    public function toArray(){
+        $data = [];
+        foreach($this as $k => $v)
+            $data[$k] = $v;
+        return $data;
+    }
 }

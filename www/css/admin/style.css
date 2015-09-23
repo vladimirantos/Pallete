@@ -182,6 +182,11 @@ thead td{
     padding-left: 2px;
     padding-right: 2px;
     margin-bottom: 20px;
+    float: left;
+    background: red;
+}
+.thumb {
+    margin-bottom: 30px;
 }
 /*.dropdown-menu li{*/
     /*padding-left: 20px;*/

@@ -36,8 +36,9 @@ class GalleryImageListerner implements Subscriber {
      */
     public function uploadImages($idGallery, $lang,array $images){
         FileSystem::createDir(galleryPath.$idGallery.'_'.$lang);
-        foreach($images as $image){
-            $this->gallery->upload($idGallery, $lang, $image);
-        }
+        if(!empty($images))
+            foreach($images as $image){
+                $this->gallery->upload($idGallery, $lang, $image);
+            }
     }
 }
