@@ -7,9 +7,9 @@
         {_admin.commons.date}: {$gallery->date|date:'d. m. Y H:i'}<br>
         ID: #{$gallery->idGallery} ({$gallery->lang|upper})<br>
         <div style="height: 15px"></div>
-        <a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#gallery"><i class="fa fa-pencil"></i> {_admin.gallery.edit}</a>
+        <a n:href="edit! $gallery->idGallery, $gallery->lang" class="btn btn-success btn-sm" data-toggle="modal" data-target="#gallery"><i class="fa fa-pencil"></i> {_admin.gallery.edit}</a>
         <a href="" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#upload"><i class="fa fa-upload"></i> {_admin.gallery.upload}</a>
-        <a href="" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> {_admin.gallery.delete}</a>
+        <a n:href="delete! $gallery->idGallery, $gallery->lang" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> {_admin.gallery.delete}</a>
         <div style="height: 15px"></div>
     </div>
 </div>
