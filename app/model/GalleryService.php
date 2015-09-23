@@ -44,6 +44,10 @@ class GalleryService{
         return $this->galleryRepository->findAll();
     }
 
+    public function getAllByLang($lang){
+        return $this->galleryRepository->findByLang($lang);
+    }
+
     public function getAllArticlesPair(){
         return $this->galleryRepository->findPairsByLang(Languages::CS);
     }

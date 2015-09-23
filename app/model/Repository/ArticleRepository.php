@@ -95,6 +95,10 @@ class ArticleRepository extends AbstractRepository {
         return $this->bindArray($this->articleMapper->findAll()->order('date DESC, title ASC, lang ASC')->fetchAll(), self::ENTITY);
     }
 
+    public function findByLang($lang){
+        return $this->bindArray($this->articleMapper->findBy(['lang' => $lang])->order('date DESC, title ASC')->fetchAll(), self::ENTITY);
+    }
+
     /**
      * @param string $lang
      * @return Entity

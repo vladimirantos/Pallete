@@ -11,7 +11,7 @@ class HomepagePresenter extends BasePresenter {
     public $article;
 
     public function renderNews() {
-        $this->template->news = $this->article->getAllArticles();
+        $this->template->news = $this->article->getAllArticlesByLang($this->locale);
     }
 
 }

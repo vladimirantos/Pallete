@@ -69,6 +69,10 @@ class ArticleService
         return $this->articleRepository->findAll();
     }
 
+    public function getAllArticlesByLang($lang){
+        return $this->articleRepository->findByLang($lang);
+    }
+
     public function getAllArticlesPair(){
         return $this->articleRepository->findPairsByLang(Languages::CS);
     }

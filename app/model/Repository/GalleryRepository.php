@@ -66,6 +66,10 @@ class GalleryRepository extends AbstractRepository {
         return $this->bindArray($this->galleryDatabaseMapper->findAll()->order('date DESC, name ASC')->fetchAll(), self::ENTITY);
     }
 
+    public function findByLang($lang){
+        return $this->bindArray($this->galleryDatabaseMapper->findBy(['lang' =>$lang])->order('name ASC, date DESC')->fetchAll(), self::ENTITY);
+    }
+
     /**
      * @param string $lang
      * @return Entity
