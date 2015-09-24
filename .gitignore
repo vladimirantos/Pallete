@@ -4,4 +4,4 @@ temp/*
 vendor/*
 nbproject/*
 www/data/*
-!vendor/others/Asterix
+!vendor/others/Asterix/*

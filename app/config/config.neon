@@ -59,7 +59,9 @@ services:
 	GalleryImageListener:
 		class: App\Model\GalleryImageListerner
 		tags: [kdyby.subscriber]
-
+	SendEmailListener:
+		class: App\Model\SendEmailListener
+		tags: [kdyby.subscriber]
 	router: App\RouterFactory::createRouter
 
 constants:
@@ -67,6 +69,7 @@ constants:
 	articleImagesPath: 'data\article_images\'#'\pallete\www\data\article_images\'
 	offerImagesPath: 'data\offer_images\'
 	galleryPath: 'data\gallery\'
+	adminEmail: 'admin@pallete.cz'
 extensions:
 	translation: Kdyby\Translation\DI\TranslationExtension
 

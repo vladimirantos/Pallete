@@ -11,7 +11,8 @@ class OfferPresenter extends BasePresenter {
     public $offer;
 
     public function renderDefault() {
-        $this->template->offers = $this->offer->getAllOffers();
+        $this->template->offers = $this->offer->getAllOffersByLang($this->locale);
+        $this->title('lang.offer.title');
     }
 
 }

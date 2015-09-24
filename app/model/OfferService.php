@@ -26,6 +26,10 @@ class OfferService {
         return $this->offerRepository->findAll();
     }
 
+    public function getAllOffersByLang($lang){
+        return $this->offerRepository->findAllByLang($lang);
+    }
+
     public function getAllOffersPair() {
         return $this->offerRepository->findPairsByLang(Languages::CS);
     }

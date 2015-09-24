@@ -20,3 +20,15 @@ gallery:
 news:
     title: 'Novinky'
     empty: 'Nejsou zde žádné novinky'
+contact:
+    title: 'Kontakt'
+    infoTitle: 'Informace pro velkoobchod'
+    form:
+        title: 'Kontaktujte nás'
+        name: 'Jméno a příjmení'
+        email: 'Email'
+        text: 'Váš dotaz'
+        button: 'Odeslat'
+        required: 'Nevyplnil jste pole %text'
+        emailFormat: 'Email má špatný formát'
+        success: 'Děkujeme za váš dotaz. Čekejte na odpověď.'

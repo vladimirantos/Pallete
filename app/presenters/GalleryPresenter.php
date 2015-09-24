@@ -27,6 +27,7 @@ class GalleryPresenter extends BasePresenter {
     public function renderDefault() {
         $this->template->galleries = $this->gallery->getAllByLang($this->locale );
         $this->template->galleryPath = galleryPath;
+        $this->title('lang.gallery.title');
     }
 
     public function renderDetail($id,$lang) {

@@ -8,7 +8,7 @@
     <head>
         <meta charset="utf-8">
 
-        <title>{ifset title}{include title|striptags} | {/ifset}Nette Sandbox</title>
+        <title>{ifset title}{include title|striptags}{else}{$title}{/ifset} | Pallete</title>
         <link rel="stylesheet" href="{$basePath}/fonts/font-awesome/css/font-awesome.min.css">
         <link href="{$basePath}/css/bootstrap.min.css" rel="stylesheet">
         <link href="{$basePath}/css/style.css" rel="stylesheet">
@@ -25,7 +25,6 @@
 
     <body>
         {include 'header.latte' }
-        <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
         {include content}
         {include 'footer.latte' }
         {block scripts}

@@ -138,4 +138,8 @@ class OfferRepository extends AbstractRepository {
         return parent::delete($by);
     }
 
+    public function findAllByLang($lang) {
+        return $this->bindArray($this->offerMapper->findBy(['lang' => $lang])->order('title ASC, date DESC')->fetchAll(), self::ENTITY);
+    }
+
 }
