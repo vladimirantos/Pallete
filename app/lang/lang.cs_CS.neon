@@ -32,3 +32,13 @@ contact:
         required: 'Nevyplnil jste pole %text'
         emailFormat: 'Email má špatný formát'
         success: 'Děkujeme za váš dotaz. Čekejte na odpověď.'
+footer:
+    imageTitle: 'Poslední přidané obrázky'
+    contact: 'Kontakt'
+menu:
+    item1: 'Domů'
+    item2: 'Nabídka'
+    item3: 'Novinky'
+    item4: 'Galerie'
+    item5: 'Kontakt'
+    language: 'Jazyk'
