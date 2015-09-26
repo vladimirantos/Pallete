@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Model\Entity;
+
 use Nette\Utils\DateTime;
 
 /**
@@ -152,8 +154,7 @@ class Article extends Entity {
     /**
      * @return string
      */
-    public function getKeywords()
-    {
+    public function getKeywords() {
         return $this->keywords;
     }
 
@@ -161,8 +162,7 @@ class Article extends Entity {
      * @param string $keywords
      * @return Article
      */
-    public function setKeywords($keywords)
-    {
+    public function setKeywords($keywords) {
         $this->keywords = $keywords;
         return $this;
     }
@@ -170,8 +170,7 @@ class Article extends Entity {
     /**
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -179,10 +178,16 @@ class Article extends Entity {
      * @param string $description
      * @return Article
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
         return $this;
+    }
+
+    public function toArray() {
+        $data = [];
+        foreach ($this as $k => $v)
+            $data[$k] = $v;
+        return $data;
     }
 
 }

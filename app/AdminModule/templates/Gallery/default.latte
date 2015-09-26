@@ -3,7 +3,7 @@
     <div class="btn-group col-sm-12">
         <div class="bs-example pull-right" data-example-id="single-button-dropdown">
             <div class="btn-group">
-                <button href="" class="btn pull-right btn-success btn-md" data-toggle="modal" data-target="#createGallery"><i class="fa fa-plus"></i> {_admin.gallery.buttons.create}</button>
+                <button href="" onclick="clearForm();" class="btn pull-right btn-success btn-md" data-toggle="modal" data-target="#createGallery"><i class="fa fa-plus"></i> {_admin.gallery.buttons.create}</button>
             </div>
             {*<div class="btn-group">*}
             {*<button href="" class="btn pull-right btn-warning btn-md"><i class="fa fa-pencil"></i> {_admin.article.buttons.edit}</button>*}
@@ -32,7 +32,12 @@
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                                 <li><a n:href="Gallery:detail, $gallery->idGallery, $gallery->lang"><i class="fa fa-folder-open"></i> {_admin.gallery.open}</a></li>
-                                                <li><a n:href="edit! $gallery->idGallery, $gallery->lang" class="ajax click" data-toggle="modal" data-target="#createGallery"><i class="fa fa-pencil"></i> {_admin.gallery.edit}</a></li>
+                                                <li><a href="" onclick="setFormDefaults([
+                                                    {$gallery->lang},
+                                                    {$gallery->name},
+                                                    {$gallery->text},
+                                                    {$gallery->idGallery}
+                                                ]);" data-toggle="modal" data-target="#createGallery"><i class="fa fa-pencil"></i> {_admin.gallery.edit}</a></li>
                                                 <li><a href="#"><i class="fa fa-upload"></i> {_admin.gallery.upload}</a></li>
                                                 <li><a n:href="delete! $gallery->idGallery, $gallery->lang"><i class="fa fa-times"></i> {_admin.gallery.delete}</a></li>
                                             </ul>
@@ -62,7 +67,7 @@
 
 <div class="modal fade" id="createGallery" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
     {*<div id="ajax"  class="modal-dialog modal-lg" role="document">*}
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         {*{form galleryForm class=>'ajax'}*}
         {form galleryForm}
             <div class="modal-content">
@@ -72,13 +77,13 @@
                 </div>
                 <div class="modal-body">
                     {*{snippet addModal}*}
-                        <div  n:foreach="$flashes as $flash" n:class="alert, alert-dismissible, $flash->type" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {if $flash->title}
-                                <strong>{$flash->title}</strong>
-                            {/if}
-                            {$flash->message|firstUpper}
-                        </div>
+                    <div  n:foreach="$flashes as $flash" n:class="alert, alert-dismissible, $flash->type" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {if $flash->title}
+                            <strong>{$flash->title}</strong>
+                        {/if}
+                        {$flash->message|firstUpper}
+                    </div>
                     {*{/snippet}*}
                     <div class="form-group">
                         {label translate class=>"col-sm-3 control-label"/}
@@ -114,6 +119,27 @@
                     {input send}
                 </div>
             </div>
+                {input idGallery id=>'idGallery'}
         {/form}
     </div>
 </div>
+{/block}        
+{block scripts}
+{include parent}
+<script type="text/javascript">
+    function clearForm() {
+        $('#frm-galleryForm-lang').val('cs');
+        $('#frm-galleryForm-name').attr('value', '');
+        $('#frm-galleryForm-text').text('');
+        $('#idGallery').attr('value', '');
+    }
+
+    function setFormDefaults(data) {
+        $('#modal').click();
+        $('#frm-galleryForm-lang').val(data[0]);
+        $('#frm-galleryForm-name').attr('value', data[1]);
+        $('#frm-galleryForm-text').text(data[2]);
+        $('#idGallery').attr('value', data[3]);
+    }
+</script>
+{/block} 

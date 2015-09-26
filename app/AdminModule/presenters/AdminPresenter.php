@@ -35,5 +35,6 @@ class AdminPresenter extends BasePresenter{
         $this->navigation = new NavigationCollection($this->translator);
         $this->template->navigation = $this->navigation;
         $this->template->systemName = systemName;
+        $this->template->author = $this->userEntity->getEmail();
     }
 }

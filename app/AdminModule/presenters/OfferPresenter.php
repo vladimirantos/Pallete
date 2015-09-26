@@ -59,7 +59,7 @@ class OfferPresenter extends AdminPresenter {
         $form->addAText('keywords', 'admin.offer.form.keywords')->setTooltip($this->translator->translate('admin.offer.form.keywordsHelp'));
         $form->addAText('description', 'admin.offer.form.description');
         $form->addHidden('author', $this->userEntity->email);
-        $form->addHidden('idOffer', null);
+        $form->addHidden('idOffer');
         $form->addASubmit('send', 'admin.offer.form.submit', ButtonTypes::PRIMARY);
         $form->getComponent('send')->getControlPrototype()->onclick('tinyMCE.triggerSave()');
         $form->onSuccess[] = $this->addOfferSucceeded;
@@ -68,8 +68,7 @@ class OfferPresenter extends AdminPresenter {
 
     public function addOfferSucceeded(AsterixForm $form, $values) {
         try {
-            if (!is_null($values->idOffer) && !empty($values->idOffer)) {
-                b($this->params);
+            if ($values->idOffer != null) {
                 $this->offer->edit((array) $values, $this->params['idOffer'], $this->params['lang']);
                 $this->flashMessage('admin.offer.form.success');
                 $idOffer = $values['translate'] != null ? $values->translate : $values->idOffer;

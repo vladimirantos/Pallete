@@ -7,7 +7,7 @@
         {_admin.commons.date}: {$gallery->date|date:'d. m. Y H:i'}<br>
         ID: #{$gallery->idGallery} ({$gallery->lang|upper})<br>
         <div style="height: 15px"></div>
-        <a n:href="edit! $gallery->idGallery, $gallery->lang" class="btn btn-success btn-sm" data-toggle="modal" data-target="#gallery"><i class="fa fa-pencil"></i> {_admin.gallery.edit}</a>
+        <a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#gallery"><i class="fa fa-pencil"></i> {_admin.gallery.edit}</a>
         <a href="" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#upload"><i class="fa fa-upload"></i> {_admin.gallery.upload}</a>
         <a n:href="delete! $gallery->idGallery, $gallery->lang" class="btn btn-danger btn-sm"><i class="fa fa-times"></i> {_admin.gallery.delete}</a>
         <div style="height: 15px"></div>
@@ -29,10 +29,9 @@
 
 <div class="modal fade" id="gallery" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
     {*<div id="ajax"  class="modal-dialog modal-lg" role="document">*}
-    {snippet modalForm}
     <div class="modal-dialog modal-lg" role="document" id="ajax">
         {*{form galleryForm class=>'ajax'}*}
-        {form galleryForm class=>'ajax'}
+        {form galleryForm}
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -84,41 +83,40 @@
             </div>
         {/form}
     </div>
-    {/snippet}
 </div>
 
 <div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
     {*<div id="ajax"  class="modal-dialog modal-lg" role="document">*}
-        <div class="modal-dialog modal-lg" role="document">
-            {*{form galleryForm class=>'ajax'}*}
-            {form uploadImagesForm}
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{_admin.gallery.form.uploadTitle, ['title' => $gallery->name]}</h4>
+    <div class="modal-dialog modal-lg" role="document">
+        {*{form galleryForm class=>'ajax'}*}
+        {form uploadImagesForm}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{_admin.gallery.form.uploadTitle, ['title' => $gallery->name]}</h4>
+                </div>
+                <div class="modal-body">
+                    {*{snippet addModal}*}
+                    <div  n:foreach="$flashes as $flash" n:class="alert, alert-dismissible, $flash->type" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        {if $flash->title}
+                            <strong>{$flash->title}</strong>
+                        {/if}
+                        {$flash->message|firstUpper}
                     </div>
-                    <div class="modal-body">
-                        {*{snippet addModal}*}
-                        <div  n:foreach="$flashes as $flash" n:class="alert, alert-dismissible, $flash->type" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            {if $flash->title}
-                                <strong>{$flash->title}</strong>
-                            {/if}
-                            {$flash->message|firstUpper}
-                        </div>
-                        {*{/snippet}*}
-                        <div class="form-group">
-                            {label images class=>"col-sm-3 control-label"/}
-                            {input images}
-                            <p class="help-block">{_admin.gallery.form.imageHelp}</p>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">{_admin.commons.modal.buttons.cancel}</button>
-                        {*<button type="button" class="btn btn-primary">{_admin.commons.modal.buttons.ok}</button>*}
-                        {input send}
+                    {*{/snippet}*}
+                    <div class="form-group">
+                        {label images class=>"col-sm-3 control-label"/}
+                        {input images}
+                        <p class="help-block">{_admin.gallery.form.imageHelp}</p>
                     </div>
                 </div>
-            {/form}
-        </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{_admin.commons.modal.buttons.cancel}</button>
+                    {*<button type="button" class="btn btn-primary">{_admin.commons.modal.buttons.ok}</button>*}
+                    {input send}
+                </div>
+            </div>
+        {/form}
+    </div>
 </div>

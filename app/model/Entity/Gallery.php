@@ -120,6 +120,12 @@ class Gallery extends Entity {
     public function toString() {
         return $this->name;
     }
+     public function toArray() {
+        $data = [];
+        foreach ($this as $k => $v)
+            $data[$k] = $v;
+        return $data;
+    }
 
 
 }

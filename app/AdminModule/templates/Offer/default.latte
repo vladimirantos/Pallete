@@ -3,7 +3,7 @@
     <div class="btn-group col-sm-12">
         <div class="bs-example pull-right" data-example-id="single-button-dropdown">
             <div class="btn-group">
-                <button href="" class="btn pull-right btn-success btn-md" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus"></i> {_admin.offer.buttons.add}</button>
+                <button href="" id="modal" onclick="clearForm({$author});" class="btn pull-right btn-success btn-md" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus"></i> {_admin.offer.buttons.add}</button>
             </div>
         </div>
     </div>
@@ -42,7 +42,15 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li><a n:href="Offer:detail, $item->idOffer, $item->lang"><i class="fa fa-info"></i> Detail</a></li>
-                                                <li><a href="#"><i class="fa fa-pencil"></i> Upravit</li>
+                                                <li><a onclick="setFormDefaults([
+                                                       {$item->lang},
+                                                       {$item->title},
+                                                       {$item->text},
+                                                       {$item->keywords},
+                                                       {$item->description},
+                                                       {$item->author},
+                                                       {$item->idOffer}
+                                                        ]);"><i class="fa fa-pencil"></i> Upravit</li>
                                                 <li><a n:href="delete!, $item->idOffer, $item->lang"><i class="fa fa-times"></i> Smazat</a></li>
                                             </ul>
                                         </div>
@@ -57,92 +65,122 @@
     </div>
 </div>
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
-    {snippet modalForm}
 
-        <div id="ajax"  class="modal-dialog modal-lg" role="document">
-            {form addOfferForm class=>'ajax' }
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">{_admin.offer.addModal.title}</h4>
+    <div id="ajax"  class="modal-dialog modal-lg" role="document">
+        {form addOfferForm}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{_admin.offer.addModal.title}</h4>
+                </div>
+                <div class="modal-body">
+                    {snippet addModal}
+                        <div  n:foreach="$flashes as $flash" n:class="alert, alert-dismissible, $flash->type" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {if $flash->title}
+                                <strong>{$flash->title}</strong>
+                            {/if}
+                            {$flash->message|firstUpper}
+                        </div>
+                    {/snippet}
+                    <div class="form-group">
+                        {label translate class=>"col-sm-3 control-label"/}
+                        {input translate}
                     </div>
-                    <div class="modal-body">
-                        {snippet addModal}
-                            <div  n:foreach="$flashes as $flash" n:class="alert, alert-dismissible, $flash->type" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                {if $flash->title}
-                                    <strong>{$flash->title}</strong>
-                                {/if}
-                                {$flash->message|firstUpper}
-                            </div>
-                        {/snippet}
-                        <div class="form-group">
-                            {label translate class=>"col-sm-3 control-label"/}
-                            {input translate}
-                        </div>
-                        <div class="form-group">
-                            {label lang class=>"col-sm-3 control-label"/}
-                            {input lang}
-                        </div>
-                        <div class="form-group">
-                            {label title class=>"col-sm-3 control-label"/}
-                            {input title}
-                        </div>
-                        <div class="form-group">
-                            {label text class=>"col-sm-3 control-label"/}
-                            {input text rows=>"10"}
-                        </div>
-                        <div class="form-group">
-                            {label image class=>"col-sm-3 control-label"/}
-                            {input image}
-                        </div>
-                        <hr class="separator">
-                        <div class="row row-centered">
-                            <div class="col-xs-9 col-centered">
-                                <h4>{_admin.offer.form.htmlTitle}</h4>
-                            </div>
-                            <div class="form-group">
-                                {label keywords class=>"col-sm-3 control-label"/}
-                                {input keywords rows=>"10"}
-                            </div>
-                            <div class="form-group">
-                                {label description class=>"col-sm-3 control-label"/}
-                                {input description rows=>"10"}
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        {label lang class=>"col-sm-3 control-label"/}
+                        {input lang}
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">{_admin.commons.modal.buttons.cancel}</button>
-                        {*<button type="button" class="btn btn-primary">{_admin.commons.modal.buttons.ok}</button>*}
-                        {input send}
+                    <div class="form-group">
+                        {label title class=>"col-sm-3 control-label"/}
+                        {input title}
+                    </div>
+                    <div class="form-group">
+                        {label text class=>"col-sm-3 control-label"/}
+                        {input text rows=>"10"}
+                    </div>
+                    <div class="form-group">
+                        {label image class=>"col-sm-3 control-label"/}
+                        {input image}
+                    </div>
+                    <hr class="separator">
+                    <div class="row row-centered">
+                        <div class="col-xs-9 col-centered">
+                            <h4>{_admin.offer.form.htmlTitle}</h4>
+                        </div>
+                        <div class="form-group">
+                            {label keywords class=>"col-sm-3 control-label"/}
+                            {input keywords rows=>"10"}
+                        </div>
+                        <div class="form-group">
+                            {label description class=>"col-sm-3 control-label"/}
+                            {input description rows=>"10"}
+                        </div>
                     </div>
                 </div>
-            {/form}
-            <script type="text/javascript" src="{$basePath}/js/tinymce/tinymce.min.js"></script>
-            <script type="text/javascript">
-                tinymce.init({
-                    selector: "textarea",
-                    theme: "modern",
-                    plugins: [
-                        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-                        "searchreplace wordcount visualblocks visualchars code fullscreen",
-                        "insertdatetime media nonbreaking save table contextmenu directionality",
-                        "emoticons template paste textcolor colorpicker textpattern imagetools"
-                    ],
-                    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-                    toolbar2: "print preview media | forecolor backcolor emoticons",
-                    image_advtab: true,
-                    templates: [
-                        {
-                            title: 'Test template 1', content: 'Test 1'
-                        },
-                        {
-                            title: 'Test template 2', content: 'Test 2'
-                        }
-                    ]
-                });
-            </script>
-        </div>
-    {/snippet}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{_admin.commons.modal.buttons.cancel}</button>
+                    {*<button type="button" class="btn btn-primary">{_admin.commons.modal.buttons.ok}</button>*}
+                    {input send}
+                </div>
+            </div>
+            {input author id=>'author'}
+            {input idOffer id=>'idOffer'}
+        {/form}
+        <script type="text/javascript" src="{$basePath}/js/tinymce/tinymce.min.js"></script>
+        <script type="text/javascript">
+            tinymce.init({
+                selector: "textarea",
+                theme: "modern",
+                plugins: [
+                    "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+                    "searchreplace wordcount visualblocks visualchars code fullscreen",
+                    "insertdatetime media nonbreaking save table contextmenu directionality",
+                    "emoticons template paste textcolor colorpicker textpattern imagetools"
+                ],
+                toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+                toolbar2: "print preview media | forecolor backcolor emoticons",
+                image_advtab: true,
+                templates: [
+                    {
+                        title: 'Test template 1', content: 'Test 1'
+                    },
+                    {
+                        title: 'Test template 2', content: 'Test 2'
+                    }
+                ]
+            });
+        </script>
+    </div>
 </div>
 
+{/block}        
+{block scripts}
+{include parent}
+<script type="text/javascript">
+    function clearForm(author) {
+        $('#frm-addOfferForm-lang').val('');
+        $('#frm-addOfferForm-title').attr('value', '');
+        $('#frm-addOfferForm-text').text('');
+        tinyMCE.activeEditor.setContent('');
+
+        $('#frm-addOfferForm-keywords').attr('value', '');
+        $('#frm-addOfferForm-description').attr('value', '');
+        $('#author').attr('value', author);
+        $('#idOffer').attr('value', '');
+    }
+
+    function setFormDefaults(data) {
+        $('#modal').click();
+        $('#frm-addOfferForm-lang').val(data[0]);
+        $('#frm-addOfferForm-title').attr('value', data[1]);
+        $('#frm-addOfferForm-text').text(data[2]);
+        tinyMCE.activeEditor.setContent(data[2]);
+
+        $('#frm-addOfferForm-keywords').attr('value', data[3]);
+        $('#frm-addOfferForm-description').attr('value', data[4]);
+        $('#author').attr('value', data[5]);
+        $('#idOffer').attr('value', data[6]);
+    }
+</script>
+{/block} 

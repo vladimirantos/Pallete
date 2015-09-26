@@ -52,18 +52,40 @@ class ArticlePresenter extends AdminPresenter {
 
     protected function createComponentAddArticleForm() {
         $form = AsterixForm::horizontalForm();
+
         $form->setTranslator($this->translator);
-        $form->addASelect('translate', 'admin.article.form.translate', $this->article->getAllArticlesPair())->setPrompt('');
-        $form->addASelect('lang', 'admin.article.form.language', Languages::toArray())->setIconBefore('fa-language');
-        $form->addAText('title', 'admin.article.form.title', Width::WIDTH_8)->setRequired($this->translator->translate('admin.article.form.required', ['text' => '%label']))->setMaxLength(80);
-        $form->addATextArea('text', 'admin.article.form.text', Width::WIDTH_8)->setAttribute('rows', 10);
-        $form->addAButtonUpload('image', 'admin.article.form.image', Width::WIDTH_8)->addCondition(Form::FILLED)->addRule(Form::IMAGE, 'admin.article.form.imageError');
-        $form->addAText('keywords', 'admin.article.form.keywords')->setTooltip($this->translator->translate('admin.article.form.keywordsHelp'));
+
+        $form->addASelect('translate', 'admin.article.form.translate', $this->article->getAllArticlesPair())
+                ->setPrompt('');
+
+        $form->addASelect('lang', 'admin.article.form.language', Languages::toArray())
+                ->setIconBefore('fa-language');
+
+        $form->addAText('title', 'admin.article.form.title', Width::WIDTH_8)
+                ->setRequired($this->translator->translate('admin.article.form.required', ['text' => '%label']))
+                ->setMaxLength(80);
+
+        $form->addATextArea('text', 'admin.article.form.text', Width::WIDTH_8)
+                ->setAttribute('rows', 10);
+
+        $form->addAButtonUpload('image', 'admin.article.form.image', Width::WIDTH_8)->addCondition(Form::FILLED)
+                ->addRule(Form::IMAGE, 'admin.article.form.imageError');
+
+        $form->addAText('keywords', 'admin.article.form.keywords')
+                ->setTooltip($this->translator->translate('admin.article.form.keywordsHelp'));
+
         $form->addAText('description', 'admin.article.form.description');
+
         $form->addHidden('author', $this->userEntity->email);
+
         $form->addHidden('idArticle', null);
+
         $form->addASubmit('send', 'admin.article.form.submit', ButtonTypes::PRIMARY);
-        $form->getComponent('send')->getControlPrototype()->onclick('tinyMCE.triggerSave()');
+
+        $form->getComponent('send')
+                ->getControlPrototype()
+                ->onclick('tinyMCE.triggerSave()');
+
         $form->onSuccess[] = $this->addArticleSucceeded;
         return $form;
     }
@@ -93,15 +115,6 @@ class ArticlePresenter extends AdminPresenter {
         $this->article->delete($id, $lang);
         $this->flashMessage('admin.article.delete');
         $this->redirect('this');
-    }
-
-    public function handleNewArticle() {
-        $this->redrawControl('modalForm');
-    }
-    public function handleEditArticle($id,$lang) {
-        $data = $this->article->getArticle($id, $lang);
-        $this['addArticleForm']->setDefaults($data->toArray());
-        $this->redrawControl('modalForm');
     }
 
 }
