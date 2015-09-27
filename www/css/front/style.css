@@ -167,10 +167,15 @@ a:visited{
     max-height: 200px;
     margin: 0 auto;
 }
+.min li{
+    display: inline;
+}
 .min li a{
+    display: inline;
     font-family: title;
     text-transform: uppercase;
     font-weight: bold;
+    padding: 50px;
     padding-top: 10px;
     padding-bottom: 10px;
     color: #731622;
@@ -199,6 +204,14 @@ a.back{
     display: inline;
     max-width: 100%;
     max-height: 150px;
+}
+
+.input-group{
+    width: 98%;
+}
+.input-group input,.input-group textarea{
+    max-width: 100%;
+    width: 100%;
 }
 
 @media (min-width: 768px) {    
@@ -357,9 +370,7 @@ a.back{
         border-radius: 0;
     }
 
-    .footer >*{
-        height: 250px;
-    }
+
     .right{
         text-align: right;
     }
@@ -474,12 +485,21 @@ a.back{
         border-bottom: 2px solid #9d9d9d;
         box-shadow: white 0px 5px 20px;
     }
-
-    .footer >*{
-        height: 200px;
+    .min li{
+        display: block;
+        margin-top: 10px;
     }
-
+    .min li a{
+        font-family: title;
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: 50px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: #731622;
+        font-size: 14pt;
+    }
     .foot{
-        text-align: center;
+        display:none;
     }
 }
