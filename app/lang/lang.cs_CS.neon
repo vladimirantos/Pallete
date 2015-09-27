@@ -1,5 +1,7 @@
 commons:
     currency: 'Kč'
+    back: 'Zpět'
+    more: 'Více'
 login:
     title: 'Přihlášení do systému'
     email: 'Email'
@@ -17,6 +19,7 @@ offer:
 gallery:
     title: 'Seznam galerií'
     empty: 'Žádná galerie k zobrazení.'
+    notImages: 'Omlouváme se, ale v této galerii momentálně není žádný obrázek.'
 news:
     title: 'Novinky'
     empty: 'Nejsou zde žádné novinky'

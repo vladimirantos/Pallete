@@ -6,7 +6,6 @@ use Nette;
 use App\Model;
 use App\Model\Entity\Gallery;
 
-
 class GalleryPresenter extends BasePresenter {
 
     /** @var Model\GalleryService @inject */
@@ -22,15 +21,19 @@ class GalleryPresenter extends BasePresenter {
             foreach ($this->gallery->getImages($gallery->idGallery, $gallery->lang) as $path => $image)
                 return $path;
         });
+        $this->setActive('Galerie');
     }
 
     public function renderDefault() {
-        $this->template->galleries = $this->gallery->getAllByLang($this->locale );
+        $this->template->galleries = $this->gallery->getAllByLang($this->locale);
         $this->template->galleryPath = galleryPath;
         $this->title('lang.gallery.title');
     }
 
-    public function renderDetail($id,$lang) {
+    public function renderDetail($id) {
+        $gallery = $this->gallery->getGallery($id, $this->translator->getLocale());
+        $this->template->galleryPath = galleryPath . $gallery->idGallery . '_' . $gallery->lang;
+        $this->template->gallery = $gallery;
     }
-    
+
 }

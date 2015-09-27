@@ -16,7 +16,7 @@
             <div class="text">    
                 {$item->text|truncate:160|noescape}
             </div>
-            <a class="btn" >Více</a>
+            <a class="btn" n:href="Offer:detail $item->idOffer">{_lang.commons.more}</a>
         </article>
     {/foreach}
     {/if}

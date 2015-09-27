@@ -41,8 +41,8 @@ class OfferService {
      * @return Offer
      * @throws NotFoundException
      */
-    public function getOffer($title, $lang) {
-        return $this->offerRepository->find($title, $lang);
+    public function getOffer($idOffer, $lang) {
+        return $this->offerRepository->find($idOffer, $lang);
     }
 
     /**

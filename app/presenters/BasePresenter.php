@@ -6,7 +6,6 @@ use Asterix\Flash;
 use Nette;
 use App\Model;
 
-
 /**
  * Base presenter for all application presenters.
  */
@@ -18,6 +17,18 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter {
     /** @var \Kdyby\Translation\Translator @inject */
     public $translator;
 
+    /**
+     *  Pole pro nastavení aktivního prveku menu
+     * @var String array 
+     */
+    private $active = array(
+        'Domů' => '',
+        'Nabídka' => '',
+        'Novinky' => '',
+        'Galerie' => '',
+        'Kontakt' => '',
+    );
+
     public function startup() {
         parent::startup();
         $this->template->title = null;
@@ -28,13 +39,18 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter {
         $this->template->setTranslator($this->translator);
     }
 
+    public function afterRender() {
+        parent::afterRender();
+        $this->template->active = $this->active;
+    }
+
     /**
      * @param string $message
      * @param string $type
      * @param string $title
      * @return \stdClass
      */
-    public function flashMessage($message, $type = Flash::SUCCESS, $title = ''){
+    public function flashMessage($message, $type = Flash::SUCCESS, $title = '') {
         $message = $this->translator->translate($message, null, ['AHOJ']);
         $flash = parent::flashMessage($message, $type);
         switch ($type) {
@@ -61,7 +77,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter {
      * @param string $subtitle
      * @return BasePresenter
      */
-    protected function title($title, $subtitle = null){
+    protected function title($title, $subtitle = null) {
         $this->template->title = $this->translator->translate($title);
         $this->template->subtitle = $this->translator->translate($subtitle);
         return $this;
@@ -78,4 +94,13 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter {
         $this->translator->setLocale($locale);
         $this->redirect('this');
     }
+
+    /**
+     * funkce pro nastavení aktivního prvku menu
+     * @param String $arrayKey [Domů|Nabídka|Novinky|Galerie|Kontakt]
+     */
+    public function setActive($arrayKey) {
+        $this->active[$arrayKey] = 'active';
+    }
+
 }

@@ -1,3 +1,36 @@
 {* Latte template *}
 
 {block content}
+
+
+<div style="max-width: 1000px;margin: auto;padding: 20px;">
+    <h2>{$gallery->name}</h2>
+    <p>
+        {$gallery->text}
+    </p>
+
+    <div class="row thumb">
+        {var images = $gallery->getImages() }
+        {if empty($images)}
+            <p class="text-danger" style="text-align: center;font-weight: bold;font-size: 20pt;">{_lang.gallery.notImages}</p>
+        {else}
+            {foreach $images as $image}
+
+                <a class="fancybox" rel="gallery1" href="{$basePath}/{$galleryPath}/{$image}" title="">
+                    <img src="{$basePath}/{$galleryPath}/{$image}" alt="" />
+                </a>
+            {/foreach}
+        {/if}
+    </div>
+</div>
+{/block}
+{block scripts}
+{include parent}
+
+<script>
+    $(".fancybox").fancybox({
+        openEffect: 'none',
+        closeEffect: 'none'
+    });
+</script>
+{/block}

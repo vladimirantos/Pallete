@@ -15,16 +15,22 @@ class HomepagePresenter extends BasePresenter {
     /** @var array */
     public $onSendEmail = [];
 
+    public function renderDefault() {
+        $this->setActive('Domů');
+    }
+
     public function renderNews() {
         $this->template->news = $this->article->getAllArticlesByLang($this->locale);
         $this->title('lang.news.title');
+        $this->setActive('Novinky');
     }
 
-    public function renderContact(){
+    public function renderContact() {
         $this->title('lang.contact.title');
+        $this->setActive('Kontakt');
     }
 
-    protected function createComponentContactForm(){
+    protected function createComponentContactForm() {
         $form = AsterixForm::horizontalForm();
         $form->setTranslator($this->translator);
         $form->getElementPrototype()->class = null;
@@ -36,9 +42,10 @@ class HomepagePresenter extends BasePresenter {
         return $form;
     }
 
-    public function contactSucceeded(AsterixForm $form, $values){
+    public function contactSucceeded(AsterixForm $form, $values) {
         $this->onSendEmail($values->name, $values->email, $values->text);
         $this->flashMessage('lang.contact.form.success');
         $this->redirect('this');
     }
+
 }

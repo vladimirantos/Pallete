@@ -188,6 +188,10 @@ thead td{
 .thumb {
     margin-bottom: 30px;
 }
+.thumb img{
+    max-height: 200px;
+    max-width: 100%;
+}
 /*.dropdown-menu li{*/
     /*padding-left: 20px;*/
 /*}*/
