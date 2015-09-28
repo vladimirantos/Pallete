@@ -93,7 +93,6 @@ class ArticlePresenter extends AdminPresenter {
     public function addArticleSucceeded(AsterixForm $form, $values) {
         try {
             if ($values->idArticle != null) {
-                b($this->params);
                 $this->article->edit((array) $values, $this->params['idArticle'], $this->params['lang']);
                 $this->flashMessage('admin.article.form.success');
                 $idArticle = $values['translate'] != null ? $values['translate'] : $values['idArticle'];

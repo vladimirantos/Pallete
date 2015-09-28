@@ -23,6 +23,9 @@ class GalleryPresenter extends AdminPresenter {
     /** @var GalleryService @inject */
     public $gallery;
 
+    /** @var string */
+    private $lang = 'cs';
+
     public function startup() {
         parent::startup();
         Gallery::extensionMethod('getImages', function(Gallery $gallery) {
@@ -51,36 +54,41 @@ class GalleryPresenter extends AdminPresenter {
         $this->navigation->addItem('admin.gallery.title', 'Gallery:');
         $this->template->gallery = $gallery;
         $this->template->galleryPath = galleryPath . $gallery->idGallery . '_' . $gallery->lang;
+        $this->lang = $gallery->lang;
         $this['galleryForm']->setDefaults($gallery->toArray());
     }
 
     protected function createComponentGalleryForm() {
         $form = AsterixForm::horizontalForm();
         $form->setTranslator($this->translator);
-        $form->addASelect('translate', 'admin.gallery.form.translate', $this->gallery->getAllArticlesPair())->setPrompt('');
-        $form->addASelect('lang', 'admin.gallery.form.language', Languages::toArray())->setIconBefore('fa-language');
+        $form->addASelect('translate', 'admin.gallery.form.translate', $this->gallery->getAllGalleryPair())->setPrompt('');
+        $form->addASelect('language', 'admin.gallery.form.language', Languages::toArray())->setIconBefore('fa-language')->setDefaultValue($this->lang);
         $form->addAText('name', 'admin.gallery.form.name', Width::WIDTH_8)
                 ->setMaxLength(30)
                 ->setRequired($this->translator->translate('admin.gallery.form.required', ['text' => '%label']));
         $form->addATextArea('text', 'admin.gallery.form.description', Width::WIDTH_8)->setAttribute('rows', 5);
         $form->addAUpload('images', 'admin.gallery.form.image', null, true)->addCondition(Form::FILLED)->addRule(Form::IMAGE, 'admin.gallery.form.imageError');
         $form->addHidden("idGallery");
+        $form->addHidden('lang');
         $form->addASubmit('send', 'admin.gallery.form.button');
         $form->onSuccess[] = $this->galleryFormSucceeded;
+        $form->onError[] = $this->galleryFormSucceeded;
         return $form;
     }
 
-    public function galleryFormSucceeded(AsterixForm $form, $values) {
+    public function galleryFormSucceeded(AsterixForm $form, $values = null) {
         try {
             if (empty($values->idGallery)) {
                 $this->gallery->save((array) $values);
                 $this->flashMessage('admin.gallery.form.success');
             } else {
-                $this->gallery->edit((array) $values);
-                $this->flashMessage('admin.gallery.form.success');
+                $this->gallery->edit((array) $values, $this->params['idGallery'], $this->params['lang']);
+                $idGallery = $values['translate'] != null ? $values['translate'] : $values['idGallery'];
+                $this->redirect('this', ['idGallery' => $idGallery, 'lang' => $values['language']]);
+                $this->flashMessage('admin.gallery.form.editSuccess');
             }
         } catch (EntityExistsException $ex) {
-            $this->flashMessage($this->translator->trans('admin.gallery.exists', ['title' => $values->name]));
+            $this->flashMessage($this->translator->trans('admin.gallery.exists', ['title' => $values->name]), Flash::ERROR);
         }
         $this->redirect('this');
     }

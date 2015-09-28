@@ -28,9 +28,7 @@
 </div>
 
 <div class="modal fade" id="gallery" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
-    {*<div id="ajax"  class="modal-dialog modal-lg" role="document">*}
-    <div class="modal-dialog modal-lg" role="document" id="ajax">
-        {*{form galleryForm class=>'ajax'}*}
+    <div class="modal-dialog modal-lg" role="document">
         {form galleryForm}
             <div class="modal-content">
                 <div class="modal-header">
@@ -38,7 +36,6 @@
                     <h4 class="modal-title" id="myModalLabel">{_admin.gallery.form.editTitle}</h4>
                 </div>
                 <div class="modal-body">
-                    {*{snippet addModal}*}
                     <div  n:foreach="$flashes as $flash" n:class="alert, alert-dismissible, $flash->type" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         {if $flash->title}
@@ -46,15 +43,14 @@
                         {/if}
                         {$flash->message|firstUpper}
                     </div>
-                    {*{/snippet}*}
                     <div class="form-group">
                         {label translate class=>"col-sm-3 control-label"/}
                         {input translate}
-                        <p class="help-block">{_admin.gallery.form.help}</p>
+                        {*<p class="help-block">{_admin.gallery.form.help}</p>*}
                     </div>
                     <div class="form-group">
-                        {label lang class=>"col-sm-3 control-label"/}
-                        {input lang}
+                        {label language class=>"col-sm-3 control-label"/}
+                        {input language}
                     </div>
                     <div class="form-group">
                         {label name class=>"col-sm-3 control-label"/}
@@ -77,7 +73,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">{_admin.commons.modal.buttons.cancel}</button>
-                    {*<button type="button" class="btn btn-primary">{_admin.commons.modal.buttons.ok}</button>*}
                     {input send}
                 </div>
             </div>

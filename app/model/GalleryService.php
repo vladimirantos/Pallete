@@ -24,6 +24,10 @@ class GalleryService{
         $this->galleryRepository->insert($data);
     }
 
+    public function edit(array $data, $idGallery, $lang){
+        $this->galleryRepository->edit($data, $idGallery, $lang);
+    }
+
     /**
      * @param string $idGallery
      * @param string $lang
@@ -48,7 +52,7 @@ class GalleryService{
         return $this->galleryRepository->findByLang($lang);
     }
 
-    public function getAllArticlesPair(){
+    public function getAllGalleryPair(){
         return $this->galleryRepository->findPairsByLang(Languages::CS);
     }
 

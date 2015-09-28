@@ -96,6 +96,7 @@ gallery:
     image: 'Nahrát obrázky'
     imageError: 'Soubor musí být obrázek ve formátu JPEG, GIF nebo PNG'
     success: 'Galerie byla úspěšně vytvořena.'
+    editSuccess: 'Galerie byla úspěšně upravena.'
     imageSuccess: 'Obrázky byly úspěšně nahrány'
   delete: 'Odstranit'
   edit: 'Upravit'
