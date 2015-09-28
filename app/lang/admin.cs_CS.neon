@@ -15,6 +15,7 @@ menu:
     item3: 'Nabídka'
     item4: 'Galerie'
     item5: 'Nastavení'
+    item6: 'Zobrazit web'
 footer:
     about: 'O systému'
     doc: 'Dokumentace'
