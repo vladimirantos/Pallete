@@ -70,17 +70,16 @@
 
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
 
-    {*<div id="ajax"  class="modal-dialog modal-lg" role="document">*}
-    <div class="modal-dialog modal-lg" role="document">
-        {*{form addArticleForm class=>'ajax'}*}
-    {form addArticleForm}
+    <div id="ajax"  class="modal-dialog modal-lg" role="document">
+        {*<div class="modal-dialog modal-lg" role="document">*}
+        {form addArticleForm}
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">{_admin.article.addModal.title}</h4>
                 </div>
                 <div class="modal-body">
-                    {*{snippet addModal}*}
+                    {snippet addModal}
                         <div  n:foreach="$flashes as $flash" n:class="alert, alert-dismissible, $flash->type" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             {if $flash->title}
@@ -88,7 +87,7 @@
                             {/if}
                             {$flash->message|firstUpper}
                         </div>
-                    {*{/snippet}*}
+                    {/snippet}
                     {*{control addArticleForm}*}
                     <div class="form-group">
                         {label translate class=>"col-sm-3 control-label"/}
@@ -133,6 +132,7 @@
             </div>
             {input author id=>'author'}
             {input idArticle id=>'idArticle'}
+            {input lang id=>'lang'}
         {/form}
 
     </div>
@@ -165,24 +165,27 @@
 {include parent}
 <script type="text/javascript">
     function clearForm(author) {
-        $('#frm-addArticleForm-lang').val('cs');
-        $('#frm-addArticleForm-title').attr('value','');
+        $('#frm-addArticleForm-language').val('cs');
+        $('#frm-addArticleForm-title').attr('value', '');
         $('#frm-addArticleForm-text').text('');
         tinyMCE.activeEditor.setContent('');
-        $('#frm-addArticleForm-description').attr('value','');
-        $('#author').attr('value',author);
-        $('#idArticle').attr('value','');
+        $('#frm-addArticleForm-description').attr('value', '');
+        $('#author').attr('value', author);
+        $('#idArticle').attr('value', '');
+        $('#lang').attr('value', '');
+
     }
 
     function setFormDefaults(data) {
         $('#modal').click();
-        $('#frm-addArticleForm-lang').val(data[0]);
-        $('#frm-addArticleForm-title').attr('value',data[1]);
+        $('#frm-addArticleForm-language').val(data[0]);
+        $('#frm-addArticleForm-title').attr('value', data[1]);
         $('#frm-addArticleForm-text').text(data[2]);
         tinyMCE.activeEditor.setContent(data[2]);
-        $('#frm-addArticleForm-description').attr('value',data[4]);
-        $('#author').attr('value',data[5]);
-        $('#idArticle').attr('value',data[6]);
+        $('#frm-addArticleForm-description').attr('value', data[4]);
+        $('#author').attr('value', data[5]);
+        $('#idArticle').attr('value', data[6]);
+        $('#lang').attr('value', data[0]);
     }
 </script>
 {/block}        

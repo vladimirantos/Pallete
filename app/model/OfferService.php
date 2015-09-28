@@ -26,7 +26,7 @@ class OfferService {
         return $this->offerRepository->findAll();
     }
 
-    public function getAllOffersByLang($lang){
+    public function getAllOffersByLang($lang) {
         return $this->offerRepository->findAllByLang($lang);
     }
 
@@ -55,6 +55,7 @@ class OfferService {
 
     public function edit(array $data, $idOffer, $lang) {
         unset($data['idOffer']);
+        unset($data['language']);
         return $this->offerRepository->update($data, ['idOffer' => $idOffer, 'lang' => $lang]);
     }
 

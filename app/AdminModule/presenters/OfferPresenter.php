@@ -45,6 +45,7 @@ class OfferPresenter extends AdminPresenter {
         $this->navigation->addItem('admin.offer.title', 'Offer:');
         $data = $offer->toArray();
         $data['idOffer'] = $offer->idOffer;
+        $data['language'] = $offer->lang;
         $this['addOfferForm']->setDefaults($data);
     }
 
@@ -60,6 +61,7 @@ class OfferPresenter extends AdminPresenter {
         $form->addAText('description', 'admin.offer.form.description');
         $form->addHidden('author', $this->userEntity->email);
         $form->addHidden('idOffer');
+        $form->addHidden('language');
         $form->addASubmit('send', 'admin.offer.form.submit', ButtonTypes::PRIMARY);
         $form->getComponent('send')->getControlPrototype()->onclick('tinyMCE.triggerSave()');
         $form->onSuccess[] = $this->addOfferSucceeded;
@@ -69,7 +71,7 @@ class OfferPresenter extends AdminPresenter {
     public function addOfferSucceeded(AsterixForm $form, $values) {
         try {
             if ($values->idOffer != null) {
-                $this->offer->edit((array) $values, $this->params['idOffer'], $this->params['lang']);
+                $this->offer->edit((array) $values, $values->idOffer, $values->language);
                 $this->flashMessage('admin.offer.form.success');
                 $idOffer = $values['translate'] != null ? $values->translate : $values->idOffer;
                 $this->redirect('this', ['idOffer' => $idOffer, 'lang' => $values['lang']]);

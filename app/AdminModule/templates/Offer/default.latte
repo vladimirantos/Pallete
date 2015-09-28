@@ -126,6 +126,7 @@
             </div>
             {input author id=>'author'}
             {input idOffer id=>'idOffer'}
+            {input language id=>'language'}
         {/form}
         <script type="text/javascript" src="{$basePath}/js/tinymce/tinymce.min.js"></script>
         <script type="text/javascript">
@@ -163,11 +164,11 @@
         $('#frm-addOfferForm-title').attr('value', '');
         $('#frm-addOfferForm-text').text('');
         tinyMCE.activeEditor.setContent('');
-
         $('#frm-addOfferForm-keywords').attr('value', '');
         $('#frm-addOfferForm-description').attr('value', '');
         $('#author').attr('value', author);
         $('#idOffer').attr('value', '');
+        $('#language').attr('value', '');
     }
 
     function setFormDefaults(data) {
@@ -176,11 +177,12 @@
         $('#frm-addOfferForm-title').attr('value', data[1]);
         $('#frm-addOfferForm-text').text(data[2]);
         tinyMCE.activeEditor.setContent(data[2]);
-
         $('#frm-addOfferForm-keywords').attr('value', data[3]);
         $('#frm-addOfferForm-description').attr('value', data[4]);
         $('#author').attr('value', data[5]);
         $('#idOffer').attr('value', data[6]);
+        $('#language').attr('value', data[0]);
+
     }
 </script>
 {/block} 
