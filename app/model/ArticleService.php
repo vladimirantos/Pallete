@@ -40,7 +40,7 @@ class ArticleService
     }
 
     public function edit(array $data, $idArticle, $lang){
-        return $this->articleRepository->update($data, ['idArticle' => $data['idArticle'], 'lang' => $lang]);
+        return $this->articleRepository->edit($data, $idArticle, $lang);
     }
 
     /**

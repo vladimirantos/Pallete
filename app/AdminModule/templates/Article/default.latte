@@ -70,15 +70,17 @@
 
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel">
 
-    <div id="ajax"  class="modal-dialog modal-lg" role="document">
-        {form addArticleForm class=>'ajax'}
+    {*<div id="ajax"  class="modal-dialog modal-lg" role="document">*}
+    <div class="modal-dialog modal-lg" role="document">
+        {*{form addArticleForm class=>'ajax'}*}
+    {form addArticleForm}
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">{_admin.article.addModal.title}</h4>
                 </div>
                 <div class="modal-body">
-                    {snippet addModal}
+                    {*{snippet addModal}*}
                         <div  n:foreach="$flashes as $flash" n:class="alert, alert-dismissible, $flash->type" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             {if $flash->title}
@@ -86,15 +88,15 @@
                             {/if}
                             {$flash->message|firstUpper}
                         </div>
-                    {/snippet}
+                    {*{/snippet}*}
                     {*{control addArticleForm}*}
                     <div class="form-group">
                         {label translate class=>"col-sm-3 control-label"/}
                         {input translate}
                     </div>
                     <div class="form-group">
-                        {label lang class=>"col-sm-3 control-label"/}
-                        {input lang value=>'',}
+                        {label language class=>"col-sm-3 control-label"/}
+                        {input language value=>'',}
                     </div>
                     <div class="form-group">
                         {label title class=>"col-sm-3 control-label"/}

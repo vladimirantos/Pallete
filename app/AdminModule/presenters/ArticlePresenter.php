@@ -23,6 +23,9 @@ class ArticlePresenter extends AdminPresenter {
     /** @var ArticleService @inject */
     public $article;
 
+    /** @var string */
+    private $lang;
+
     public function startup() {
         parent::startup();
     }
@@ -47,6 +50,7 @@ class ArticlePresenter extends AdminPresenter {
         $this->template->article = $article;
         $this->template->imagePath = articleImagesPath;
         $this->navigation->addItem('admin.article.title', 'Article:');
+        $this->lang = $article->lang;
         $this['addArticleForm']->setDefaults($article->toArray());
     }
 
@@ -58,8 +62,8 @@ class ArticlePresenter extends AdminPresenter {
         $form->addASelect('translate', 'admin.article.form.translate', $this->article->getAllArticlesPair())
                 ->setPrompt('');
 
-        $form->addASelect('lang', 'admin.article.form.language', Languages::toArray())
-                ->setIconBefore('fa-language');
+        $form->addASelect('language', 'admin.article.form.language', Languages::toArray())
+                ->setIconBefore('fa-language')->setDefaultValue($this->lang);
 
         $form->addAText('title', 'admin.article.form.title', Width::WIDTH_8)
                 ->setRequired($this->translator->translate('admin.article.form.required', ['text' => '%label']))
@@ -79,7 +83,7 @@ class ArticlePresenter extends AdminPresenter {
         $form->addHidden('author', $this->userEntity->email);
 
         $form->addHidden('idArticle', null);
-
+        $form->addHidden('lang', null);
         $form->addASubmit('send', 'admin.article.form.submit', ButtonTypes::PRIMARY);
 
         $form->getComponent('send')
@@ -92,21 +96,22 @@ class ArticlePresenter extends AdminPresenter {
 
     public function addArticleSucceeded(AsterixForm $form, $values) {
         try {
+            b($values);
             if ($values->idArticle != null) {
                 $this->article->edit((array) $values, $this->params['idArticle'], $this->params['lang']);
                 $this->flashMessage('admin.article.form.success');
                 $idArticle = $values['translate'] != null ? $values['translate'] : $values['idArticle'];
-                $this->redirect('this', ['idArticle' => $idArticle, 'lang' => $values['lang']]);
+                $this->redirect('this', ['idArticle' => $idArticle, 'lang' => $values->language]);
             } else {
                 $this->article->save((array) $values);
                 $this->redirect('this');
             }
         } catch (ArgumentException $ex) {
             $this->flashMessage($this->translator->translate('admin.article.form.required', ['text' => 'Obrazek']), Flash::ERROR);
-            $this->redrawControl("addModal");
+           // $this->redrawControl("addModal");
         } catch (EntityExistsException $ex) {
             $this->flashMessage('admin.article.form.exists', Flash::ERROR);
-            $this->redrawControl("addModal");
+            //$this->redrawControl("addModal");
         }
     }
 

@@ -84,7 +84,7 @@ class GalleryPresenter extends AdminPresenter {
             } else {
                 $this->gallery->edit((array) $values, $this->params['idGallery'], $this->params['lang']);
                 $idGallery = $values['translate'] != null ? $values['translate'] : $values['idGallery'];
-                $this->redirect('this', ['idGallery' => $idGallery, 'lang' => $values['language']]);
+                $this->redirect('this', ['idGallery' => $idGallery, 'lang' => $values['lang']]);
                 $this->flashMessage('admin.gallery.form.editSuccess');
             }
         } catch (EntityExistsException $ex) {

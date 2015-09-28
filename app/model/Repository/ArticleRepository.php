@@ -25,6 +25,9 @@ class ArticleRepository extends AbstractRepository {
     /** @var ImageMapper */
     private $imageMapper;
 
+    /** @var array */
+    public $onChangePrimary = [];
+
     const ENTITY = 'Article';
 
     public function __construct(ArticleDatabaseMapper $articleDatabaseMapper, ImageMapper $imageMapper) {
@@ -44,6 +47,8 @@ class ArticleRepository extends AbstractRepository {
             throw new ArgumentException('Nebyl vložen obrázek');
         unset($data['image']);
         unset($data['idArticle']);
+        $data['lang'] = $data['language'];
+        unset($data['language']);
         $name = $this->imageName($image);
         $data['image'] = $name;
         try{
@@ -65,9 +70,39 @@ class ArticleRepository extends AbstractRepository {
      * @param array $by
      * @return bool
      */
-    public function update(array $data, array $by = []) {
+//    public function update(array $data, array $by = []) {
+//        if($data['image']->name != null){
+//            $article = $this->find($by['idArticle'], $by['lang']);
+//            $this->imageMapper->delete($article->image);
+//            $name = $this->imageName($data['image']);
+//            $this->insertImage($data['image'], $name);
+//            $data['image'] = $name;
+//        }else {
+//            unset($data['image']);
+//        }
+//
+//        $oldLang = $data['language'];
+//        if($data['language'] != null){
+//            $data['lang'] = $oldLang;
+//            unset($data['language']);
+//        }
+//
+//
+//        if($data['translate'] != null)
+//            $data['idArticle'] = $data['translate'];
+//        unset($data['translate']);
+//        try{
+//            $result = parent::update($data, $by);
+//        }catch (UniqueConstraintViolationException $ex){
+//            if($ex->getCode() == 23000)
+//                throw new EntityExistsException('Článek s tímto nadpisem už existuje');
+//            l($ex->getMessage());
+//        }
+//    }
+
+    public function edit(array $data, $idArticle, $lang){
         if($data['image']->name != null){
-            $article = $this->find($by['idArticle'], $by['lang']);
+            $article = $this->find($idArticle, $lang);
             $this->imageMapper->delete($article->image);
             $name = $this->imageName($data['image']);
             $this->insertImage($data['image'], $name);
@@ -75,15 +110,18 @@ class ArticleRepository extends AbstractRepository {
         }else {
             unset($data['image']);
         }
+        if($data['language'] != null){
+            $data['lang'] = $data['language'];
+            unset($data['language']);
+        }
         if($data['translate'] != null)
             $data['idArticle'] = $data['translate'];
         unset($data['translate']);
         try{
-            return parent::update($data, $by);
+            $result = parent::update($data, ['idArticle' => $idArticle, 'lang' => $lang]);
         }catch (UniqueConstraintViolationException $ex){
             if($ex->getCode() == 23000)
                 throw new EntityExistsException('Článek s tímto nadpisem už existuje');
-            l($ex->getMessage());
         }
     }
 
