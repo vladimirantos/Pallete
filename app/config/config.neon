@@ -19,20 +19,20 @@ session:
 	expiration: 14 days
 
 #DB localhost
-database:
-	dsn: 'mysql:host=127.0.0.1;dbname=pallete'
-	user: root
-	password:
-	options:
-		lazy: yes
-
-#DB produkční server
 #database:
-#	dsn: 'mysql:host=127.0.0.1;dbname=test'
-#	user:
+#	dsn: 'mysql:host=127.0.0.1;dbname=pallete'
+#	user: root
 #	password:
 #	options:
 #		lazy: yes
+
+#DB produkční server
+database:
+	dsn: 'mysql:host=c049um.forpsi.com;dbname=f70576'
+	user: f70576
+	password: k9tnEb5
+	options:
+		lazy: yes
 
 services:
 	- Kdyby\Events\DI\EventsExtension
