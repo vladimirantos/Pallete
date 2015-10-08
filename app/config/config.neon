@@ -66,9 +66,9 @@ services:
 
 constants:
 	systemName: Pallete
-	articleImagesPath: 'data\article_images\'#'\pallete\www\data\article_images\'
-	offerImagesPath: 'data\offer_images\'
-	galleryPath: 'data\gallery\'
+	articleImagesPath: 'data/article_images/'#'\pallete\www\data\article_images\'
+	offerImagesPath: 'data/offer_images/'
+	galleryPath: 'data/gallery/'
 	adminEmail: 'admin@pallete.cz'
 extensions:
 	translation: Kdyby\Translation\DI\TranslationExtension

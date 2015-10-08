@@ -50,6 +50,7 @@ class OfferService {
      * @throws EntityExistsException Pokud existuje nabídka se stejným nadpisem.
      */
     public function save(array $data) {
+        unset($data['language']);
         return $this->offerRepository->insert($data);
     }
 
