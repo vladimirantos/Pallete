@@ -104,7 +104,7 @@ class GalleryRepository extends AbstractRepository {
      * @throws \App\Model\Core\MemberAccessException
      */
     public function findByLang($lang){
-        return $this->bindArray($this->galleryDatabaseMapper->findBy(['lang' =>$lang])->order('name ASC, date DESC')->fetchAll(), self::ENTITY);
+        return $this->bindArray($this->galleryDatabaseMapper->findBy(['lang' =>$lang])->order('date DESC, name ASC')->fetchAll(), self::ENTITY);
     }
 
     /**
