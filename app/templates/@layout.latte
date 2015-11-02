@@ -42,17 +42,9 @@
             $(document).ready(function () {
                 $('[data-toggle="tooltip"]').tooltip();
                 $('[data-toggle="popover"]').popover();
-                $('[fileupload="button"]').fileinput({
-                    showCaption: false
-                });
-                $('[fileupload="image"]').fileinput({
-                    uploadUrl: "/file-upload-batch/2",
-                    allowedFileExtensions: ["jpg", "png", "gif"],
-                    minImageWidth: 50,
-                    minImageHeight: 50
-                });
                 $("[type='checkbox']").bootstrapSwitch();
             });
+            
         </script>
         {/block}
     </body>

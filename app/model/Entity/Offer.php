@@ -19,6 +19,7 @@ class Offer extends Entity {
     private $keywords;
     private $description;
     private $date;
+    private $rank;
 
     function getIdOffer() {
         return $this->idOffer;
@@ -56,6 +57,10 @@ class Offer extends Entity {
         return $this->date;
     }
 
+    function getRank() {
+        return $this->rank;
+    }
+
     function setIdOffer($idOffer) {
         $this->idOffer = $idOffer;
     }
@@ -90,6 +95,10 @@ class Offer extends Entity {
 
     function setDate($date) {
         $this->date = $date;
+    }
+
+    function setRank($rank) {
+        $this->rank = $rank;
     }
 
     public function toArray() {

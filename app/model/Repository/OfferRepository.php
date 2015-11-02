@@ -43,7 +43,7 @@ class OfferRepository extends AbstractRepository {
     }
 
     public function findAll() {
-        return $this->bindArray($this->offerMapper->findAll()->order('date DESC, title ASC, lang ASC')->fetchAll(), self::ENTITY);
+        return $this->bindArray($this->offerMapper->findAll()->order('rank ASC, date DESC, title ASC, lang ASC')->fetchAll(), self::ENTITY);
     }
 
     /**
@@ -139,7 +139,7 @@ class OfferRepository extends AbstractRepository {
     }
 
     public function findAllByLang($lang) {
-        return $this->bindArray($this->offerMapper->findBy(['lang' => $lang])->order('title ASC, date DESC')->fetchAll(), self::ENTITY);
+        return $this->bindArray($this->offerMapper->findBy(['lang' => $lang])->order('rank ASC, title ASC, date DESC')->fetchAll(), self::ENTITY);
     }
 
 }

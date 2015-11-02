@@ -1,51 +1,73 @@
 {block content}
-    {if empty($galleries)}
-        <div class="row holders" >
+{if empty($galleries)}
+    <div class="row holders" >
         <p class="text-danger">{_lang.gallery.empty|upper}</p>
-        </div>
+    </div>
 {else}
-{foreach $galleries as $item}
+    {foreach $galleries as $item}
 
-    {if $iterator->isEven()}
-        <div class="row news gallery" style="">
-        {else}
-            <div class="row news gallery reverse" style="">
+        {if $iterator->isEven()}
+            <div class="row news gallery" style="">
+            {else}
+                <div class="row news gallery reverse" style="">
 
-            {/if}
-            <h1>{$item->name}</h1>
-            {if $iterator->isEven()}
-                <div class="col-sm-4 col-sm-push-8" >
-                {else}
-                    <div class="col-sm-4 " >
-                    {/if}
-                    <div id="{$item->name}" class="carousel slide" data-ride="carousel" >
-                        <div class="carousel-inner" role="listbox">
-                            {foreach $item->getImages() as $image}
-                                {if $iterator->isFirst()}
-                                    <div class="item active">
-                                    {else}
-                                        <div class="item">
+                {/if}
 
-                                        {/if}
-                                        <img src="{$basePath}/{$galleryPath}/{$item->idGallery.'_'.$item->lang}/{$image}" class="img-responsive center-block">
-                                    </div>
-                                {/foreach}
+                {if $iterator->isEven()}
+                    <div class="col-sm-4 col-sm-push-8" >
+                    {else}
+                        <div class="col-sm-4 " >
+                        {/if}
+                        <div id="{$item->name}" class="carousel slide" data-ride="carousel" >
+                            <div class="carousel-inner" role="listbox">
+                                {foreach $item->getImages() as $image}
+                                    {if $iterator->isFirst()}
+                                        <div class="item active">
+                                        {else}
+                                            <div class="item">
 
+                                            {/if}
+                                            <img class="vertical" src="{$basePath}/{$galleryPath}/{$item->idGallery.'_'.$item->lang}/{$image}" class="img-responsive center-block">
+                                        </div>
+                                    {/foreach}
+
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {if $iterator->isEven()}
-                        <div class="col-sm-8 col-sm-pull-4" >
-                        {else}
-                            <div class="col-sm-8">
+                        {if $iterator->isEven()}
+                            <div class="col-sm-8 col-sm-pull-4" >
+                            {else}
+                                <div class="col-sm-8">
 
-                            {/if}
-                            <p>{$item->text|noescape}</p>
-                            <a class="btn" n:href="Gallery:detail $item->idGallery">{_lang.commons.more}</a>
+                                {/if}
+                                <h1>{$item->name}</h1>
+                                <div class="clearfix" style="min-height: 150px;">{$item->text|noescape}</div>
+                                <a class="btn" n:href="Gallery:detail $item->idGallery">{_lang.commons.more}</a>
+
+                            </div>
 
                         </div>
+                    {/foreach}
 
-                    </div>
-                {/foreach}
+                {/if}
 
-{/if}
+                {/block}
+                {block scripts} 
+                {include parent}
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        setTimeout(function () {
+                            $(".news").each(function () {
+                                var $vertical = $(this).find(".vertical");
+                                var $h = $(this).find("h1");
+                                var heightV = $vertical.height();
+                                var heightH = $h.outerHeight(true);
+                                if (heightV < 350) {
+                                    $vertical.attr("style", "padding-top:" + (((350 - heightV) / 2) ) + "px");
+                                }
+                            });
+                        }, 100);
+                    });
+                </script>
+                {/block}
+

@@ -12,9 +12,6 @@
             <h3>{$item->title}</h3>
             <div class="img">
                 <img src="{$basePath}/data/offer_images/{$item->image}" alt="{$item->title}">
-            </div>    
-            <div class="text">    
-                {$item->text|truncate:160|noescape}
             </div>
             <a class="btn" n:href="Offer:detail $item->idOffer">{_lang.commons.more}</a>
         </article>

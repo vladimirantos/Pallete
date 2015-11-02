@@ -1,34 +1,58 @@
 {block content}
-    {if empty($news)}
-<div class="row holders" >
+{if empty($news)}
+    <div class="row holders" >
         {_lang.news.empty|upper}
     </div>
-    {else}
-{foreach $news as $item}
-    {if $iterator->isEven()}
-        <div class="row news">
-        {else}
-            <div class="row news reverse">
+{else}
+    {foreach $news as $item}
+        {if $iterator->isEven()}
+            <div class="row news">
+            {else}
+                <div class="row news reverse">
 
-            {/if}
-            <h1>{$item->title}</h1>
-            {if $iterator->isEven()}
-                <div class="col-sm-2 col-sm-push-10" >
-                {else}
-                    <div class="col-sm-2 " >
+                {/if}
 
-                    {/if}
-                    <img src="{$basePath}/data/article_images/{$item->image}">
-                </div>
                 {if $iterator->isEven()}
-                    <div class="col-sm-10 col-sm-pull-2" >
+                    <div class=" col-sm-4 col-sm-push-8 text-center" >
                     {else}
-                        <div class="col-sm-10">
+                        <div class="col-sm-4 text-center">
 
                         {/if}
-                        <p>{$item->text|noescape}</p>
+
+                        <img class="vertical" src="{$basePath}/data/article_images/{$item->image}">
                     </div>
-                </div>
-            {/foreach}
-                    {/if}
+                    {if $iterator->isEven()}
+                        <div class="col-sm-8 col-sm-pull-4" >
+                        {else}
+                            <div class="col-sm-8">
+
+                            {/if}
+                            <h1>{$item->title}</h1>
+                            <div class="to clearfix">{$item->text|noescape}</div>
+                        </div>
+                    </div>
+                {/foreach}
+            {/if}
+
+            {/block}
+            {block scripts} 
+            {include parent}
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    setTimeout(function () {
+                        $(".news").each(function () {
+                            var $vertical = $(this).find(".vertical");
+                            var $to = $(this).find(".to");
+                            var $h = $(this).find("h1");
+                            var heightV = $vertical.height();
+                            var heightT = $to.height();
+                            var heightH = $h.outerHeight(true);
+                            if (heightV < heightT) {
+                                $vertical.attr("style", "padding-top:" + (((heightT - heightV) / 2)+(heightH/1.5)) + "px");
+                            }
+                        });
+                    }, 100);
+                });
+            </script>
+            {/block}
 
