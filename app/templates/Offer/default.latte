@@ -6,15 +6,21 @@
     {if empty($offers)}
         <p class="text-danger">{_lang.offer.empty|upper}</p>
     {else}
-    {foreach $offers as $item}
-
-        <article class="productHolder ClickMe ">
+        {foreach $offers as $item}
+    {if $iterator->last}
+     <a n:href="Offer:detail $item->idOffer">
+     {else}
+     <a n:href="Offer:detail $item->idOffer" style="margin-right:5%;">
+     {/if}
+   
+        <article class="productHolder ClickMe">
             <h3>{$item->title}</h3>
             <div class="img">
                 <img src="{$basePath}/data/offer_images/{$item->image}" alt="{$item->title}">
             </div>
-            <a class="btn" n:href="Offer:detail $item->idOffer">{_lang.commons.more}</a>
+            <button class="btn">{_lang.commons.more}</button>
         </article>
-    {/foreach}
-    {/if}
+    </a>
+{/foreach}
+{/if}
 </div>
